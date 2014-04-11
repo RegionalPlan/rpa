@@ -458,12 +458,11 @@ class Workspace extends Backbone.Router
               }
             """
           raceLayer.setCartoCSS(css)
-          console.log css
 
 
   vulnerable: ->
     cartodb
-      .createVis('vulnerableInfra', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', zoom: 9, searchControl: true, layer_selector: false, legends: false)
+      .createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', zoom: 9, searchControl: true, layer_selector: false, legends: false)
       .done (vis,layers)->
         map = vis.getNativeMap()
         map.scrollWheelZoom.disable()
@@ -868,4 +867,5 @@ $ ->
     sch($a,i+1)
 
   # Load the requested map
-  router[mapId]() if mapId
+  if mapId
+    router[mapId]()

@@ -380,14 +380,13 @@
             borders = [40125, 57344, 76061, 99075, 250000];
           }
           css = "#schoolrank2012_racepoverty_income_rparegion{\n\n  polygon-fill: " + color + ";\n\n  [ " + table + " <= " + borders[0] + "] {\n     polygon-opacity: 0.2;\n  }\n  [ " + table + " > " + borders[0] + "][ " + table + " <= " + borders[1] + "] {\n     polygon-opacity: 0.4;\n  }\n  [ " + table + " > " + borders[1] + "][ " + table + " <= " + borders[2] + "] {\n     polygon-opacity: 0.6;\n  }\n  [ " + table + " > " + borders[2] + "][ " + table + " <= " + borders[3] + "] {\n     polygon-opacity: 0.8;\n  }\n  [ " + table + " > " + borders[3] + "][ " + table + " <= " + borders[4] + "] {\n     polygon-opacity: 1;\n  }\n}";
-          raceLayer.setCartoCSS(css);
-          return console.log(css);
+          return raceLayer.setCartoCSS(css);
         });
       });
     };
 
     Workspace.prototype.vulnerable = function() {
-      return cartodb.createVis('vulnerableInfra', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', {
+      return cartodb.createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', {
         zoom: 9,
         searchControl: true,
         layer_selector: false,

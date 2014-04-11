@@ -6364,13 +6364,6 @@ button.close {
   .map > .mapInner {
     width: inherit;
     height: inherit; }
-  .map .please_zoom_in {
-    background: white;
-    padding: 10px 20px;
-    color: black;
-    position: absolute;
-    bottom: 10px;
-    left: 10px; }
   .map .cartodb-logo {
     display: none !important; }
 
@@ -6712,6 +6705,194 @@ button.close {
 #schools .school-ranking {
   font-weight: bold; }
 
+#walkability .walkability-title {
+  margin-bottom: 10px;
+  border-bottom: solid 1px #999999; }
+#walkability .progress {
+  height: 10px;
+  border-radius: 0;
+  margin-bottom: 7px; }
+#walkability .title-case {
+  border-bottom: solid 1px #555555;
+  padding-bottom: 5px;
+  margin-top: 0; }
+#walkability .tooltip-legend > div {
+  float: left;
+  margin-right: 29px; }
+  #walkability .tooltip-legend > div:before {
+    content: "•";
+    font-size: 1.8em;
+    line-height: 1em;
+    position: relative;
+    top: 4px;
+    left: -1px; }
+  #walkability .tooltip-legend > div.food:before {
+    color: #2fb0c4; }
+  #walkability .tooltip-legend > div.goods:before {
+    color: #3f4040; }
+  #walkability .tooltip-legend > div.services:before {
+    color: #695b94; }
+  #walkability .tooltip-legend > div.transport:before {
+    color: #f9b314; }
+  #walkability .tooltip-legend > div.housing:before {
+    color: #eb0000; }
+  #walkability .tooltip-legend > div.total:before {
+    color: green; }
+#walkability .cartodb-popup, #walkability .cartodb-popup-content-wrapper {
+  background-image: none; }
+  #walkability .cartodb-popup p, #walkability .cartodb-popup-content-wrapper p {
+    font-size: 15px; }
+#walkability .cartodb-infowindow {
+  width: 560px !important;
+  max-width: 560px !important; }
+  #walkability .cartodb-infowindow .title-case {
+    border-bottom: solid 1px #555555;
+    padding-bottom: 5px;
+    margin-top: 0; }
+  #walkability .cartodb-infowindow .tooltip-legend > div {
+    float: left;
+    margin-right: 29px; }
+    #walkability .cartodb-infowindow .tooltip-legend > div:before {
+      content: "•";
+      font-size: 1.8em;
+      line-height: 1em;
+      position: relative;
+      top: 4px;
+      left: -1px; }
+    #walkability .cartodb-infowindow .tooltip-legend > div.food:before {
+      color: #2fb0c4; }
+    #walkability .cartodb-infowindow .tooltip-legend > div.goods:before {
+      color: #3f4040; }
+    #walkability .cartodb-infowindow .tooltip-legend > div.services:before {
+      color: #695b94; }
+    #walkability .cartodb-infowindow .tooltip-legend > div.transport:before {
+      color: #f9b314; }
+    #walkability .cartodb-infowindow .tooltip-legend > div.housing:before {
+      color: #eb0000; }
+    #walkability .cartodb-infowindow .tooltip-legend > div.total:before {
+      color: green; }
+  #walkability .cartodb-infowindow .walkability-title b {
+    font-size: 1.3em;
+    margin-bottom: 5px;
+    display: inline-block; }
+  #walkability .cartodb-infowindow .cartodb-popup-tip-container {
+    position: absolute;
+    left: -4px;
+    bottom: -17px; }
+  #walkability .cartodb-infowindow .cartodb-popup {
+    border: solid 3px rgba(0, 0, 0, 0.2); }
+  #walkability .cartodb-infowindow .cartodb-popup {
+    width: 375px !important;
+    max-width: 375px !important;
+    height: 275px !important;
+    max-height: 275px !important;
+    background: white;
+    overflow: visible;
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1); }
+    #walkability .cartodb-infowindow .cartodb-popup .cartodb-popup-content-wrapper {
+      width: 360px !important;
+      max-width: 360px !important;
+      height: 260px !important;
+      max-height: 260px !important;
+      background: white;
+      overflow: visible;
+      overflow: hidden; }
+      #walkability .cartodb-infowindow .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content {
+        width: 340px !important;
+        max-width: 340px !important;
+        height: 260px !important;
+        max-height: 260px !important;
+        background: white;
+        overflow: visible;
+        overflow: visible !important; }
+        #walkability .cartodb-infowindow .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content .jspContainer {
+          width: 335px !important;
+          max-width: 335px !important;
+          height: 260px !important;
+          max-height: 260px !important;
+          background: white;
+          overflow: visible; }
+          #walkability .cartodb-infowindow .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content .jspContainer .jspVerticalBar {
+            display: none !important; }
+          #walkability .cartodb-infowindow .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content .jspContainer .jspPane {
+            width: 335px !important;
+            max-width: 335px !important;
+            height: 260px !important;
+            max-height: 260px !important;
+            background: white;
+            overflow: visible; }
+#walkability .cartodb-tooltip {
+  background-color: white;
+  border: solid 1px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
+  border: solid 3px rgba(0, 0, 0, 0.2);
+  width: 345px; }
+  #walkability .cartodb-tooltip .cartodb-popup {
+    width: 345px !important;
+    max-width: 345px !important;
+    height: 150px !important;
+    max-height: 150px !important;
+    background: white;
+    overflow: visible;
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1); }
+    #walkability .cartodb-tooltip .cartodb-popup .cartodb-popup-content-wrapper {
+      width: 330px !important;
+      max-width: 330px !important;
+      height: 135px !important;
+      max-height: 135px !important;
+      background: white;
+      overflow: visible;
+      overflow: hidden; }
+      #walkability .cartodb-tooltip .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content {
+        width: 310px !important;
+        max-width: 310px !important;
+        height: 135px !important;
+        max-height: 135px !important;
+        background: white;
+        overflow: visible;
+        overflow: visible !important; }
+        #walkability .cartodb-tooltip .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content .jspContainer {
+          width: 305px !important;
+          max-width: 305px !important;
+          height: 135px !important;
+          max-height: 135px !important;
+          background: white;
+          overflow: visible; }
+          #walkability .cartodb-tooltip .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content .jspContainer .jspVerticalBar {
+            display: none !important; }
+          #walkability .cartodb-tooltip .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content .jspContainer .jspPane {
+            width: 305px !important;
+            max-width: 305px !important;
+            height: 135px !important;
+            max-height: 135px !important;
+            background: white;
+            overflow: visible; }
 #walkability .walkability-legend .legend-title {
   margin-top: 10px;
   margin-bottom: 20px;
@@ -7262,195 +7443,6 @@ button.close {
       color: #eb0000; }
     .page.carbon .cartodb-tooltip .tooltip-legend > div.total:before {
       color: green; }
-
-.page.walkability .walkability-title {
-  margin-bottom: 10px;
-  border-bottom: solid 1px #999999; }
-.page.walkability .progress {
-  height: 10px;
-  border-radius: 0;
-  margin-bottom: 7px; }
-.page.walkability .title-case {
-  border-bottom: solid 1px #555555;
-  padding-bottom: 5px;
-  margin-top: 0; }
-.page.walkability .tooltip-legend > div {
-  float: left;
-  margin-right: 29px; }
-  .page.walkability .tooltip-legend > div:before {
-    content: "•";
-    font-size: 1.8em;
-    line-height: 1em;
-    position: relative;
-    top: 4px;
-    left: -1px; }
-  .page.walkability .tooltip-legend > div.food:before {
-    color: #2fb0c4; }
-  .page.walkability .tooltip-legend > div.goods:before {
-    color: #3f4040; }
-  .page.walkability .tooltip-legend > div.services:before {
-    color: #695b94; }
-  .page.walkability .tooltip-legend > div.transport:before {
-    color: #f9b314; }
-  .page.walkability .tooltip-legend > div.housing:before {
-    color: #eb0000; }
-  .page.walkability .tooltip-legend > div.total:before {
-    color: green; }
-.page.walkability .cartodb-popup, .page.walkability .cartodb-popup-content-wrapper {
-  background-image: none; }
-  .page.walkability .cartodb-popup p, .page.walkability .cartodb-popup-content-wrapper p {
-    font-size: 15px; }
-.page.walkability .cartodb-infowindow {
-  width: 560px !important;
-  max-width: 560px !important; }
-  .page.walkability .cartodb-infowindow .title-case {
-    border-bottom: solid 1px #555555;
-    padding-bottom: 5px;
-    margin-top: 0; }
-  .page.walkability .cartodb-infowindow .tooltip-legend > div {
-    float: left;
-    margin-right: 29px; }
-    .page.walkability .cartodb-infowindow .tooltip-legend > div:before {
-      content: "•";
-      font-size: 1.8em;
-      line-height: 1em;
-      position: relative;
-      top: 4px;
-      left: -1px; }
-    .page.walkability .cartodb-infowindow .tooltip-legend > div.food:before {
-      color: #2fb0c4; }
-    .page.walkability .cartodb-infowindow .tooltip-legend > div.goods:before {
-      color: #3f4040; }
-    .page.walkability .cartodb-infowindow .tooltip-legend > div.services:before {
-      color: #695b94; }
-    .page.walkability .cartodb-infowindow .tooltip-legend > div.transport:before {
-      color: #f9b314; }
-    .page.walkability .cartodb-infowindow .tooltip-legend > div.housing:before {
-      color: #eb0000; }
-    .page.walkability .cartodb-infowindow .tooltip-legend > div.total:before {
-      color: green; }
-  .page.walkability .cartodb-infowindow .walkability-title b {
-    font-size: 1.3em;
-    margin-bottom: 5px;
-    display: inline-block; }
-  .page.walkability .cartodb-infowindow .cartodb-popup-tip-container {
-    position: absolute;
-    left: -4px;
-    bottom: -17px; }
-  .page.walkability .cartodb-infowindow .cartodb-popup {
-    border: solid 3px rgba(0, 0, 0, 0.2); }
-  .page.walkability .cartodb-infowindow .cartodb-popup {
-    width: 375px !important;
-    max-width: 375px !important;
-    height: 275px !important;
-    max-height: 275px !important;
-    background: white;
-    overflow: visible;
-    border: solid 1px rgba(0, 0, 0, 0.1);
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1); }
-    .page.walkability .cartodb-infowindow .cartodb-popup .cartodb-popup-content-wrapper {
-      width: 360px !important;
-      max-width: 360px !important;
-      height: 260px !important;
-      max-height: 260px !important;
-      background: white;
-      overflow: visible;
-      overflow: hidden; }
-      .page.walkability .cartodb-infowindow .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content {
-        width: 340px !important;
-        max-width: 340px !important;
-        height: 260px !important;
-        max-height: 260px !important;
-        background: white;
-        overflow: visible;
-        overflow: visible !important; }
-        .page.walkability .cartodb-infowindow .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content .jspContainer {
-          width: 335px !important;
-          max-width: 335px !important;
-          height: 260px !important;
-          max-height: 260px !important;
-          background: white;
-          overflow: visible; }
-          .page.walkability .cartodb-infowindow .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content .jspContainer .jspVerticalBar {
-            display: none !important; }
-          .page.walkability .cartodb-infowindow .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content .jspContainer .jspPane {
-            width: 335px !important;
-            max-width: 335px !important;
-            height: 260px !important;
-            max-height: 260px !important;
-            background: white;
-            overflow: visible; }
-.page.walkability .cartodb-tooltip {
-  background-color: white;
-  border: solid 1px rgba(0, 0, 0, 0.1);
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-right-radius: 5px;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
-  border: solid 3px rgba(0, 0, 0, 0.2);
-  width: 345px; }
-  .page.walkability .cartodb-tooltip .cartodb-popup {
-    width: 345px !important;
-    max-width: 345px !important;
-    height: 150px !important;
-    max-height: 150px !important;
-    background: white;
-    overflow: visible;
-    border: solid 1px rgba(0, 0, 0, 0.1);
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1); }
-    .page.walkability .cartodb-tooltip .cartodb-popup .cartodb-popup-content-wrapper {
-      width: 330px !important;
-      max-width: 330px !important;
-      height: 135px !important;
-      max-height: 135px !important;
-      background: white;
-      overflow: visible;
-      overflow: hidden; }
-      .page.walkability .cartodb-tooltip .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content {
-        width: 310px !important;
-        max-width: 310px !important;
-        height: 135px !important;
-        max-height: 135px !important;
-        background: white;
-        overflow: visible;
-        overflow: visible !important; }
-        .page.walkability .cartodb-tooltip .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content .jspContainer {
-          width: 305px !important;
-          max-width: 305px !important;
-          height: 135px !important;
-          max-height: 135px !important;
-          background: white;
-          overflow: visible; }
-          .page.walkability .cartodb-tooltip .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content .jspContainer .jspVerticalBar {
-            display: none !important; }
-          .page.walkability .cartodb-tooltip .cartodb-popup .cartodb-popup-content-wrapper .cartodb-popup-content .jspContainer .jspPane {
-            width: 305px !important;
-            max-width: 305px !important;
-            height: 135px !important;
-            max-height: 135px !important;
-            background: white;
-            overflow: visible; }
 
 .page.home .jumbotron {
   background-color: #b4aa8c;

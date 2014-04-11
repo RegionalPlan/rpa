@@ -6,7 +6,7 @@ opts = {
   "coffeescript"=> {
     # hide_success: true,
     input:  '_coffee',
-    output: '_includes/js'},
+    output: 'js'},
   "sass"=> {
     input:  '_scss',
     output: 'css'}}

@@ -16,13 +16,7 @@
       "discretionary.html": "discretionary",
       "walkability.html": "walkability",
       "property.html": "property",
-      "carbon.html": "carbon",
-      "c/1.html": "discretionary",
-      "c/2.html": "discretionary",
-      "c/3.html": "discretionary",
-      "c/4.html": "discretionary",
-      "c/5.html": "discretionary",
-      "c/6.html": "discretionary"
+      "carbon.html": "carbon"
     };
 
     Workspace.prototype.carbon = function() {
@@ -36,6 +30,8 @@
         zoom: 9
       }).done(function(vis, layers) {
         var activeSublayer, adjust_layer_vis, adjust_sublayer_vis, colors, columns, county_cols, default_sublayers, layer, layer_county, layer_zip, map, shared_cols, sublayers, tables, zip_cols;
+        map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         layer = layers[1];
         layer_county = layers[1].getSubLayer(0);
         layer_zip = layers[1].getSubLayer(1);
@@ -117,6 +113,7 @@
           hide: tables[0]
         });
         map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         map.on('zoomend', function(a, b, c) {
           var zoomLevel;
           $(".cartodb-tooltip").hide();
@@ -186,6 +183,8 @@
         zoom: 9
       }).done(function(vis, layers) {
         var color1, color2, color3, map, propertyLayerNYC, propertyLayerNoNYC, rate_to_color, tooltip, tooltip2;
+        map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         color1 = "#ffefc9";
         color2 = "#fdde9c";
         color3 = "#80c5d8";
@@ -208,6 +207,7 @@
         });
         vis.container.append(tooltip2.render().el);
         map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         map.on('zoomend', function(a, b, c) {
           var zoomLevel;
           zoomLevel = map.getZoom();
@@ -252,7 +252,9 @@
         legends: true,
         zoom: 9
       }).done(function(vis, layers) {
-        var color1, color2, color3, color4, color5, layer, score_to_color, station_layers, tooltip, walkabilityLayer;
+        var color1, color2, color3, color4, color5, layer, map, score_to_color, station_layers, tooltip, walkabilityLayer;
+        map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         color1 = "#ffefc9";
         color2 = "#fdde9c";
         color3 = "#80c5d8";
@@ -329,13 +331,15 @@
     };
 
     Workspace.prototype.schools = function() {
-      return cartodb.createVis('schoolPerf', 'http://rpa.cartodb.com/api/v2/viz/5bc0d9be-a264-11e3-bc17-0e10bcd91c2b/viz.json', {
+      return cartodb.createVis('schools', 'http://rpa.cartodb.com/api/v2/viz/5bc0d9be-a264-11e3-bc17-0e10bcd91c2b/viz.json', {
         searchControl: true,
         layer_selector: false,
         legends: true,
         zoom: 11
       }).done(function(vis, layers) {
-        var raceLayer, schoolLayer, tooltip;
+        var map, raceLayer, schoolLayer, tooltip;
+        map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         layers[1].setInteraction(true);
         raceLayer = layers[1].getSubLayer(0);
         schoolLayer = layers[1].getSubLayer(1);
@@ -376,14 +380,13 @@
             borders = [40125, 57344, 76061, 99075, 250000];
           }
           css = "#schoolrank2012_racepoverty_income_rparegion{\n\n  polygon-fill: " + color + ";\n\n  [ " + table + " <= " + borders[0] + "] {\n     polygon-opacity: 0.2;\n  }\n  [ " + table + " > " + borders[0] + "][ " + table + " <= " + borders[1] + "] {\n     polygon-opacity: 0.4;\n  }\n  [ " + table + " > " + borders[1] + "][ " + table + " <= " + borders[2] + "] {\n     polygon-opacity: 0.6;\n  }\n  [ " + table + " > " + borders[2] + "][ " + table + " <= " + borders[3] + "] {\n     polygon-opacity: 0.8;\n  }\n  [ " + table + " > " + borders[3] + "][ " + table + " <= " + borders[4] + "] {\n     polygon-opacity: 1;\n  }\n}";
-          raceLayer.setCartoCSS(css);
-          return console.log(css);
+          return raceLayer.setCartoCSS(css);
         });
       });
     };
 
     Workspace.prototype.vulnerable = function() {
-      return cartodb.createVis('vulnerableInfra', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', {
+      return cartodb.createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', {
         zoom: 9,
         searchControl: true,
         layer_selector: false,
@@ -391,6 +394,7 @@
       }).done(function(vis, layers) {
         var dbs, floodZoneLayer, layer, map, red;
         map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         layer = layers[1];
         floodZoneLayer = layer.getSubLayer(0);
         layer.setInteraction(true);
@@ -593,7 +597,7 @@
       if ($("#standalone_donut").length > 0) {
         makeChart(data, 72140, "#standalone_donut");
       }
-      return cartodb.createVis('discretionaryIncome', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', {
+      return cartodb.createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', {
         legends: true,
         searchControl: true,
         zoom: 8,
@@ -649,7 +653,7 @@
             return;
           }
           data = $(".cartodb-popup-content").data();
-          mhi = $("#discretionaryIncome .median-income").text();
+          mhi = $("#discretionary .median-income").text();
           makeChart(data, Number(mhi));
           return formatMoney();
         });
@@ -661,8 +665,8 @@
   })(Backbone.Router);
 
   $(function() {
-    var chapter, fci, lastChapter, lci, liIndex, nextChapter, router, sch, _ref;
-    router = new Workspace();
+    var chapter, fci, lastChapter, lci, liIndex, nextChapter, sch, _ref;
+    window.router = new Workspace();
     Backbone.history.start({
       pushState: true,
       root: root
@@ -706,11 +710,14 @@
         }
       });
     }
-    return $(".ch-nav li").each(function(i) {
+    $(".ch-nav li").each(function(i) {
       var $a;
       $a = $(this).find("a");
       return sch($a, i + 1);
     });
+    if (mapId) {
+      return router[mapId]();
+    }
   });
 
 }).call(this);
