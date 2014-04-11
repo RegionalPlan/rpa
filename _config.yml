@@ -33,9 +33,9 @@ prose:
           placeholder: "Choose a map"
           options:
             - name: "Discretionary Income"
-              value: "discretionaryIncome"
+              value: "discretionary"
             - name: "School Performance"
-              value: "schoolPerf"
+              value: "schools"
             - name: "Vulnerable Infrastructure"
               value: "vulnerableInfra"
             - name: "Walkability"

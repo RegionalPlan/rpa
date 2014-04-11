@@ -6428,55 +6428,55 @@ button.close {
   .navbar.navbar-default .social span {
     margin-right: 10px; }
 
-#discretionaryIncome div.cartodb-legend.custom {
+#discretionary div.cartodb-legend.custom {
   width: 150px; }
-  #discretionaryIncome div.cartodb-legend.custom h5 {
+  #discretionary div.cartodb-legend.custom h5 {
     margin-top: 0;
     font-weight: bold;
     font-size: 1em; }
-  #discretionaryIncome div.cartodb-legend.custom li.graph {
+  #discretionary div.cartodb-legend.custom li.graph {
     height: 120px;
     border: none; }
-  #discretionaryIncome div.cartodb-legend.custom div.colors div.quartile {
+  #discretionary div.cartodb-legend.custom div.colors div.quartile {
     display: block;
     margin-bottom: 1px;
     height: 20px;
     width: 20px; }
-    #discretionaryIncome div.cartodb-legend.custom div.colors div.quartile:after {
+    #discretionary div.cartodb-legend.custom div.colors div.quartile:after {
       width: 150px;
       float: left;
       display: block;
       margin: 5px 0 0 25px;
       text-transform: lowercase; }
-  #discretionaryIncome div.cartodb-legend.custom .col1 {
+  #discretionary div.cartodb-legend.custom .col1 {
     background-color: #0b6087; }
-    #discretionaryIncome div.cartodb-legend.custom .col1:after {
+    #discretionary div.cartodb-legend.custom .col1:after {
       content: "$40,000 and over"; }
-  #discretionaryIncome div.cartodb-legend.custom .col2 {
+  #discretionary div.cartodb-legend.custom .col2 {
     background-color: #1689ae; }
-    #discretionaryIncome div.cartodb-legend.custom .col2:after {
+    #discretionary div.cartodb-legend.custom .col2:after {
       content: "$32,001 - $40,000"; }
-  #discretionaryIncome div.cartodb-legend.custom .col3 {
+  #discretionary div.cartodb-legend.custom .col3 {
     background-color: #4cb3d1; }
-    #discretionaryIncome div.cartodb-legend.custom .col3:after {
+    #discretionary div.cartodb-legend.custom .col3:after {
       content: "$24,001 - $32,000"; }
-  #discretionaryIncome div.cartodb-legend.custom .col4 {
+  #discretionary div.cartodb-legend.custom .col4 {
     background-color: #82d5e7; }
-    #discretionaryIncome div.cartodb-legend.custom .col4:after {
+    #discretionary div.cartodb-legend.custom .col4:after {
       content: "$16,001 - $24,000"; }
-  #discretionaryIncome div.cartodb-legend.custom .col5 {
+  #discretionary div.cartodb-legend.custom .col5 {
     background-color: #b7ebf2; }
-    #discretionaryIncome div.cartodb-legend.custom .col5:after {
+    #discretionary div.cartodb-legend.custom .col5:after {
       content: "$16,000 and under"; }
-#discretionaryIncome div.cartodb-infowindow {
+#discretionary div.cartodb-infowindow {
   width: 427.5px !important;
   height: 233.75px !important;
   max-height: 233.75px !important; }
-  #discretionaryIncome div.cartodb-infowindow .leftColumn {
+  #discretionary div.cartodb-infowindow .leftColumn {
     float: left;
     width: 205px;
     font-size: 0.7em; }
-    #discretionaryIncome div.cartodb-infowindow .leftColumn > div:before {
+    #discretionary div.cartodb-infowindow .leftColumn > div:before {
       content: '\00B7';
       padding-right: 5px;
       font-size: 42px;
@@ -6484,30 +6484,30 @@ button.close {
       float: left;
       margin-top: 3px;
       height: 24px; }
-    #discretionaryIncome div.cartodb-infowindow .leftColumn > .discretionary:before {
+    #discretionary div.cartodb-infowindow .leftColumn > .discretionary:before {
       color: #47b3d2; }
-    #discretionaryIncome div.cartodb-infowindow .leftColumn > .trans:before {
+    #discretionary div.cartodb-infowindow .leftColumn > .trans:before {
       color: #f12b15; }
-    #discretionaryIncome div.cartodb-infowindow .leftColumn > .housing:before {
+    #discretionary div.cartodb-infowindow .leftColumn > .housing:before {
       color: #b92b15; }
-    #discretionaryIncome div.cartodb-infowindow .leftColumn > .taxes:before {
+    #discretionary div.cartodb-infowindow .leftColumn > .taxes:before {
       color: #7c2b15; }
-  #discretionaryIncome div.cartodb-infowindow .rightColumn {
+  #discretionary div.cartodb-infowindow .rightColumn {
     float: left;
     position: relative;
     width: 143px; }
-    #discretionaryIncome div.cartodb-infowindow .rightColumn #donut {
+    #discretionary div.cartodb-infowindow .rightColumn #donut {
       cursor: crosshair; }
-  #discretionaryIncome div.cartodb-infowindow .mhi {
+  #discretionary div.cartodb-infowindow .mhi {
     position: absolute;
     left: 43px;
     z-index: 99;
     top: 36px;
     font-size: 0.8em; }
-  #discretionaryIncome div.cartodb-infowindow a.cartodb-popup-close-button {
+  #discretionary div.cartodb-infowindow a.cartodb-popup-close-button {
     top: 18px;
     right: 13px; }
-  #discretionaryIncome div.cartodb-infowindow div.cartodb-popup:after {
+  #discretionary div.cartodb-infowindow div.cartodb-popup:after {
     content: ' ';
     position: absolute;
     width: 0;
@@ -6516,16 +6516,16 @@ button.close {
     bottom: -15px;
     border: 15px solid;
     border-color: #fff transparent transparent #fff; }
-#discretionaryIncome div.cartodb-popup {
+#discretionary div.cartodb-popup {
   width: 427.5px;
   height: 233.75px !important;
   max-height: 233.75px !important;
   background: white;
   max-width: 427.5px;
   padding: 0; }
-  #discretionaryIncome div.cartodb-popup div.cartodb-popup-tip-container {
+  #discretionary div.cartodb-popup div.cartodb-popup-tip-container {
     display: none; }
-  #discretionaryIncome div.cartodb-popup div.cartodb-popup-content-wrapper {
+  #discretionary div.cartodb-popup div.cartodb-popup-content-wrapper {
     width: 427.5px;
     height: 233.75px !important;
     max-height: 233.75px !important;
@@ -6541,24 +6541,24 @@ button.close {
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     box-shadow: 1px 1px 6px black; }
-    #discretionaryIncome div.cartodb-popup div.cartodb-popup-content-wrapper .cartodb-popup-content {
+    #discretionary div.cartodb-popup div.cartodb-popup-content-wrapper .cartodb-popup-content {
       overflow: hidden; }
-    #discretionaryIncome div.cartodb-popup div.cartodb-popup-content-wrapper .cartodb-popup-content, #discretionaryIncome div.cartodb-popup div.cartodb-popup-content-wrapper .jspContainer, #discretionaryIncome div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane {
+    #discretionary div.cartodb-popup div.cartodb-popup-content-wrapper .cartodb-popup-content, #discretionary div.cartodb-popup div.cartodb-popup-content-wrapper .jspContainer, #discretionary div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane {
       width: 367.5px !important;
       max-width: 427.5px;
       height: 233.75px !important;
       max-height: 233.75px !important; }
-    #discretionaryIncome div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane {
+    #discretionary div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane {
       font-size: 1.2em; }
-      #discretionaryIncome div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane > div, #discretionaryIncome div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane > h2 {
+      #discretionary div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane > div, #discretionary div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane > h2 {
         padding-left: 3px; }
-    #discretionaryIncome div.cartodb-popup div.cartodb-popup-content-wrapper .jspVerticalBar {
+    #discretionary div.cartodb-popup div.cartodb-popup-content-wrapper .jspVerticalBar {
       display: none; }
-    #discretionaryIncome div.cartodb-popup div.cartodb-popup-content-wrapper .title {
+    #discretionary div.cartodb-popup div.cartodb-popup-content-wrapper .title {
       border-bottom: solid 1px #ccc;
       margin-bottom: 10px;
       line-height: 0.9em; }
-      #discretionaryIncome div.cartodb-popup div.cartodb-popup-content-wrapper .title h2, #discretionaryIncome div.cartodb-popup div.cartodb-popup-content-wrapper .title h3 {
+      #discretionary div.cartodb-popup div.cartodb-popup-content-wrapper .title h2, #discretionary div.cartodb-popup div.cartodb-popup-content-wrapper .title h3 {
         margin: 0; }
 
 #vulnerableInfra div.cartodb-legend.custom {
@@ -6576,56 +6576,56 @@ button.close {
       margin: 5px 0 10px 0;
       text-transform: lowercase; }
 
-#schoolPerf .Bottom {
+#schools .Bottom {
   color: #ba0000; }
-#schoolPerf .Top {
+#schools .Top {
   color: #0082ac; }
-#schoolPerf .Middle {
+#schools .Middle {
   color: #515151; }
-#schoolPerf .cartodb-legend-stack {
+#schools .cartodb-legend-stack {
   width: 240px; }
-#schoolPerf .cartodb-legend b {
+#schools .cartodb-legend b {
   display: block;
   margin-bottom: 10px; }
-#schoolPerf .school-rank-legend .note {
+#schools .school-rank-legend .note {
   font-size: 10px; }
-#schoolPerf .school-rank-legend div p:nth-child(1) {
+#schools .school-rank-legend div p:nth-child(1) {
   color: #0082ac; }
-#schoolPerf .school-rank-legend div p:nth-child(2) {
+#schools .school-rank-legend div p:nth-child(2) {
   color: #515151; }
-#schoolPerf .school-rank-legend div p:nth-child(3) {
+#schools .school-rank-legend div p:nth-child(3) {
   color: #ba0000; }
-#schoolPerf .school-rank-legend div p:nth-child(4) {
+#schools .school-rank-legend div p:nth-child(4) {
   color: #a7907b; }
-#schoolPerf .median-income .colors div:nth-child(5) {
+#schools .median-income .colors div:nth-child(5) {
   background-color: #beb4aa; }
-#schoolPerf .median-income .colors div:nth-child(4) {
+#schools .median-income .colors div:nth-child(4) {
   background-color: rgba(190, 180, 170, 0.8); }
-#schoolPerf .median-income .colors div:nth-child(3) {
+#schools .median-income .colors div:nth-child(3) {
   background-color: rgba(190, 180, 170, 0.6); }
-#schoolPerf .median-income .colors div:nth-child(2) {
+#schools .median-income .colors div:nth-child(2) {
   background-color: rgba(190, 180, 170, 0.4); }
-#schoolPerf .median-income .colors div:nth-child(1) {
+#schools .median-income .colors div:nth-child(1) {
   background-color: rgba(190, 180, 170, 0.2); }
-#schoolPerf .race .colors div:nth-child(5) {
+#schools .race .colors div:nth-child(5) {
   background-color: #be0000; }
-#schoolPerf .race .colors div:nth-child(4) {
+#schools .race .colors div:nth-child(4) {
   background-color: rgba(190, 0, 0, 0.8); }
-#schoolPerf .race .colors div:nth-child(3) {
+#schools .race .colors div:nth-child(3) {
   background-color: rgba(190, 0, 0, 0.6); }
-#schoolPerf .race .colors div:nth-child(2) {
+#schools .race .colors div:nth-child(2) {
   background-color: rgba(190, 0, 0, 0.4); }
-#schoolPerf .race .colors div:nth-child(1) {
+#schools .race .colors div:nth-child(1) {
   background-color: rgba(190, 0, 0, 0.2); }
-#schoolPerf div.cartodb-infowindow {
+#schools div.cartodb-infowindow {
   width: 397.5px !important;
   height: 150px !important;
   max-height: 150px !important; }
-  #schoolPerf div.cartodb-infowindow .leftColumn {
+  #schools div.cartodb-infowindow .leftColumn {
     float: left;
     width: 205px;
     font-size: 0.7em; }
-    #schoolPerf div.cartodb-infowindow .leftColumn > div:before {
+    #schools div.cartodb-infowindow .leftColumn > div:before {
       content: '\00B7';
       padding-right: 5px;
       font-size: 42px;
@@ -6633,30 +6633,30 @@ button.close {
       float: left;
       margin-top: 3px;
       height: 24px; }
-    #schoolPerf div.cartodb-infowindow .leftColumn > .discretionary:before {
+    #schools div.cartodb-infowindow .leftColumn > .discretionary:before {
       color: #47b3d2; }
-    #schoolPerf div.cartodb-infowindow .leftColumn > .trans:before {
+    #schools div.cartodb-infowindow .leftColumn > .trans:before {
       color: #f12b15; }
-    #schoolPerf div.cartodb-infowindow .leftColumn > .housing:before {
+    #schools div.cartodb-infowindow .leftColumn > .housing:before {
       color: #b92b15; }
-    #schoolPerf div.cartodb-infowindow .leftColumn > .taxes:before {
+    #schools div.cartodb-infowindow .leftColumn > .taxes:before {
       color: #7c2b15; }
-  #schoolPerf div.cartodb-infowindow .rightColumn {
+  #schools div.cartodb-infowindow .rightColumn {
     float: left;
     position: relative;
     width: 143px; }
-    #schoolPerf div.cartodb-infowindow .rightColumn #donut {
+    #schools div.cartodb-infowindow .rightColumn #donut {
       cursor: crosshair; }
-  #schoolPerf div.cartodb-infowindow .mhi {
+  #schools div.cartodb-infowindow .mhi {
     position: absolute;
     left: 43px;
     z-index: 99;
     top: 36px;
     font-size: 0.8em; }
-  #schoolPerf div.cartodb-infowindow a.cartodb-popup-close-button {
+  #schools div.cartodb-infowindow a.cartodb-popup-close-button {
     top: 18px;
     right: 13px; }
-  #schoolPerf div.cartodb-infowindow div.cartodb-popup:after {
+  #schools div.cartodb-infowindow div.cartodb-popup:after {
     content: ' ';
     position: absolute;
     width: 0;
@@ -6665,16 +6665,16 @@ button.close {
     bottom: -15px;
     border: 15px solid;
     border-color: #fff transparent transparent #fff; }
-#schoolPerf div.cartodb-popup {
+#schools div.cartodb-popup {
   width: 397.5px;
   height: 150px !important;
   max-height: 150px !important;
   background: white;
   max-width: 397.5px;
   padding: 0; }
-  #schoolPerf div.cartodb-popup div.cartodb-popup-tip-container {
+  #schools div.cartodb-popup div.cartodb-popup-tip-container {
     display: none; }
-  #schoolPerf div.cartodb-popup div.cartodb-popup-content-wrapper {
+  #schools div.cartodb-popup div.cartodb-popup-content-wrapper {
     width: 397.5px;
     height: 150px !important;
     max-height: 150px !important;
@@ -6690,26 +6690,26 @@ button.close {
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     box-shadow: 1px 1px 6px black; }
-    #schoolPerf div.cartodb-popup div.cartodb-popup-content-wrapper .cartodb-popup-content {
+    #schools div.cartodb-popup div.cartodb-popup-content-wrapper .cartodb-popup-content {
       overflow: hidden; }
-    #schoolPerf div.cartodb-popup div.cartodb-popup-content-wrapper .cartodb-popup-content, #schoolPerf div.cartodb-popup div.cartodb-popup-content-wrapper .jspContainer, #schoolPerf div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane {
+    #schools div.cartodb-popup div.cartodb-popup-content-wrapper .cartodb-popup-content, #schools div.cartodb-popup div.cartodb-popup-content-wrapper .jspContainer, #schools div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane {
       width: 337.5px !important;
       max-width: 397.5px;
       height: 150px !important;
       max-height: 150px !important; }
-    #schoolPerf div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane {
+    #schools div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane {
       font-size: 1.2em; }
-      #schoolPerf div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane > div, #schoolPerf div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane > h2 {
+      #schools div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane > div, #schools div.cartodb-popup div.cartodb-popup-content-wrapper .jspPane > h2 {
         padding-left: 3px; }
-    #schoolPerf div.cartodb-popup div.cartodb-popup-content-wrapper .jspVerticalBar {
+    #schools div.cartodb-popup div.cartodb-popup-content-wrapper .jspVerticalBar {
       display: none; }
-    #schoolPerf div.cartodb-popup div.cartodb-popup-content-wrapper .title {
+    #schools div.cartodb-popup div.cartodb-popup-content-wrapper .title {
       border-bottom: solid 1px #ccc;
       margin-bottom: 10px;
       line-height: 0.9em; }
-      #schoolPerf div.cartodb-popup div.cartodb-popup-content-wrapper .title h2, #schoolPerf div.cartodb-popup div.cartodb-popup-content-wrapper .title h3 {
+      #schools div.cartodb-popup div.cartodb-popup-content-wrapper .title h2, #schools div.cartodb-popup div.cartodb-popup-content-wrapper .title h3 {
         margin: 0; }
-#schoolPerf .school-ranking {
+#schools .school-ranking {
   font-weight: bold; }
 
 #walkability .walkability-legend .legend-title {

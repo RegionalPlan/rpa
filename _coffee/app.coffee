@@ -361,7 +361,7 @@ class Workspace extends Backbone.Router
 
   schools: ->
     cartodb
-      .createVis('schoolPerf', 'http://rpa.cartodb.com/api/v2/viz/5bc0d9be-a264-11e3-bc17-0e10bcd91c2b/viz.json', searchControl: true, layer_selector: false, legends: true, zoom:11)
+      .createVis('schools', 'http://rpa.cartodb.com/api/v2/viz/5bc0d9be-a264-11e3-bc17-0e10bcd91c2b/viz.json', searchControl: true, layer_selector: false, legends: true, zoom:11)
       .done (vis,layers)->
 
         # Create the sublayer for subway routes
@@ -685,7 +685,7 @@ class Workspace extends Backbone.Router
 
     # DISCRETIONARY INCOME
     cartodb
-      .createVis('discretionaryIncome', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', legends: true, searchControl: true, zoom: 8, infowindow: true, layer_selector: false)
+      .createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', legends: true, searchControl: true, zoom: 8, infowindow: true, layer_selector: false)
       .done (vis,layers)->
         map = vis.getNativeMap()
         map.scrollWheelZoom.disable()
@@ -821,14 +821,14 @@ class Workspace extends Backbone.Router
           return if obj["null"] is "Loading content..."
           # Create a bar chart in the infowindow for the clicked feature
           data = $(".cartodb-popup-content").data()
-          mhi = $("#discretionaryIncome .median-income").text()
+          mhi = $("#discretionary .median-income").text()
           makeChart(data, Number(mhi))
           formatMoney()
 
 
 $ ->
 
-  router = new Workspace()
+  window.router = new Workspace()
   Backbone.history.start(pushState: true, root: root)
 
   # TODO: update the links of the navigation paths on the chapter pages
@@ -858,3 +858,6 @@ $ ->
   $(".ch-nav li").each (i)->
     $a = $(this).find("a")
     sch($a,i+1)
+
+
+  ["vulnerable", "walkability"]

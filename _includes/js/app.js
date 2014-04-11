@@ -329,7 +329,7 @@
     };
 
     Workspace.prototype.schools = function() {
-      return cartodb.createVis('schoolPerf', 'http://rpa.cartodb.com/api/v2/viz/5bc0d9be-a264-11e3-bc17-0e10bcd91c2b/viz.json', {
+      return cartodb.createVis('schools', 'http://rpa.cartodb.com/api/v2/viz/5bc0d9be-a264-11e3-bc17-0e10bcd91c2b/viz.json', {
         searchControl: true,
         layer_selector: false,
         legends: true,
@@ -593,7 +593,7 @@
       if ($("#standalone_donut").length > 0) {
         makeChart(data, 72140, "#standalone_donut");
       }
-      return cartodb.createVis('discretionaryIncome', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', {
+      return cartodb.createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', {
         legends: true,
         searchControl: true,
         zoom: 8,
@@ -649,7 +649,7 @@
             return;
           }
           data = $(".cartodb-popup-content").data();
-          mhi = $("#discretionaryIncome .median-income").text();
+          mhi = $("#discretionary .median-income").text();
           makeChart(data, Number(mhi));
           return formatMoney();
         });
@@ -661,8 +661,8 @@
   })(Backbone.Router);
 
   $(function() {
-    var chapter, fci, lastChapter, lci, liIndex, nextChapter, router, sch, _ref;
-    router = new Workspace();
+    var chapter, fci, lastChapter, lci, liIndex, nextChapter, sch, _ref;
+    window.router = new Workspace();
     Backbone.history.start({
       pushState: true,
       root: root
@@ -706,11 +706,12 @@
         }
       });
     }
-    return $(".ch-nav li").each(function(i) {
+    $(".ch-nav li").each(function(i) {
       var $a;
       $a = $(this).find("a");
       return sch($a, i + 1);
     });
+    return ["vulnerable", "walkability"];
   });
 
 }).call(this);
