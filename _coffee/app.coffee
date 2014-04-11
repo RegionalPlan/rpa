@@ -125,6 +125,7 @@ class Workspace extends Backbone.Router
         adjust_sublayer_vis(show: tables[1], hide: tables[0])
 
         map = vis.getNativeMap()
+        map.scrollWheelZoom.disable()
         map.on 'zoomend', (a,b,c)->
           $(".cartodb-tooltip").hide()
           zoomLevel = map.getZoom()
@@ -223,6 +224,7 @@ class Workspace extends Backbone.Router
 
 
         map = vis.getNativeMap()
+        map.scrollWheelZoom.disable()
         map.on 'zoomend', (a,b,c)->
           zoomLevel = map.getZoom()
           if zoomLevel > 9
@@ -454,7 +456,8 @@ class Workspace extends Backbone.Router
       .done (vis,layers)->
 
         map = vis.getNativeMap()
-
+        map.scrollWheelZoom.disable()
+        
         layer = layers[1]
         floodZoneLayer = layer.getSubLayer(0)
         layer.setInteraction(true)
@@ -683,6 +686,7 @@ class Workspace extends Backbone.Router
       .done (vis,layers)->
         map = vis.getNativeMap()
         map.scrollWheelZoom.disable()
+
         dataLayers = layers[1]
         dataLayers.setInteraction(true)
 

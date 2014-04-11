@@ -111,6 +111,7 @@
           hide: tables[0]
         });
         map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         map.on('zoomend', function(a, b, c) {
           var zoomLevel;
           $(".cartodb-tooltip").hide();
@@ -202,6 +203,7 @@
         });
         vis.container.append(tooltip2.render().el);
         map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         map.on('zoomend', function(a, b, c) {
           var zoomLevel;
           zoomLevel = map.getZoom();
@@ -385,6 +387,7 @@
       }).done(function(vis, layers) {
         var dbs, floodZoneLayer, layer, map, red;
         map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         layer = layers[1];
         floodZoneLayer = layer.getSubLayer(0);
         layer.setInteraction(true);
