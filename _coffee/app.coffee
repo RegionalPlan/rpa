@@ -1,11 +1,11 @@
 class Workspace extends Backbone.Router
   routes:
-    "schools.html" : "schools"
-    "vulnerable.html" : "vulnerable"
-    "discretionary.html" : "discretionary"
-    "walkability.html" : "walkability"
-    "property.html" : "property"
-    "carbon.html" : "carbon"
+    "maps/schools.html"       : "schools"
+    "maps/vulnerable.html"    : "vulnerable"
+    "maps/discretionary.html" : "discretionary"
+    "maps/walkability.html"   : "walkability"
+    "maps/property.html"      : "property"
+    "maps/carbon.html"        : "carbon"
 
   carbon: ->
 
