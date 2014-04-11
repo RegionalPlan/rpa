@@ -30,6 +30,8 @@
         zoom: 9
       }).done(function(vis, layers) {
         var activeSublayer, adjust_layer_vis, adjust_sublayer_vis, colors, columns, county_cols, default_sublayers, layer, layer_county, layer_zip, map, shared_cols, sublayers, tables, zip_cols;
+        map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         layer = layers[1];
         layer_county = layers[1].getSubLayer(0);
         layer_zip = layers[1].getSubLayer(1);
@@ -181,6 +183,8 @@
         zoom: 9
       }).done(function(vis, layers) {
         var color1, color2, color3, map, propertyLayerNYC, propertyLayerNoNYC, rate_to_color, tooltip, tooltip2;
+        map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         color1 = "#ffefc9";
         color2 = "#fdde9c";
         color3 = "#80c5d8";
@@ -248,7 +252,9 @@
         legends: true,
         zoom: 9
       }).done(function(vis, layers) {
-        var color1, color2, color3, color4, color5, layer, score_to_color, station_layers, tooltip, walkabilityLayer;
+        var color1, color2, color3, color4, color5, layer, map, score_to_color, station_layers, tooltip, walkabilityLayer;
+        map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         color1 = "#ffefc9";
         color2 = "#fdde9c";
         color3 = "#80c5d8";
@@ -331,7 +337,9 @@
         legends: true,
         zoom: 11
       }).done(function(vis, layers) {
-        var raceLayer, schoolLayer, tooltip;
+        var map, raceLayer, schoolLayer, tooltip;
+        map = vis.getNativeMap();
+        map.scrollWheelZoom.disable();
         layers[1].setInteraction(true);
         raceLayer = layers[1].getSubLayer(0);
         schoolLayer = layers[1].getSubLayer(1);

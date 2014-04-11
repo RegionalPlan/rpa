@@ -14,6 +14,9 @@ class Workspace extends Backbone.Router
     cartodb
       .createVis(id, url, searchControl: false, layer_selector: false, legends: true, zoom:9)
       .done (vis,layers)->
+        map = vis.getNativeMap()
+        map.scrollWheelZoom.disable()
+
         layer = layers[1]
         layer_county = layers[1].getSubLayer(0)
         layer_zip = layers[1].getSubLayer(1)
@@ -174,6 +177,9 @@ class Workspace extends Backbone.Router
     cartodb
       .createVis(id, url, searchControl: false, layer_selector: false, legends: true, zoom:9)
       .done (vis,layers)->
+        map = vis.getNativeMap()
+        map.scrollWheelZoom.disable()
+
         color1 = "#ffefc9"
         color2 = "#fdde9c"
         color3 = "#80c5d8"
@@ -260,6 +266,9 @@ class Workspace extends Backbone.Router
     cartodb
       .createVis(id, url, searchControl: false, layer_selector: false, legends: true, zoom:9)
       .done (vis,layers)->
+        map = vis.getNativeMap()
+        map.scrollWheelZoom.disable()
+
         color1 = "#ffefc9"
         color2 = "#fdde9c"
         color3 = "#80c5d8"
@@ -359,6 +368,8 @@ class Workspace extends Backbone.Router
     cartodb
       .createVis('schools', 'http://rpa.cartodb.com/api/v2/viz/5bc0d9be-a264-11e3-bc17-0e10bcd91c2b/viz.json', searchControl: true, layer_selector: false, legends: true, zoom:11)
       .done (vis,layers)->
+        map = vis.getNativeMap()
+        map.scrollWheelZoom.disable()
 
         # Create the sublayer for subway routes
         layers[1].setInteraction(true)
@@ -454,10 +465,9 @@ class Workspace extends Backbone.Router
     cartodb
       .createVis('vulnerableInfra', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', zoom: 9, searchControl: true, layer_selector: false, legends: false)
       .done (vis,layers)->
-
         map = vis.getNativeMap()
         map.scrollWheelZoom.disable()
-        
+
         layer = layers[1]
         floodZoneLayer = layer.getSubLayer(0)
         layer.setInteraction(true)
