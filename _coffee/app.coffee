@@ -6,12 +6,6 @@ class Workspace extends Backbone.Router
     "walkability.html" : "walkability"
     "property.html" : "property"
     "carbon.html" : "carbon"
-    "c/1.html" : "discretionary"
-    "c/2.html" : "discretionary"
-    "c/3.html" : "discretionary"
-    "c/4.html" : "discretionary"
-    "c/5.html" : "discretionary"
-    "c/6.html" : "discretionary"
 
   carbon: ->
 
@@ -859,5 +853,5 @@ $ ->
     $a = $(this).find("a")
     sch($a,i+1)
 
-
-  ["vulnerable", "walkability"]
+  # Load the requested map
+  router[mapId]() if mapId

@@ -69386,13 +69386,7 @@ Layers.register('torque', function(vis, data) {
       "discretionary.html": "discretionary",
       "walkability.html": "walkability",
       "property.html": "property",
-      "carbon.html": "carbon",
-      "c/1.html": "discretionary",
-      "c/2.html": "discretionary",
-      "c/3.html": "discretionary",
-      "c/4.html": "discretionary",
-      "c/5.html": "discretionary",
-      "c/6.html": "discretionary"
+      "carbon.html": "carbon"
     };
 
     Workspace.prototype.carbon = function() {
@@ -70081,7 +70075,9 @@ Layers.register('torque', function(vis, data) {
       $a = $(this).find("a");
       return sch($a, i + 1);
     });
-    return ["vulnerable", "walkability"];
+    if (mapId) {
+      return router[mapId]();
+    }
   });
 
 }).call(this);
