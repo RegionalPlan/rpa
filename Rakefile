@@ -6,7 +6,7 @@ task :set_root_dir, :dir do |t, args|
     if args.dir == "/"
       dir = ""
     else
-      dir = "/" + args.dir.sub(/(\/*)(.+)/, "\\2").sub(/\/$/, '');
+      dir = "/" + args.dir.sub(/(\/*)(.+)/, "\\2").sub(/^\/$/, '');
     end
 
     sass_file = '_scss/partials/_variables.scss'
