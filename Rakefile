@@ -15,6 +15,16 @@ task :set_root_dir, :dir do |t, args|
     File.open(sass_file, 'w') do |f|
       f.write sass_config
     end
+
+    compass_config = IO.read('config.rb')
+    compass_config.sub!(/http_path(\s*)=(\s*)(["'])[\w\-\/]*["']/, "http_path\\1=\\2\\3#{dir}/\\3")
+    compass_config.sub!(/http_images_path(\s*)=(\s*)(["'])[\w\-\/]*["']/, "http_images_path\\1=\\2\\3#{dir}/images\\3")
+    compass_config.sub!(/http_fonts_path(\s*)=(\s*)(["'])[\w\-\/]*["']/, "http_fonts_path\\1=\\2\\3#{dir}/fonts\\3")
+    compass_config.sub!(/css_dir(\s*)=(\s*)(["'])[\w\-\/]*["']/, "css_dir\\1=\\2\\3#{dir}/css\\3")
+    File.open('config.rb', 'w') do |f|
+      f.write compass_config
+    end
+
     jekyll_config = IO.read('_config.yml')
     jekyll_config.sub!(/^root:.*$/, "root: /#{dir.sub(/^\//, '')}")
     File.open('_config.yml', 'w') do |f|
@@ -45,6 +55,7 @@ end
 desc "Deploy"
 task :deploy do
   system "rake 'set_root_dir[/rpa]'"
+  system "compass compile --css-dir css"
   system "rake push"
   system "rake 'set_root_dir[/]'"
 end
