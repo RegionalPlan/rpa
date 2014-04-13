@@ -44,6 +44,7 @@ end
 
 desc "Deploy"
 task :deploy do
+  system "sass --watch"
   system "rake set_root_dir\[/rpa\]"
   system "sass --update"
   system "rake push"
