@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 
+gem "rake"
 gem "jekyll"
 gem "guard-coffeescript"
 gem "guard-sass"
