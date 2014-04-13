@@ -266,8 +266,8 @@
         station_layers = [
           {
             type: "Train station",
-            name_column: "station_na",
-            table: "rpa_trainstations"
+            name_column: "stn_name",
+            table: "rpa_alltransit_stations"
           }, {
             type: "Subway station",
             name_column: "station_na",
@@ -279,8 +279,8 @@
           table = value["table"];
           ret = "" + table + ".cartodb_id," + table + ".the_geom, " + table + ".the_geom_webmercator, " + table + "." + value['name_column'];
           sql = "SELECT " + ret + " FROM " + table;
-          dot_color = table === "rpa_trainstations" ? "#000000" : "#ba0000";
-          css = "#" + table + " {marker-fill: " + dot_color + "; marker-line-width:0;::line {line-width: 1;line-color: " + dot_color + ";}[zoom <= 10] {marker-width: 4;}[zoom > 10] {marker-width: 6;}}";
+          dot_color = "#606060";
+          css = "#" + table + " {marker-fill: " + dot_color + "; marker-line-width:0;::line {line-width: 1;}[zoom <= 10] {marker-width: 4;}[zoom > 10] {marker-width: 6;}}";
           if (table === "rpa_subwaystations") {
             css += "#" + table + "[zoom < 10] {marker-opacity: 0;}";
           }

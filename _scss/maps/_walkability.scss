@@ -106,7 +106,7 @@
     }
   }
 
-  
+
   .walkability-legend{
     // Income colors
     $color1: #ffefc9;
@@ -115,8 +115,8 @@
     $color4: #7791bf;
     $color5: #743682;
 
-    $subway_line: $gray-light;
-    $rail_line: #000;
+    $subway_line: opacify(#000000,0.3);
+    $rail_line: opacify(#000000,0.3);
 
     .legend-title{
       margin-top:10px;

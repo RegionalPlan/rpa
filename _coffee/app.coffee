@@ -284,7 +284,7 @@ class Workspace extends Backbone.Router
         station_layers = [
             {
               type: "Train station"
-              name_column: "station_na"
+              name_column: "stn_name"
               table: "rpa_alltransit_stations"
             }
             {
@@ -301,9 +301,9 @@ class Workspace extends Backbone.Router
           sql = "SELECT #{ret} FROM #{table}"
 
           # Create the CSS
-          dot_color = if table is "rpa_trainstations" then "#000000" else "#ba0000"
+          dot_color = "#606060"
           css = """
-                  ##{table} {marker-fill: #{dot_color}; marker-line-width:0;::line {line-width: 1;line-color: #{dot_color};}[zoom <= 10] {marker-width: 4;}[zoom > 10] {marker-width: 6;}}
+                  ##{table} {marker-fill: #{dot_color}; marker-line-width:0;::line {line-width: 1;}[zoom <= 10] {marker-width: 4;}[zoom > 10] {marker-width: 6;}}
                 """
 
           if table is "rpa_subwaystations"
