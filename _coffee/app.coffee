@@ -376,7 +376,8 @@ class Workspace extends Backbone.Router
         raceLayer = layers[1].getSubLayer(0)
 
         schoolLayer = layers[1].getSubLayer(1)
-        schoolLayer = schoolLayer.setInteractivity("cartodb_id, schlrank, rank_perce, schnam, localname")
+        schoolLayer = schoolLayer.setInteractivity("cartodb_id, schlrank, rank_perce, schnam, localname, namelsad10, hh_median, whiteprcnt")
+        # SELECT schools.*, poverty.hh_median FROM schoolperformancerank2012_withlocalities_rpare as schools INNER JOIN schoolrank2012_racepoverty_income_rparegion as poverty ON schools.namelsad10 = poverty.namelsad10
 
         tooltip = new cdb.geo.ui.Tooltip(
             template: """
@@ -385,16 +386,64 @@ class Workspace extends Backbone.Router
                     <div class="cartodb-popup-content">
                       <div class="title"  style="padding-bottom:10px">
                         <h3>{{schnam}}</h3>
-                        <span>{{localname}}</span>
+                        <span>{{localname}} ({{namelsad10}})</span>
                       </div>
                       {{#rank_perce}}
-                        <div>School ranking:
-                          <span class="{{schlrank}}"><b class="school-ranking">{{rank_perce}}</b> <b> ({{schlrank}}) </b></span>
+                        <div><b>School Rank</b></div>
+                        <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;">
+                          <div class="progress-bar progress-bar-success" style="width:25%;background-color:#70706e;"></div>
+                          <div class="progress-bar progress-bar-danger" style="width:50%;background-color:#dc0000;"></div>
+                          <div class="progress-bar progress-bar-warning" style="width:25%;background-color:#0c7caa;"></div>
+                          <span style="position:relative;text-align:center">
+                            <span style="font-size: 2em;line-height: 1em;position: absolute;top: -18px;left: 5px;">•</span>
+                            <b class="school-rank">{{rank_perce}}</b>
+                          </span>
                         </div>
                       {{/rank_perce}}
                       {{^rank_perce}}
-                        <div class="{{schlrank}}">No data available</div>
+                        <i>No data available</i>
                       {{/rank_perce}}
+
+                      {{#hh_median}}
+                        <div><b>Median Household Income</b></div>
+                        <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;">
+                          <div class="progress-bar progress-bar-success" style="width:20%;background-color:#f2f0ee;"></div>
+                          <div class="progress-bar progress-bar-danger" style="width:20%;background-color:#e5e1dd;"></div>
+                          <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#d7d2cc;"></div>
+                          <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#cbc4bd;"></div>
+                          <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#beb4aa;"></div>
+
+
+                          <span style="position:relative;text-align:center">
+                            <span style="font-size: 2em;line-height: 1em;position: absolute;top: -18px;left: 5px;">•</span>
+                            <b class="hh-rank">{{hh_median}}</b>
+                          </span>
+                        </div>
+                      {{/hh_median}}
+                      {{^hh_median}}
+                        <i>No data available</i>
+                      {{/hh_median}}
+
+
+                      {{#whiteprcnt}}
+                        <div><b>Percentage of White Population</b></div>
+                        <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;">
+                          <div class="progress-bar progress-bar-success" style="width:20%;background-color:#f2f0ee;"></div>
+                          <div class="progress-bar progress-bar-danger" style="width:20%;background-color:#e5e1dd;"></div>
+                          <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#d7d2cc;"></div>
+                          <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#cbc4bd;"></div>
+                          <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#beb4aa;"></div>
+
+
+                          <span style="position:relative;text-align:center">
+                            <span style="font-size: 2em;line-height: 1em;position: absolute;top: -18px;left: 5px;">•</span>
+                            <b class="race-rank">{{whiteprcnt}}</b>
+                          </span>
+                        </div>
+                      {{/whiteprcnt}}
+                      {{^whiteprcnt}}
+                        <i>No data available</i>
+                      {{/whiteprcnt}}
                     </div>
                  </div>
               </div>
@@ -406,9 +455,16 @@ class Workspace extends Backbone.Router
 
         vent.on("tooltip:rendered", (data)->
             rank = data["rank_perce"]
+            hhRank = data["hh_median"]
+            raceRank = data["whiteprcnt"]
             return unless rank
-            rank = (parseFloat(rank) * 100).toFixed(2)
-            $(".school-ranking").text("#{rank}%")
+            rank = (parseFloat(rank) * 100).toFixed(0)
+            hhRank = (hhRank - 40673) / (250000 - 40673)
+            hhRank = (parseFloat(hhRank) * 100).toFixed(0)
+            raceRank = (parseFloat(raceRank) * 100).toFixed(0)
+            $(".school-rank").text("#{rank}%").parent().css("left","#{rank}%")
+            $(".hh-rank").text("#{hhRank}%").parent().css("left","#{hhRank}%")
+            $(".race-rank").text("#{raceRank}%").parent().css("left","#{raceRank}%")
           )
 
         $("#layer_selector li").on "click", (e)->

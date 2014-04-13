@@ -3,7 +3,8 @@
   // School rank colors
   $bottom: #ba0000;
   $middle: #515151;
-  $top: #0082ac;
+  $top:    #0082ac;
+
   $nodata: #a7907b;
 
   // INFOWINDOW
@@ -82,10 +83,40 @@
   }
 
 
-  @include popup(397.5px,150px);
+  @include popup(397.5px,250px);
 
   .school-ranking{
     font-weight:bold;
   }
 
 }
+
+
+/*
+
+
+
+
+#schoolperformancerank2012_withlocalities_rpare{
+  marker-opacity: 0.8;
+  marker-line-color: #FFF;
+  marker-line-width: 0;
+  marker-line-opacity: 1;
+  marker-width: 4;
+  marker-allow-overlap: true;
+}
+#schoolperformancerank2012_withlocalities_rpare [ rank_perce <= 0.25] {
+   marker-fill: #ba0000;
+}
+#schoolperformancerank2012_withlocalities_rpare [ rank_perce > 0.25][ rank_perce <= 0.75] {
+   marker-fill: #515151;
+}
+#schoolperformancerank2012_withlocalities_rpare [ rank_perce > 0.75][ rank_perce <= 1] {
+   marker-fill: #0082ac;
+}
+
+
+
+
+
+*/

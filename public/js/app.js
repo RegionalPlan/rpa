@@ -343,21 +343,28 @@
         layers[1].setInteraction(true);
         raceLayer = layers[1].getSubLayer(0);
         schoolLayer = layers[1].getSubLayer(1);
-        schoolLayer = schoolLayer.setInteractivity("cartodb_id, schlrank, rank_perce, schnam, localname");
+        schoolLayer = schoolLayer.setInteractivity("cartodb_id, schlrank, rank_perce, schnam, localname, namelsad10, hh_median, whiteprcnt");
         tooltip = new cdb.geo.ui.Tooltip({
-          template: "<div class=\"cartodb-popup\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class=\"title\"  style=\"padding-bottom:10px\">\n          <h3>{{schnam}}</h3>\n          <span>{{localname}}</span>\n        </div>\n        {{#rank_perce}}\n          <div>School ranking:\n            <span class=\"{{schlrank}}\"><b class=\"school-ranking\">{{rank_perce}}</b> <b> ({{schlrank}}) </b></span>\n          </div>\n        {{/rank_perce}}\n        {{^rank_perce}}\n          <div class=\"{{schlrank}}\">No data available</div>\n        {{/rank_perce}}\n      </div>\n   </div>\n</div>",
+          template: "<div class=\"cartodb-popup\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class=\"title\"  style=\"padding-bottom:10px\">\n          <h3>{{schnam}}</h3>\n          <span>{{localname}} ({{namelsad10}})</span>\n        </div>\n        {{#rank_perce}}\n          <div><b>School Rank</b></div>\n          <div class=\"progress\" style=\"height:5px;-webkit-border-radius:0;position:relative;overflow: visible;\">\n            <div class=\"progress-bar progress-bar-success\" style=\"width:25%;background-color:#70706e;\"></div>\n            <div class=\"progress-bar progress-bar-danger\" style=\"width:50%;background-color:#dc0000;\"></div>\n            <div class=\"progress-bar progress-bar-warning\" style=\"width:25%;background-color:#0c7caa;\"></div>\n            <span style=\"position:relative;text-align:center\">\n              <span style=\"font-size: 2em;line-height: 1em;position: absolute;top: -18px;left: 5px;\">•</span>\n              <b class=\"school-rank\">{{rank_perce}}</b>\n            </span>\n          </div>\n        {{/rank_perce}}\n        {{^rank_perce}}\n          <i>No data available</i>\n        {{/rank_perce}}\n\n        {{#hh_median}}\n          <div><b>Median Household Income</b></div>\n          <div class=\"progress\" style=\"height:5px;-webkit-border-radius:0;position:relative;overflow: visible;\">\n            <div class=\"progress-bar progress-bar-success\" style=\"width:20%;background-color:#f2f0ee;\"></div>\n            <div class=\"progress-bar progress-bar-danger\" style=\"width:20%;background-color:#e5e1dd;\"></div>\n            <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#d7d2cc;\"></div>\n            <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#cbc4bd;\"></div>\n            <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#beb4aa;\"></div>\n\n\n            <span style=\"position:relative;text-align:center\">\n              <span style=\"font-size: 2em;line-height: 1em;position: absolute;top: -18px;left: 5px;\">•</span>\n              <b class=\"hh-rank\">{{hh_median}}</b>\n            </span>\n          </div>\n        {{/hh_median}}\n        {{^hh_median}}\n          <i>No data available</i>\n        {{/hh_median}}\n\n\n        {{#whiteprcnt}}\n          <div><b>Percentage of White Population</b></div>\n          <div class=\"progress\" style=\"height:5px;-webkit-border-radius:0;position:relative;overflow: visible;\">\n            <div class=\"progress-bar progress-bar-success\" style=\"width:20%;background-color:#f2f0ee;\"></div>\n            <div class=\"progress-bar progress-bar-danger\" style=\"width:20%;background-color:#e5e1dd;\"></div>\n            <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#d7d2cc;\"></div>\n            <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#cbc4bd;\"></div>\n            <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#beb4aa;\"></div>\n\n\n            <span style=\"position:relative;text-align:center\">\n              <span style=\"font-size: 2em;line-height: 1em;position: absolute;top: -18px;left: 5px;\">•</span>\n              <b class=\"race-rank\">{{whiteprcnt}}</b>\n            </span>\n          </div>\n        {{/whiteprcnt}}\n        {{^whiteprcnt}}\n          <i>No data available</i>\n        {{/whiteprcnt}}\n      </div>\n   </div>\n</div>",
           layer: schoolLayer,
           offset_top: -50
         });
         vis.container.append(tooltip.render().el);
         vent.on("tooltip:rendered", function(data) {
-          var rank;
+          var hhRank, raceRank, rank;
           rank = data["rank_perce"];
+          hhRank = data["hh_median"];
+          raceRank = data["whiteprcnt"];
           if (!rank) {
             return;
           }
-          rank = (parseFloat(rank) * 100).toFixed(2);
-          return $(".school-ranking").text("" + rank + "%");
+          rank = (parseFloat(rank) * 100).toFixed(0);
+          hhRank = (hhRank - 40673) / (250000 - 40673);
+          hhRank = (parseFloat(hhRank) * 100).toFixed(0);
+          raceRank = (parseFloat(raceRank) * 100).toFixed(0);
+          $(".school-rank").text("" + rank + "%").parent().css("left", "" + rank + "%");
+          $(".hh-rank").text("" + hhRank + "%").parent().css("left", "" + hhRank + "%");
+          return $(".race-rank").text("" + raceRank + "%").parent().css("left", "" + raceRank + "%");
         });
         return $("#layer_selector li").on("click", function(e) {
           var $li, activeLi, activeSublayer, borders, color, css, layerName, table;
