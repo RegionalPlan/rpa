@@ -11,7 +11,7 @@ task :set_root_dir, :dir do |t, args|
 
     sass_file = '_scss/partials/_variables.scss'
     sass_config = IO.read(sass_file)
-    sass_config.sub!(/^\$siteBase:.+;$/, "$siteBase: \"#{dir}\"")
+    sass_config.sub!(/^\$siteBase:(.+)$/, "$siteBase:\'#{dir}\';")
     File.open(sass_file, 'w') do |f|
       f.write sass_config
     end
@@ -44,9 +44,7 @@ end
 
 desc "Deploy"
 task :deploy do
-  system "sass --watch"
-  system "rake set_root_dir\[/rpa\]"
-  system "sass --update"
+  system "rake set_root_dir[/rpa]"
   system "rake push"
-  system "rake set_root_dir\[/\]"
+  system "rake 'set_root_dir[/]'"
 end
