@@ -285,7 +285,7 @@ class Workspace extends Backbone.Router
             {
               type: "Train station"
               name_column: "station_na"
-              table: "rpa_trainstations"
+              table: "rpa_alltransit_stations"
             }
             {
               type: "Subway station"
