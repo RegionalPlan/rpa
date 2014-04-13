@@ -5,7 +5,7 @@
   &.ch2{
     @include shared-chapter-styles();
     .jumbotron{
-      background-image: url("#{$siteBase}/images/ch2/hero4.jpg");
+      background-image: url("#{$siteBase}/images/ch2/hero.jpg");
     }
   }
 }
