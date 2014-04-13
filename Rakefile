@@ -44,7 +44,7 @@ end
 
 desc "Deploy"
 task :deploy do
-  system "rake set_root_dir[/rpa]"
+  # system "rake 'set_root_dir[/rpa]'"
   system "rake push"
   system "rake 'set_root_dir[/]'"
 end
