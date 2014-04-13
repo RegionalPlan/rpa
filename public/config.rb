@@ -6,11 +6,11 @@ require 'bootstrap-sass'
 project_type = :stand_alone
 
 # Publishing paths
-http_path = "/rpa/"
-http_images_path = "/rpa/images"
+http_path = "/"
+http_images_path = "/images"
 http_generated_images_path = "/images"
-http_fonts_path = "/rpa/fonts"
-css_dir = "/rpa/css"
+http_fonts_path = "/fonts"
+css_dir = "/css"
 
 # Local development paths
 sass_dir = "_scss"
