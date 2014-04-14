@@ -3,7 +3,7 @@
 #walkability{
   .walkability-title{
     margin-bottom:10px;
-    border-bottom:solid 1px $gray-light;
+    border-bottom:solid 1px #ccc;
   }
   .progress{
     height:10px;
@@ -22,7 +22,7 @@
     @include shared();
 
     .walkability-title{
-      b{font-size:1.3em;margin-bottom:5px;display:inline-block;}
+      b{font-size:1.3em;display:inline-block;}
     }
 
     .cartodb-popup-tip-container{
@@ -35,7 +35,7 @@
     }
 
     $width:375px;
-    $height:275px;
+    $height:225px;
 
     .cartodb-popup{
       @include windowfix($width, $height);
@@ -43,6 +43,7 @@
       .cartodb-popup-content-wrapper{
         @include windowfix($width - 15px, $height - 15px);
         overflow:hidden;
+        padding-top: 0;
         .cartodb-popup-content{
           @include windowfix($width - 35px, $height - 15px);
           overflow:visible !important;
@@ -109,11 +110,11 @@
 
   .walkability-legend{
     // Income colors
-    $color1: #ffefc9;
-    $color2: #fdde9c;
-    $color3: #80c5d8;
-    $color4: #7791bf;
-    $color5: #743682;
+    $color1: #fae2ab;
+    $color2: #ffbb67;
+    $color3: #a6a9de;
+    $color4: #8e6eb1;
+    $color5: #753384;
 
     $subway_line: opacify(#000000,0.3);
     $rail_line: opacify(#000000,0.3);

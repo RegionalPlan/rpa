@@ -264,11 +264,13 @@ class Workspace extends Backbone.Router
       .done (vis,layers)->
         map = vis.getNativeMap()
 
-        color1 = "#ffefc9"
-        color2 = "#fdde9c"
-        color3 = "#80c5d8"
-        color4 = "#7791bf"
-        color5 = "#743682"
+        color1 = "#fae2ab"
+        color2 = "#ffbb67"
+        color3 = "#a6a9de"
+        color4 = "#8e6eb1"
+        color5 = "#753384"
+
+
 
         # TODO: how can we interpret the walkability score? (Walk_Sco_1)
         # Create the sublayer for subway routes
@@ -298,7 +300,42 @@ class Workspace extends Backbone.Router
           # Create the CSS
           dot_color = "#606060"
           css = """
-                  ##{table} {marker-fill: #{dot_color}; marker-line-width:0;::line {line-width: 1;}[zoom <= 10] {marker-width: 4;}[zoom > 10] {marker-width: 6;}}
+                  ##{table} {
+                    marker-fill: #{dot_color};
+                    marker-line-width:0;
+                    ::line {
+                      line-width: 1;
+                    }
+                    [zoom <= 10] {
+                      marker-width: 4;
+                    }
+                    [zoom > 10] {
+                      marker-width: 6;
+                    }
+
+                    ::labels {
+                      text-name: [#{value['name_column']}];
+                      text-face-name: 'DejaVu Sans Book';
+                      text-size: 12;
+                      text-label-position-tolerance: 10;
+                      text-fill: #ffffff;
+                      text-halo-fill:  transparent;
+                      text-halo-radius: 1;
+                      text-dy: -10;
+                      text-allow-overlap: false;
+                      text-placement: point;
+                      text-placement-type: simple;
+
+                      [zoom > 10]{
+
+                      }
+
+                      [zoom <= 10]{
+                        text-fill:transparent;
+                        text-halo-fill: transparent;
+                      }
+                    }
+                  }
                 """
 
           if table is "rpa_subwaystations"
@@ -323,11 +360,15 @@ class Workspace extends Backbone.Router
                  <div class="cartodb-popup-content-wrapper">
                     <div class="cartodb-popup-content">
                       <div class='walkability-title'>
-                        <p><b>{{namelsad10}}</b></p>
-                        <p>{{localities}}</p>
+                        <p style="padding-bottom:2px"><b>{{localities}}</b></p>
+                        <p style="color:#ccc;font-size:0.9em">{{namelsad10}}</p>
                       </div>
-                      <p class="walk">Walkability: <b class="walkability-score">{{walk_sco_1}}</b></p>
-                      <div class="progress walk_sco_1"><div class="progress-bar" style="width:{{walk_sco_1}}%"></div></div>
+                      <div class="clearfix">
+                        <span class="pull-left" style="">Walk Score®</span>
+                        <div class="progress walk_sco_1 pull-left" style="width:175px;margin:5px 10px 0 10px"><div class="progress-bar" style="width:{{walk_sco_1}}%"></div></div>
+                        <b class="walkability-score pull-left">{{walk_sco_1}}</b>
+                      </div>
+                      <b style="margin-left:94px">{{walk_sco_2}}</b>
                     </div>
                  </div>
               </div>
@@ -349,10 +390,11 @@ class Workspace extends Backbone.Router
           color = score_to_color[data["walk_sco_2"]]
           $el.find(".progress .progress-bar").css("background-color", "#8e8e8e")
           $el.find(".progress.walk_sco_1 .progress-bar").css("background-color", color)
+
           $el.find(".walkability-score").each(->
               text = $(this).text()
               return unless text
-              $(this).text(parseFloat(text).toFixed(2))
+              $(this).text(parseFloat(text).toFixed(0))
             )
         vent.on "tooltip:rendered", (data,$el)->
           # console.log "Do stuff", data

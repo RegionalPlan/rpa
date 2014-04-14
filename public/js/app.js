@@ -262,11 +262,11 @@
       }).done(function(vis, layers) {
         var color1, color2, color3, color4, color5, layer, map, score_to_color, station_layers, tooltip, walkabilityLayer;
         map = vis.getNativeMap();
-        color1 = "#ffefc9";
-        color2 = "#fdde9c";
-        color3 = "#80c5d8";
-        color4 = "#7791bf";
-        color5 = "#743682";
+        color1 = "#fae2ab";
+        color2 = "#ffbb67";
+        color3 = "#a6a9de";
+        color4 = "#8e6eb1";
+        color5 = "#753384";
         layer = layers[1];
         layer.setInteraction(true);
         walkabilityLayer = layer.getSubLayer(0);
@@ -287,7 +287,7 @@
           ret = "" + table + ".cartodb_id," + table + ".the_geom, " + table + ".the_geom_webmercator, " + table + "." + value['name_column'];
           sql = "SELECT " + ret + " FROM " + table;
           dot_color = "#606060";
-          css = "#" + table + " {marker-fill: " + dot_color + "; marker-line-width:0;::line {line-width: 1;}[zoom <= 10] {marker-width: 4;}[zoom > 10] {marker-width: 6;}}";
+          css = "#" + table + " {\n  marker-fill: " + dot_color + ";\n  marker-line-width:0;\n  ::line {\n    line-width: 1;\n  }\n  [zoom <= 10] {\n    marker-width: 4;\n  }\n  [zoom > 10] {\n    marker-width: 6;\n  }\n\n  ::labels {\n    text-name: [" + value['name_column'] + "];\n    text-face-name: 'DejaVu Sans Book';\n    text-size: 12;\n    text-label-position-tolerance: 10;\n    text-fill: #ffffff;\n    text-halo-fill:  transparent;\n    text-halo-radius: 1;\n    text-dy: -10;\n    text-allow-overlap: false;\n    text-placement: point;\n    text-placement-type: simple;\n\n    [zoom > 10]{\n\n    }\n\n    [zoom <= 10]{\n      text-fill:transparent;\n      text-halo-fill: transparent;\n    }\n  }\n}";
           if (table === "rpa_subwaystations") {
             css += "#" + table + "[zoom < 10] {marker-opacity: 0;}";
           }
@@ -303,7 +303,7 @@
         });
         walkabilityLayer = walkabilityLayer.setInteractivity("cartodb_id, namelsad10, localities, walk_sco_1, walk_sco_2, rail_stops, bank_score, books_scor, coffee_sco, entertainm, grocery_sc, park_score, restaurant, school_sco, shopping_s");
         tooltip = new cdb.geo.ui.Tooltip({
-          template: "<div class=\"cartodb-popup\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class='walkability-title'>\n          <p><b>{{namelsad10}}</b></p>\n          <p>{{localities}}</p>\n        </div>\n        <p class=\"walk\">Walkability: <b class=\"walkability-score\">{{walk_sco_1}}</b></p>\n        <div class=\"progress walk_sco_1\"><div class=\"progress-bar\" style=\"width:{{walk_sco_1}}%\"></div></div>\n      </div>\n   </div>\n</div>",
+          template: "<div class=\"cartodb-popup\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class='walkability-title'>\n          <p style=\"padding-bottom:2px\"><b>{{localities}}</b></p>\n          <p style=\"color:#ccc;font-size:0.9em\">{{namelsad10}}</p>\n        </div>\n        <div class=\"clearfix\">\n          <span class=\"pull-left\" style=\"\">Walk Score®</span>\n          <div class=\"progress walk_sco_1 pull-left\" style=\"width:175px;margin:5px 10px 0 10px\"><div class=\"progress-bar\" style=\"width:{{walk_sco_1}}%\"></div></div>\n          <b class=\"walkability-score pull-left\">{{walk_sco_1}}</b>\n        </div>\n        <b style=\"margin-left:94px\">{{walk_sco_2}}</b>\n      </div>\n   </div>\n</div>",
           layer: walkabilityLayer,
           offset_top: -50
         });
@@ -326,7 +326,7 @@
             if (!text) {
               return;
             }
-            return $(this).text(parseFloat(text).toFixed(2));
+            return $(this).text(parseFloat(text).toFixed(0));
           });
         });
         return vent.on("tooltip:rendered", function(data, $el) {
