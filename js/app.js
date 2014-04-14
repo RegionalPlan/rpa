@@ -27,7 +27,9 @@
         searchControl: false,
         layer_selector: false,
         legends: true,
-        zoom: 9
+        center_lat: 40.7,
+        center_lon: -73.9,
+        zoom: 10
       }).done(function(vis, layers) {
         var activeSublayer, adjust_layer_vis, adjust_sublayer_vis, colors, columns, county_cols, default_sublayers, layer, layer_county, layer_zip, map, shared_cols, sublayers, tables, zip_cols;
         map = vis.getNativeMap();
@@ -180,7 +182,9 @@
         searchControl: false,
         layer_selector: false,
         legends: true,
-        zoom: 9
+        center_lat: 40.7,
+        center_lon: -73.9,
+        zoom: 10
       }).done(function(vis, layers) {
         var color1, color2, color3, map, propertyLayerNYC, propertyLayerNoNYC, rate_to_color, tooltip, tooltip2;
         map = vis.getNativeMap();
@@ -250,7 +254,9 @@
         searchControl: false,
         layer_selector: false,
         legends: true,
-        zoom: 9
+        center_lat: 40.7,
+        center_lon: -73.9,
+        zoom: 10
       }).done(function(vis, layers) {
         var color1, color2, color3, color4, color5, layer, map, score_to_color, station_layers, tooltip, walkabilityLayer;
         map = vis.getNativeMap();
@@ -335,7 +341,9 @@
         searchControl: true,
         layer_selector: false,
         legends: true,
-        zoom: 11
+        center_lat: 40.7,
+        center_lon: -73.9,
+        zoom: 10
       }).done(function(vis, layers) {
         var map, raceLayer, schoolLayer, tooltip;
         map = vis.getNativeMap();
@@ -396,7 +404,9 @@
 
     Workspace.prototype.vulnerable = function() {
       return cartodb.createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', {
-        zoom: 9,
+        center_lat: 40.7,
+        center_lon: -73.9,
+        zoom: 10,
         searchControl: true,
         layer_selector: false,
         legends: false
@@ -609,7 +619,9 @@
       return cartodb.createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', {
         legends: true,
         searchControl: true,
-        zoom: 9,
+        center_lat: 40.7,
+        center_lon: -73.9,
+        zoom: 10,
         infowindow: true,
         layer_selector: false
       }).done(function(vis, layers) {

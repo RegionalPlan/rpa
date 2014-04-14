@@ -12,7 +12,7 @@ class Workspace extends Backbone.Router
     id = "carbon"
     url = "http://rpa.cartodb.com/api/v2/viz/7d0015c0-aed2-11e3-a656-0e73339ffa50/viz.json"
     cartodb
-      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, zoom:9)
+      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
         map = vis.getNativeMap()
         map.scrollWheelZoom.disable()
@@ -175,7 +175,7 @@ class Workspace extends Backbone.Router
     id = "property"
     url = "http://rpa.cartodb.com/api/v2/viz/f368bbb4-aebd-11e3-a057-0e10bcd91c2b/viz.json"
     cartodb
-      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, zoom:9)
+      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
         map = vis.getNativeMap()
         map.scrollWheelZoom.disable()
@@ -264,7 +264,7 @@ class Workspace extends Backbone.Router
     id = "walkability"
     url = "http://rpa.cartodb.com/api/v2/viz/e2c8a5ba-ae10-11e3-87a1-0e230854a1cb/viz.json"
     cartodb
-      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, zoom:9)
+      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
         map = vis.getNativeMap()
         map.scrollWheelZoom.disable()
@@ -366,7 +366,7 @@ class Workspace extends Backbone.Router
 
   schools: ->
     cartodb
-      .createVis('schools', 'http://rpa.cartodb.com/api/v2/viz/5bc0d9be-a264-11e3-bc17-0e10bcd91c2b/viz.json', searchControl: true, layer_selector: false, legends: true, zoom:11)
+      .createVis('schools', 'http://rpa.cartodb.com/api/v2/viz/5bc0d9be-a264-11e3-bc17-0e10bcd91c2b/viz.json', searchControl: true, layer_selector: false, legends: true, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
         map = vis.getNativeMap()
         map.scrollWheelZoom.disable()
@@ -522,7 +522,7 @@ class Workspace extends Backbone.Router
 
   vulnerable: ->
     cartodb
-      .createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', zoom: 9, searchControl: true, layer_selector: false, legends: false)
+      .createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', center_lat: 40.7, center_lon: -73.9, zoom:10, searchControl: true, layer_selector: false, legends: false)
       .done (vis,layers)->
         map = vis.getNativeMap()
         map.scrollWheelZoom.disable()
@@ -751,7 +751,7 @@ class Workspace extends Backbone.Router
 
     # DISCRETIONARY INCOME
     cartodb
-      .createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', legends: true, searchControl: true, zoom: 9, infowindow: true, layer_selector: false)
+      .createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', legends: true, searchControl: true, center_lat: 40.7, center_lon: -73.9, zoom:10, infowindow: true, layer_selector: false)
       .done (vis,layers)->
         map = vis.getNativeMap()
         map.scrollWheelZoom.disable()
