@@ -391,9 +391,9 @@ class Workspace extends Backbone.Router
                       {{#rank_perce}}
                         <div><b>School Rank</b></div>
                         <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;">
-                          <div class="progress-bar progress-bar-success" style="width:25%;background-color:#70706e;"></div>
-                          <div class="progress-bar progress-bar-danger" style="width:50%;background-color:#dc0000;"></div>
-                          <div class="progress-bar progress-bar-warning" style="width:25%;background-color:#0c7caa;"></div>
+                          <div class="progress-bar low" style="width:25%;background-color:#0c7caa;"></div>
+                          <div class="progress-bar average" style="width:50%;background-color:#70706e;"></div>
+                          <div class="progress-bar high" style="width:25%;background-color:#dc0000;"></div>
                           <span style="position:relative;text-align:center">
                             <span style="font-size: 2em;line-height: 1em;position: absolute;top: -18px;left: 5px;">•</span>
                             <b class="school-rank">{{rank_perce}}</b>
@@ -407,9 +407,9 @@ class Workspace extends Backbone.Router
                       {{#hh_median}}
                         <div><b>Median Household Income</b></div>
                         <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;">
-                          <div class="progress-bar progress-bar-success" style="width:20%;background-color:#f2f0ee;"></div>
-                          <div class="progress-bar progress-bar-danger" style="width:20%;background-color:#e5e1dd;"></div>
-                          <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#d7d2cc;"></div>
+                          <div class="progress-bar low" style="width:20%;background-color:#f2f0ee;"></div>
+                          <div class="progress-bar average" style="width:20%;background-color:#e5e1dd;"></div>
+                          <div class="progress-bar high" style="width:20%;background-color:#d7d2cc;"></div>
                           <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#cbc4bd;"></div>
                           <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#beb4aa;"></div>
 
@@ -428,9 +428,9 @@ class Workspace extends Backbone.Router
                       {{#whiteprcnt}}
                         <div><b>Percentage of White Population</b></div>
                         <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;">
-                          <div class="progress-bar progress-bar-success" style="width:20%;background-color:#f2f0ee;"></div>
-                          <div class="progress-bar progress-bar-danger" style="width:20%;background-color:#e5e1dd;"></div>
-                          <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#d7d2cc;"></div>
+                          <div class="progress-bar low" style="width:20%;background-color:#f2f0ee;"></div>
+                          <div class="progress-bar average" style="width:20%;background-color:#e5e1dd;"></div>
+                          <div class="progress-bar high" style="width:20%;background-color:#d7d2cc;"></div>
                           <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#cbc4bd;"></div>
                           <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#beb4aa;"></div>
 
