@@ -24,7 +24,7 @@
       id = "carbon";
       url = "http://rpa.cartodb.com/api/v2/viz/7d0015c0-aed2-11e3-a656-0e73339ffa50/viz.json";
       return cartodb.createVis(id, url, {
-        searchControl: false,
+        searchControl: true,
         layer_selector: false,
         legends: true,
         cartodb_logo: false,
@@ -179,7 +179,7 @@
       id = "property";
       url = "http://rpa.cartodb.com/api/v2/viz/f368bbb4-aebd-11e3-a057-0e10bcd91c2b/viz.json";
       return cartodb.createVis(id, url, {
-        searchControl: false,
+        searchControl: true,
         layer_selector: false,
         legends: true,
         cartodb_logo: false,
@@ -251,7 +251,7 @@
       id = "walkability";
       url = "http://rpa.cartodb.com/api/v2/viz/e2c8a5ba-ae10-11e3-87a1-0e230854a1cb/viz.json";
       return cartodb.createVis(id, url, {
-        searchControl: false,
+        searchControl: true,
         layer_selector: false,
         legends: true,
         cartodb_logo: false,
@@ -309,11 +309,11 @@
         });
         vis.container.append(tooltip.render().el);
         score_to_color = {
-          "Very Car-Dependent": "#ffefc9",
-          "Car-Dependent": "#fdde9c",
-          "Somewhat Walkable": "#80c5d8",
-          "Very Walkable": "#7791bf",
-          "Walker's Paradise": "#743682"
+          "Very Car-Dependent": "#fae2ab",
+          "Car-Dependent": "#ffbb67",
+          "Somewhat Walkable": "#a6a9de",
+          "Very Walkable": "#8e6eb1",
+          "Walker's Paradise": "#753384"
         };
         vent.on("infowindow:rendered", function(data, $el) {
           var color;

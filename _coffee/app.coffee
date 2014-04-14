@@ -12,7 +12,7 @@ class Workspace extends Backbone.Router
     id = "carbon"
     url = "http://rpa.cartodb.com/api/v2/viz/7d0015c0-aed2-11e3-a656-0e73339ffa50/viz.json"
     cartodb
-      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
+      .createVis(id, url, searchControl: true, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
         map = vis.getNativeMap()
 
@@ -173,7 +173,7 @@ class Workspace extends Backbone.Router
     id = "property"
     url = "http://rpa.cartodb.com/api/v2/viz/f368bbb4-aebd-11e3-a057-0e10bcd91c2b/viz.json"
     cartodb
-      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
+      .createVis(id, url, searchControl: true, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
         map = vis.getNativeMap()
 
@@ -260,7 +260,7 @@ class Workspace extends Backbone.Router
     id = "walkability"
     url = "http://rpa.cartodb.com/api/v2/viz/e2c8a5ba-ae10-11e3-87a1-0e230854a1cb/viz.json"
     cartodb
-      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
+      .createVis(id, url, searchControl: true, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
         map = vis.getNativeMap()
 
@@ -380,12 +380,11 @@ class Workspace extends Backbone.Router
 
 
         score_to_color =
-          "Very Car-Dependent": "#ffefc9"
-          "Car-Dependent": "#fdde9c"
-          "Somewhat Walkable": "#80c5d8"
-          "Very Walkable": "#7791bf"
-          "Walker's Paradise": "#743682"
-
+          "Very Car-Dependent": "#fae2ab"
+          "Car-Dependent": "#ffbb67"
+          "Somewhat Walkable": "#a6a9de"
+          "Very Walkable": "#8e6eb1"
+          "Walker's Paradise": "#753384"
         vent.on "infowindow:rendered", (data,$el)->
           color = score_to_color[data["walk_sco_2"]]
           $el.find(".progress .progress-bar").css("background-color", "#8e8e8e")
