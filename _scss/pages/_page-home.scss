@@ -16,6 +16,13 @@
       width: 600px;
       line-height:1.8em;
       color:white;
+
+      @media (max-width: $screen-tablet){
+        display: inline-block;
+        line-height:1em;
+        width: auto;
+        padding-bottom:20px;
+      }
     }
   }
 
