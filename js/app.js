@@ -609,7 +609,7 @@
       return cartodb.createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', {
         legends: true,
         searchControl: true,
-        zoom: 8,
+        zoom: 9,
         infowindow: true,
         layer_selector: false
       }).done(function(vis, layers) {
