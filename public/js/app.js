@@ -366,20 +366,20 @@
           $(".hh-rank").text("" + hhRank + "%").parent().css("left", "" + hhRank + "%");
           return $(".race-rank").text("" + raceRank + "%").parent().css("left", "" + raceRank + "%");
         });
-        return $("#layer_selector li").on("click", function(e) {
-          var $li, activeLi, activeSublayer, borders, color, css, layerName, table;
-          $li = $(e.target);
-          layerName = $li.data("sublayer");
-          if ($li.hasClass("active")) {
+        return $("#layer_selector a").on("click", function(e) {
+          var $a, activeLink, activeSublayer, borders, color, css, layerName, table;
+          $a = $(e.target);
+          layerName = $a.data("sublayer");
+          if ($a.hasClass("active")) {
             return true;
           }
-          activeLi = $li.parent().find(".active");
-          activeLi.removeClass("active");
-          $li.toggleClass("active");
-          activeSublayer = $li.data("sublayer");
+          activeLink = $a.parent().find(".active");
+          activeLink.removeClass("active");
+          $a.toggleClass("active");
+          activeSublayer = $a.data("sublayer");
           if (activeSublayer === "race") {
             table = "whiteprcnt";
-            color = "#be0000";
+            color = "#b5c0a6";
             borders = [0.1, 0.25, 0.50, 0.75, 1];
           } else {
             table = "hh_median";
@@ -387,7 +387,9 @@
             borders = [40125, 57344, 76061, 99075, 250000];
           }
           css = "#schoolrank2012_racepoverty_income_rparegion{\n\n  polygon-fill: " + color + ";\n\n  [ " + table + " <= " + borders[0] + "] {\n     polygon-opacity: 0.2;\n  }\n  [ " + table + " > " + borders[0] + "][ " + table + " <= " + borders[1] + "] {\n     polygon-opacity: 0.4;\n  }\n  [ " + table + " > " + borders[1] + "][ " + table + " <= " + borders[2] + "] {\n     polygon-opacity: 0.6;\n  }\n  [ " + table + " > " + borders[2] + "][ " + table + " <= " + borders[3] + "] {\n     polygon-opacity: 0.8;\n  }\n  [ " + table + " > " + borders[3] + "][ " + table + " <= " + borders[4] + "] {\n     polygon-opacity: 1;\n  }\n}";
-          return raceLayer.setCartoCSS(css);
+          raceLayer.setCartoCSS(css);
+          $(".race-legend").toggle();
+          return $(".hh-legend").toggle();
         });
       });
     };

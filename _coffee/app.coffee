@@ -467,24 +467,24 @@ class Workspace extends Backbone.Router
             $(".race-rank").text("#{raceRank}%").parent().css("left","#{raceRank}%")
           )
 
-        $("#layer_selector li").on "click", (e)->
-          $li = $(e.target)
-          layerName = $li.data("sublayer")
+        $("#layer_selector a").on "click", (e)->
+          $a = $(e.target)
+          layerName = $a.data("sublayer")
 
-          return true if $li.hasClass("active")
+          return true if $a.hasClass("active")
 
-          activeLi =  $li.parent().find(".active")
-          activeLi.removeClass("active")
+          activeLink =  $a.parent().find(".active")
+          activeLink.removeClass("active")
 
           # Toggle the active class
-          $li.toggleClass("active")
+          $a.toggleClass("active")
 
-          activeSublayer = $li.data("sublayer")
+          activeSublayer = $a.data("sublayer")
 
 
           if activeSublayer is "race"
             table = "whiteprcnt"
-            color = "#be0000"
+            color = "#b5c0a6"
             borders = [0.1,0.25,0.50,0.75,1]
           else
             table = "hh_median"
@@ -514,6 +514,10 @@ class Workspace extends Backbone.Router
               }
             """
           raceLayer.setCartoCSS(css)
+
+          $(".race-legend").toggle()
+          $(".hh-legend").toggle()
+
 
 
   vulnerable: ->

@@ -7,17 +7,6 @@
 
   $nodata: #a7907b;
 
-  // INFOWINDOW
-  .Bottom{
-    color: $bottom;
-  }
-  .Top{
-    color: $top;
-  }
-  .Middle{
-    color: $middle;
-  }
-
   // LEGEND
   .cartodb-legend-stack{
     width:240px;
@@ -30,15 +19,14 @@
 
   }
   .school-rank-legend{
-    .note{
-      font-size: 10px;
-    }
-    div{
-      p{
-        &:nth-child(1){ color: $top;}
-        &:nth-child(2){ color: $middle;}
-        &:nth-child(3){ color: $bottom;}
-        &:nth-child(4){ color: $nodata;}
+    .colors{
+      div{
+        color:white;
+        line-height:2.2em;
+
+        &:nth-child(1){ background-color: $top;}
+        &:nth-child(2){ background-color: $middle;}
+        &:nth-child(3){ background-color: $bottom;}
       }
     }
   }
@@ -64,20 +52,25 @@
   }
 
   // Race colors
-  $color1: #be0000;
-  $color2: rgba($color1, 0.8);
-  $color3: rgba($color1, 0.6);
-  $color4: rgba($color1, 0.4);
-  $color5: rgba($color1, 0.2);
+
+
+
+
+
+  $color1: #f5f5f5;
+  $color2: #e8e8e4;
+  $color3: #daded5;
+  $color4: #cdd3c3;
+  $color5: #b5c0a6;
 
   .race{
     .colors{
-      $i:5;
+      $i:1;
       @each $color in $color1, $color2, $color3, $color4, $color5 {
         div:nth-child(#{$i}){
           background-color: $color;
         }
-        $i: $i - 1;
+        $i: $i + 1;
       }
     }
   }
