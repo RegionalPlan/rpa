@@ -49,6 +49,6 @@ prose:
               value: "walkability"
       - name: "chapter_number"
         field:
-          element: "text"
+          element: "number"
           label: "Chapter Number"
           value: ""
