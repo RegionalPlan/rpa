@@ -11,6 +11,14 @@ prose:
   media: 'media'
   metadata:
     c:
+      - name: "class"
+        field:
+          element: "hidden"
+          value: "ch2"
+      - name: "page_name"
+        field:
+          element: "hidden"
+          value: "STATE OF THE REGION"
       - name: "layout"
         field:
           element: "hidden"
@@ -41,6 +49,6 @@ prose:
               value: "walkability"
       - name: "chapter_number"
         field:
-          element: "text"
+          element: "number"
           label: "Chapter Number"
           value: ""
