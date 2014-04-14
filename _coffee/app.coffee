@@ -906,7 +906,7 @@ $ ->
 
   # setChapterHref
   sch = (anchor,chapter)->
-    anchor.attr("href","#{root}/c/#{chapter}.html")
+    anchor.attr("href","#{root}c/#{chapter}.html")
 
   chapter = parseInt location.pathname.match(/c\/(.+)\.html/)?[1]
   if chapter

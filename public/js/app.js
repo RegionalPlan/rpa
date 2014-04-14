@@ -709,7 +709,7 @@
       }
     };
     sch = function(anchor, chapter) {
-      return anchor.attr("href", "" + root + "/c/" + chapter + ".html");
+      return anchor.attr("href", "" + root + "c/" + chapter + ".html");
     };
     chapter = parseInt((_ref = location.pathname.match(/c\/(.+)\.html/)) != null ? _ref[1] : void 0);
     if (chapter) {
