@@ -1,6 +1,8 @@
 .page.vulnerable{
   #layer_selector{
-    right:10px;
     @include layer_selector();
+    left:10px;
+    top: 10px;
+    bottom: initial;
   }
 }

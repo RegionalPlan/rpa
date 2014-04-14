@@ -12,10 +12,9 @@ class Workspace extends Backbone.Router
     id = "carbon"
     url = "http://rpa.cartodb.com/api/v2/viz/7d0015c0-aed2-11e3-a656-0e73339ffa50/viz.json"
     cartodb
-      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, center_lat: 40.7, center_lon: -73.9, zoom:10)
+      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
         map = vis.getNativeMap()
-        map.scrollWheelZoom.disable()
 
         layer = layers[1]
         layer_county = layers[1].getSubLayer(0)
@@ -128,7 +127,6 @@ class Workspace extends Backbone.Router
         adjust_sublayer_vis(show: tables[1], hide: tables[0])
 
         map = vis.getNativeMap()
-        map.scrollWheelZoom.disable()
         map.on 'zoomend', (a,b,c)->
           $(".cartodb-tooltip").hide()
           zoomLevel = map.getZoom()
@@ -175,10 +173,9 @@ class Workspace extends Backbone.Router
     id = "property"
     url = "http://rpa.cartodb.com/api/v2/viz/f368bbb4-aebd-11e3-a057-0e10bcd91c2b/viz.json"
     cartodb
-      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, center_lat: 40.7, center_lon: -73.9, zoom:10)
+      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
         map = vis.getNativeMap()
-        map.scrollWheelZoom.disable()
 
         color1 = "#ffefc9"
         color2 = "#fdde9c"
@@ -230,7 +227,6 @@ class Workspace extends Backbone.Router
 
 
         map = vis.getNativeMap()
-        map.scrollWheelZoom.disable()
         map.on 'zoomend', (a,b,c)->
           zoomLevel = map.getZoom()
           if zoomLevel > 9
@@ -264,10 +260,9 @@ class Workspace extends Backbone.Router
     id = "walkability"
     url = "http://rpa.cartodb.com/api/v2/viz/e2c8a5ba-ae10-11e3-87a1-0e230854a1cb/viz.json"
     cartodb
-      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, center_lat: 40.7, center_lon: -73.9, zoom:10)
+      .createVis(id, url, searchControl: false, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
         map = vis.getNativeMap()
-        map.scrollWheelZoom.disable()
 
         color1 = "#ffefc9"
         color2 = "#fdde9c"
@@ -366,10 +361,9 @@ class Workspace extends Backbone.Router
 
   schools: ->
     cartodb
-      .createVis('schools', 'http://rpa.cartodb.com/api/v2/viz/5bc0d9be-a264-11e3-bc17-0e10bcd91c2b/viz.json', searchControl: true, layer_selector: false, legends: true, center_lat: 40.7, center_lon: -73.9, zoom:10)
+      .createVis('schools', 'http://rpa.cartodb.com/api/v2/viz/5bc0d9be-a264-11e3-bc17-0e10bcd91c2b/viz.json', searchControl: true, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
         map = vis.getNativeMap()
-        map.scrollWheelZoom.disable()
 
         # Create the sublayer for subway routes
         layers[1].setInteraction(true)
@@ -522,10 +516,9 @@ class Workspace extends Backbone.Router
 
   vulnerable: ->
     cartodb
-      .createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', center_lat: 40.7, center_lon: -73.9, zoom:10, searchControl: true, layer_selector: false, legends: false)
+      .createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10, searchControl: true, layer_selector: false, legends: true, zoomControl: false)
       .done (vis,layers)->
         map = vis.getNativeMap()
-        map.scrollWheelZoom.disable()
 
         layer = layers[1]
         floodZoneLayer = layer.getSubLayer(0)
@@ -682,15 +675,14 @@ class Workspace extends Backbone.Router
           )
         )
 
-        # TODO: create a handler for the layer_selector. Toggle the visibility of the clicked layer.
-
         $("#layer_selector li").on "click", (e)->
-          $li = $(e.target)
+          $li = $(e.target).closest("li")
           layerName = $li.data("sublayer")
 
           return true if $li.hasClass("active")
+          return true if $li.hasClass("disabled")
 
-          activeLi =  $li.parent().find(".active")
+          activeLi =  $li.parents("ul").find(".active")
           activeLi.removeClass("active")
 
           # Toggle the active class
@@ -713,6 +705,7 @@ class Workspace extends Backbone.Router
                 else
                   value["layer"].hide()
           )
+        $("#layer_selector li:eq(0)").click()
 
   discretionary: ->
     makeChart = (data, mhi, id="#donut")->
@@ -751,10 +744,9 @@ class Workspace extends Backbone.Router
 
     # DISCRETIONARY INCOME
     cartodb
-      .createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', legends: true, searchControl: true, center_lat: 40.7, center_lon: -73.9, zoom:10, infowindow: true, layer_selector: false)
+      .createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', legends: true, searchControl: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10, infowindow: true, layer_selector: false)
       .done (vis,layers)->
         map = vis.getNativeMap()
-        map.scrollWheelZoom.disable()
 
         dataLayers = layers[1]
         dataLayers.setInteraction(true)

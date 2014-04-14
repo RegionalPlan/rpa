@@ -27,13 +27,14 @@
         searchControl: false,
         layer_selector: false,
         legends: true,
+        cartodb_logo: false,
+        scrollwheel: false,
         center_lat: 40.7,
         center_lon: -73.9,
         zoom: 10
       }).done(function(vis, layers) {
         var activeSublayer, adjust_layer_vis, adjust_sublayer_vis, colors, columns, county_cols, default_sublayers, layer, layer_county, layer_zip, map, shared_cols, sublayers, tables, zip_cols;
         map = vis.getNativeMap();
-        map.scrollWheelZoom.disable();
         layer = layers[1];
         layer_county = layers[1].getSubLayer(0);
         layer_zip = layers[1].getSubLayer(1);
@@ -115,7 +116,6 @@
           hide: tables[0]
         });
         map = vis.getNativeMap();
-        map.scrollWheelZoom.disable();
         map.on('zoomend', function(a, b, c) {
           var zoomLevel;
           $(".cartodb-tooltip").hide();
@@ -182,13 +182,14 @@
         searchControl: false,
         layer_selector: false,
         legends: true,
+        cartodb_logo: false,
+        scrollwheel: false,
         center_lat: 40.7,
         center_lon: -73.9,
         zoom: 10
       }).done(function(vis, layers) {
         var color1, color2, color3, map, propertyLayerNYC, propertyLayerNoNYC, rate_to_color, tooltip, tooltip2;
         map = vis.getNativeMap();
-        map.scrollWheelZoom.disable();
         color1 = "#ffefc9";
         color2 = "#fdde9c";
         color3 = "#80c5d8";
@@ -211,7 +212,6 @@
         });
         vis.container.append(tooltip2.render().el);
         map = vis.getNativeMap();
-        map.scrollWheelZoom.disable();
         map.on('zoomend', function(a, b, c) {
           var zoomLevel;
           zoomLevel = map.getZoom();
@@ -254,13 +254,14 @@
         searchControl: false,
         layer_selector: false,
         legends: true,
+        cartodb_logo: false,
+        scrollwheel: false,
         center_lat: 40.7,
         center_lon: -73.9,
         zoom: 10
       }).done(function(vis, layers) {
         var color1, color2, color3, color4, color5, layer, map, score_to_color, station_layers, tooltip, walkabilityLayer;
         map = vis.getNativeMap();
-        map.scrollWheelZoom.disable();
         color1 = "#ffefc9";
         color2 = "#fdde9c";
         color3 = "#80c5d8";
@@ -341,13 +342,14 @@
         searchControl: true,
         layer_selector: false,
         legends: true,
+        cartodb_logo: false,
+        scrollwheel: false,
         center_lat: 40.7,
         center_lon: -73.9,
         zoom: 10
       }).done(function(vis, layers) {
         var map, raceLayer, schoolLayer, tooltip;
         map = vis.getNativeMap();
-        map.scrollWheelZoom.disable();
         layers[1].setInteraction(true);
         raceLayer = layers[1].getSubLayer(0);
         schoolLayer = layers[1].getSubLayer(1);
@@ -404,16 +406,18 @@
 
     Workspace.prototype.vulnerable = function() {
       return cartodb.createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', {
+        cartodb_logo: false,
+        scrollwheel: false,
         center_lat: 40.7,
         center_lon: -73.9,
         zoom: 10,
         searchControl: true,
         layer_selector: false,
-        legends: false
+        legends: true,
+        zoomControl: false
       }).done(function(vis, layers) {
         var dbs, floodZoneLayer, layer, map, red;
         map = vis.getNativeMap();
-        map.scrollWheelZoom.disable();
         layer = layers[1];
         floodZoneLayer = layer.getSubLayer(0);
         layer.setInteraction(true);
@@ -534,14 +538,17 @@
             template: "<div style=\"background:white;padding:5px 10px;\">\n  <div style=\"margin-bottom:10px\">\n    <h3 class=\"title-case\" style=\"margin:0\">{{ " + value['name_column'] + " }}</h3>\n    {{#localname}}\n      <span>{{localname}}</span>\n    {{/localname}}\n  </div>\n  <div>\n    " + value['type'] + "\n  </div>\n  {{#" + value['loss_column'] + " }}\n    <p>Affected " + value['affected_type'] + ": {{ " + value['loss_column'] + " }}</p>\n  {{/" + value['loss_column'] + " }}\n</div>"
           });
         });
-        return $("#layer_selector li").on("click", function(e) {
+        $("#layer_selector li").on("click", function(e) {
           var $li, activeLi, activeSublayer, dbs_and_flood_zone, layerName;
-          $li = $(e.target);
+          $li = $(e.target).closest("li");
           layerName = $li.data("sublayer");
           if ($li.hasClass("active")) {
             return true;
           }
-          activeLi = $li.parent().find(".active");
+          if ($li.hasClass("disabled")) {
+            return true;
+          }
+          activeLi = $li.parents("ul").find(".active");
           activeLi.removeClass("active");
           $li.toggleClass("active");
           activeSublayer = $li.data("sublayer");
@@ -564,6 +571,7 @@
             }
           });
         });
+        return $("#layer_selector li:eq(0)").click();
       });
     };
 
@@ -619,6 +627,8 @@
       return cartodb.createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', {
         legends: true,
         searchControl: true,
+        cartodb_logo: false,
+        scrollwheel: false,
         center_lat: 40.7,
         center_lon: -73.9,
         zoom: 10,
@@ -627,7 +637,6 @@
       }).done(function(vis, layers) {
         var censusLayer, countyLayer, dataLayers, map, tmpl, tooltip;
         map = vis.getNativeMap();
-        map.scrollWheelZoom.disable();
         dataLayers = layers[1];
         dataLayers.setInteraction(true);
         countyLayer = dataLayers.getSubLayer(0);

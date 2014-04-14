@@ -1,22 +1,32 @@
-#vulnerableInfra{
+#vulnerable{
   // LEGEND
   div.cartodb-legend.custom{
-    width:145px;
-    li.graph{
-      height:125px;
-      border:none;
-    }
-    div.colors{
-      div.quartile{
+    // width:145px;
+    .colors{
+      div:before{
+        content: "";
         display:block;
-        margin-bottom:1px;
-        &:after{
-          width: 150px;
-          float: left;
-          display: block;
-          margin: 5px 0 10px 0;
-          text-transform:lowercase;
-        }
+        float:left;
+        width:10px;
+        height:10px;
+        margin-right:5px;
+        margin-top:2px;
+
+      };
+      div:nth-child(1):before{
+        background:#80c8dd;
+      }
+      div:nth-child(2):before{
+        content: "•";
+        color:#ba0000;
+        font-size:2em;
+        line-height:0.5em;
+      }
+      div:nth-child(3):before{
+        content: "•";
+        color:#575757;
+        font-size:2em;
+        line-height:0.5em;
       }
     }
   }
