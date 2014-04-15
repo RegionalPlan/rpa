@@ -3,12 +3,11 @@
   // TOOLTIP
   .cartodb-tooltip{
     @include carto-tooltip(345px, 110px);
-    padding:10px;
   }
 
   // INFOWINDOW
   .cartodb-infowindow{
-    @include cartodb-infowindow(427.5px,300px);
+    @include carto-infowindow(427.5px,280px);
   }
 
   // LEGEND

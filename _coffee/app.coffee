@@ -359,9 +359,9 @@ class Workspace extends Backbone.Router
               <div class="cartodb-popup">
                  <div class="cartodb-popup-content-wrapper">
                     <div class="cartodb-popup-content">
-                      <div class='walkability-title'>
-                        <b style="padding-bottom:2px">{{localities}}</b>
-                        <p style="color:#ccc;font-size:0.9em">{{namelsad10}}</p>
+                      <div class='title'>
+                        <b>{{localities}}</b>
+                        <p>{{namelsad10}}</p>
                       </div>
                       <div class="clearfix">
                         <span class="pull-left" style="">Walk Score®</span>
@@ -928,7 +928,9 @@ class Workspace extends Backbone.Router
                <div class="cartodb-popup-content-wrapper">
                   <div class="title">
                     <b>{{content.data.county}}{{content.data.localname}}</b>
-                    <span>{{content.data.namelsad10}}</span>
+                    {{# content.data.namelsad10}}
+                    <p>{{content.data.namelsad10}}</p>
+                    {{/ content.data.namelsad10}}
                   </div>
                   <table style="margin-bottom:10px">
                     <tr>
@@ -998,7 +1000,7 @@ class Workspace extends Backbone.Router
         tooltipTmpl = """
               <div class="cartodb-popup">
                   <div class="title">
-                    <b style="padding-bottom:2px;">{{county}}{{localname}}</b>
+                    <b>{{county}}{{localname}}</b>
                   </div>
                   <div>
                     Median Income:

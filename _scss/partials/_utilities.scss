@@ -15,7 +15,7 @@
     font-size:18px;
   }
   a.cartodb-popup-close-button{
-    top: 5px;
+    top: 0px;
     right: 7px;
   }
   .cartodb-popup, .cartodb-popup-content-wrapper{
@@ -38,28 +38,29 @@
   padding:0;
 }
 
-@mixin carto-tooltip($tooltipWidth:345px, $tooltipHeight:150px){
+@mixin carto-tooltip($width:345px, $height:150px){
   background-color:white;
   @include shared();
   @include shared-borders();
 
-  width:$tooltipWidth;
+  width:$width;
+  font-size:12px;
 
   padding:10px;
 
   .cartodb-popup{
-    @include windowfix($tooltipWidth - 30px, $tooltipHeight);
+    @include windowfix($width - 30px, $height);
     .cartodb-popup-content-wrapper{
-      @include windowfix($tooltipWidth - 15px, $tooltipHeight - 5px);
+      @include windowfix($width - 30px, $height - 5px);
       overflow:hidden;
       .cartodb-popup-content{
-        @include windowfix($tooltipWidth - 35px, $tooltipHeight - 5px);
+        @include windowfix($width - 35px, $height - 5px);
         overflow:visible !important;
         .jspContainer{
-          @include windowfix($tooltipWidth - 40px, $tooltipHeight - 5px);
+          @include windowfix($width - 40px, $height - 5px);
           .jspVerticalBar{display:none !important;}
           .jspPane{
-            @include windowfix($tooltipWidth - 40px, $tooltipHeight - 5px);
+            @include windowfix($width - 40px, $height - 5px);
           }
         }
       }
@@ -68,31 +69,24 @@
 
 }
 
-@mixin cartodb-infowindow($maxWidth:560px,$height:220px){
-  width:$maxWidth !important;
-  max-width:$maxWidth !important;
-  @include shared();
-  @include shared-borders();
+@mixin carto-infowindow($width:560px,$height:220px){
+  @include carto-tooltip($width,$height);
 
-  $width:$maxWidth;
+  .cartodb-popup-tip-container{
+    background:none;
+    margin: 0px 0 0 10px;
 
-  .cartodb-popup{
-    @include windowfix($width, $height);
-    .cartodb-popup-content-wrapper{
-      @include windowfix($width - 15px, $height - 15px);
-      overflow:hidden;
-      padding-top: 0;
-      .cartodb-popup-content{
-        @include windowfix($width - 35px, $height - 15px);
-        overflow:visible !important;
-        .jspContainer{
-          @include windowfix($width - 40px, $height - 15px);
-          .jspVerticalBar{display:none !important;}
-          .jspPane{
-            @include windowfix($width - 40px, $height - 15px);
-          }
-        }
-      }
+    &:after{
+      content: " ";
+      $size: 15px;
+      width: $size;
+      height: $size;
+      display:block;
+      border-style: solid;
+      border-width: $size $size 0 0;
+      border-color: #fff transparent transparent transparent;
+      position: relative;
+      top: 15px;
     }
   }
 

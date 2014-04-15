@@ -1,26 +1,10 @@
 @import "bootstrap";
 @import "font-awesome";
 
-@import "partials/variables";
-@import "partials/fonts";
-@import "partials/base";
-@import "partials/utilities";
-@import "partials/navbar";
+@import "partials/*";
+  
+@import "maps/*";
 
-@import "maps/discretionary";
-@import "maps/vulnerable";
-@import "maps/schools";
-@import "maps/walkability";
-@import "maps/property";
-@import "maps/carbon";
-
-@import "pages/page-schools";
-@import "pages/page-discretionary";
-@import "pages/page-vulnerable";
-@import "pages/page-carbon";
-@import "pages/page-walkability";
-@import "pages/page-home";
-@import "pages/page-ch";
-
+@import "pages/*";
 
 
