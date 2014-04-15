@@ -6,7 +6,11 @@
   }
 
   & + #layer_selector{
+    @include layer_selector();
     font-size:12px;
+    left:10px;
+    top: 90px;
+    bottom: initial;
     h3{
       font-size:18px;
       margin:0;

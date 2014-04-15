@@ -71,7 +71,6 @@
 
 
   .walkability-legend{
-    // Income colors
     $color1: #fae2ab;
     $color2: #ffbb67;
     $color3: #a6a9de;
@@ -143,19 +142,19 @@
   line-width: 0.5;
   line-opacity: 1;
 }
-#walkscore_rpa_2010blockgroups_032014_withlocal [ walk_sco_2 <= 'Very Car Dependent'] {
-   polygon-fill: #BD0026;
+#walkscore_rpa_2010blockgroups_032014_withlocal [ walk_sco_1 <= 20] {
+   polygon-fill: #fae2ab;
 }
-#walkscore_rpa_2010blockgroups_032014_withlocal [ walk_sco_2 <= 'Somewhat Car Dependent'] {
-   polygon-fill: #F03B20;
+#walkscore_rpa_2010blockgroups_032014_withlocal [ walk_sco_1 > 20][ walk_sco_1 <= 50] {
+   polygon-fill: #ffbb67;
 }
-#walkscore_rpa_2010blockgroups_032014_withlocal [ walk_sco_2 <= 'Somewhat Walkable'] {
-   polygon-fill: #FD8D3C;
+#walkscore_rpa_2010blockgroups_032014_withlocal [ walk_sco_1 > 50][ walk_sco_1 <= 75] {
+   polygon-fill: #a6a9de;
 }
-#walkscore_rpa_2010blockgroups_032014_withlocal [ walk_sco_2 <= 'Very Walkable'] {
-   polygon-fill: #FECC5C;
+#walkscore_rpa_2010blockgroups_032014_withlocal [ walk_sco_1 > 75][ walk_sco_1 <= 90] {
+   polygon-fill: #8e6eb1;
 }
-#walkscore_rpa_2010blockgroups_032014_withlocal [ walk_sco_2 <= 'Walker's Paradise'] {
-   polygon-fill: #FFFFB2;
+#walkscore_rpa_2010blockgroups_032014_withlocal [ walk_sco_1 > 90] {
+   polygon-fill: #753384;
 }
 */

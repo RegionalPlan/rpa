@@ -418,6 +418,9 @@
       }).done(function(vis, layers) {
         var dbs, floodZoneLayer, layer, map, red;
         map = vis.getNativeMap();
+        map.on("zoomstart", function(a, b, c) {
+          return console.log(a, b, c);
+        });
         layer = layers[1];
         floodZoneLayer = layer.getSubLayer(0);
         layer.setInteraction(true);
@@ -457,7 +460,7 @@
             loss_column: "total_unit",
             affected_type: "units",
             localities: true,
-            tables: ["rpa_publichousing_withlocalities_hud2013_short"]
+            tables: ["publichousing_rparegion_1"]
           },
           train_stations: {
             flood_column: "flood",
@@ -494,6 +497,51 @@
             affected_type: "routes",
             localities: false,
             tables: ["rpa_subwayroutes_flood"]
+          },
+          subway_yards: {
+            flood_column: "flood",
+            type: "Subway yard",
+            name_column: "yard_name",
+            loss_column: false,
+            affected_type: "yards",
+            localities: false,
+            tables: ["nyct_subway_yards"]
+          },
+          transit_tunnels: {
+            flood_column: "flood",
+            type: "Transit tunnel",
+            name_column: "name",
+            loss_column: false,
+            affected_type: "tunnels",
+            localities: false,
+            tables: ["nyc_transit_tunnels2014"]
+          },
+          airports: {
+            flood_column: "flood",
+            type: "Airport",
+            name_column: "name",
+            loss_column: false,
+            affected_type: "airports",
+            localities: false,
+            tables: ["rpa_majorregionalairports_042014"]
+          },
+          ports: {
+            flood_column: "flood",
+            type: "Port",
+            name_column: "name",
+            loss_column: false,
+            affected_type: "ports",
+            localities: false,
+            tables: ["rpa_ports_042014"]
+          },
+          elem_schools: {
+            flood_column: "flood",
+            type: "Elementary school",
+            name_column: "schnam",
+            loss_column: false,
+            affected_type: "schools",
+            localities: false,
+            tables: ["elem_schools"]
           }
         };
         _.each(dbs, function(value, k) {
@@ -511,7 +559,7 @@
           });
           sql = sql.join(" UNION ALL ");
           css = _.map(value["tables"], function(table) {
-            return "#" + table + " {marker-fill: " + red + ";marker-line-width:0;::line {line-width: 1;line-color: " + red + ";}[" + value['flood_column'] + " < 1]{marker-fill: #575757;}[zoom <= 13] {marker-width: 5;}[zoom > 13] {marker-width: 15;}}";
+            return "#" + table + " {\n  marker-fill: " + red + ";\n  marker-line-width:0;\n\n  ::line {\n    line-width: 1;\n    line-color: " + red + ";\n  }\n  [" + value['flood_column'] + " < 1]{\n    marker-fill: #575757;\n  }\n  [zoom <= 13] {\n    marker-width: 5;\n  }\n  [zoom > 13] {\n    marker-width: 15;\n  }\n}";
           });
           css = css.join(" ");
           if (sql && css) {
@@ -535,7 +583,7 @@
             layer: value["layer"],
             type: 'tooltip',
             offset_top: -30,
-            template: "<div class=\"cartodb-popup\">\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      <div class=\"title\">\n        <b>{{ " + value['name_column'] + " }}</b>\n        {{#localname}}\n          <p>{{localname}}</p>\n        {{/localname}}\n      </div>\n      <div>\n        " + value['type'] + "\n      </div>\n      {{#" + value['flood_column'] + " }}\n        <p>In the floodzone</p>\n      {{/" + value['flood_column'] + " }}\n\n      {{#" + value['loss_column'] + " }}\n        <p>Affected " + value['affected_type'] + ": {{ " + value['loss_column'] + " }}</p>\n      {{/" + value['loss_column'] + " }}\n    </div>\n  </div>\n</div>"
+            template: "<div class=\"cartodb-popup\">\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      <div class=\"title\">\n        <b>{{ " + value['name_column'] + " }}</b>\n        {{#localname}}\n          <p>{{localname}}</p>\n        {{/localname}}\n      </div>\n      <div>\n        " + value['type'] + "\n      </div>\n\n      {{#" + value['loss_column'] + " }}\n        <p>Affected " + value['affected_type'] + ": {{ " + value['loss_column'] + " }}</p>\n      {{/" + value['loss_column'] + " }}\n    </div>\n  </div>\n</div>"
           });
         });
         $("#layer_selector li").on("click", function(e) {

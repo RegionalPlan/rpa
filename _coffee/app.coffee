@@ -560,6 +560,8 @@ class Workspace extends Backbone.Router
       .createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:11, searchControl: true, layer_selector: false, legends: true, zoomControl: true)
       .done (vis,layers)->
         map = vis.getNativeMap()
+        map.on "zoomstart", (a,b,c)->
+          console.log a,b,c
 
         layer = layers[1]
         floodZoneLayer = layer.getSubLayer(0)
@@ -611,7 +613,7 @@ class Workspace extends Backbone.Router
             affected_type: "units"
             localities: true
             tables: [
-              "rpa_publichousing_withlocalities_hud2013_short"
+              "publichousing_rparegion_1"
             ]
           }
           train_stations: {
@@ -656,6 +658,61 @@ class Workspace extends Backbone.Router
               "rpa_subwayroutes_flood"
             ]
           }
+          subway_yards: {
+            flood_column: "flood"
+            type: "Subway yard"
+            name_column: "yard_name"
+            loss_column: false
+            affected_type: "yards"
+            localities: false
+            tables: [
+              "nyct_subway_yards"
+            ]
+          }
+          transit_tunnels: {
+            flood_column: "flood"
+            type: "Transit tunnel"
+            name_column: "name"
+            loss_column: false
+            affected_type: "tunnels"
+            localities: false
+            tables: [
+              "nyc_transit_tunnels2014"
+            ]
+          }
+          airports: {
+            flood_column: "flood"
+            type: "Airport"
+            name_column: "name"
+            loss_column: false
+            affected_type: "airports"
+            localities: false
+            tables: [
+              "rpa_majorregionalairports_042014"
+            ]
+          }
+          ports: {
+            flood_column: "flood"
+            type: "Port"
+            name_column: "name"
+            loss_column: false
+            affected_type: "ports"
+            localities: false
+            tables: [
+              "rpa_ports_042014"
+            ]
+          }
+          elem_schools: {
+            flood_column: "flood"
+            type: "Elementary school"
+            name_column: "schnam"
+            loss_column: false
+            affected_type: "schools"
+            localities: false
+            tables: [
+              "elem_schools"
+            ]
+          }
         }
 
         # Describe and define the sublayers
@@ -670,9 +727,27 @@ class Workspace extends Backbone.Router
           sql = sql.join(" UNION ALL ")
 
           # Create the CSS
+
           css = _.map(value["tables"], (table)->
               """
-                ##{table} {marker-fill: #{red};marker-line-width:0;::line {line-width: 1;line-color: #{red};}[#{value['flood_column']} < 1]{marker-fill: #575757;}[zoom <= 13] {marker-width: 5;}[zoom > 13] {marker-width: 15;}}
+                ##{table} {
+                  marker-fill: #{red};
+                  marker-line-width:0;
+
+                  ::line {
+                    line-width: 1;
+                    line-color: #{red};
+                  }
+                  [#{value['flood_column']} < 1]{
+                    marker-fill: #575757;
+                  }
+                  [zoom <= 13] {
+                    marker-width: 5;
+                  }
+                  [zoom > 13] {
+                    marker-width: 15;
+                  }
+                }
               """
             )
           css = css.join(" ")
@@ -713,9 +788,6 @@ class Workspace extends Backbone.Router
                     <div>
                       #{value['type']}
                     </div>
-                    {{##{value['flood_column']} }}
-                      <p>In the floodzone</p>
-                    {{/#{value['flood_column']} }}
 
                     {{##{value['loss_column']} }}
                       <p>Affected #{value['affected_type']}: {{ #{value['loss_column']} }}</p>
