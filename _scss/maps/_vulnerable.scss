@@ -1,4 +1,25 @@
 #vulnerable{
+
+  // TOOLTIP
+  .cartodb-tooltip{
+    @include carto-tooltip(500px,120px);
+  }
+
+  & + #layer_selector{
+    font-size:12px;
+    h3{
+      font-size:18px;
+      margin:0;
+    }
+    li > * {
+      display:none;
+    }
+    li.active > * {
+      display:block;
+    }
+  }
+
+
   // LEGEND
   div.cartodb-legend.custom{
     // width:145px;

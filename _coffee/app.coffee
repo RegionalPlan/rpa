@@ -557,7 +557,7 @@ class Workspace extends Backbone.Router
 
   vulnerable: ->
     cartodb
-      .createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10, searchControl: true, layer_selector: false, legends: true, zoomControl: false)
+      .createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:11, searchControl: true, layer_selector: false, legends: true, zoomControl: true)
       .done (vis,layers)->
         map = vis.getNativeMap()
 
@@ -692,25 +692,36 @@ class Workspace extends Backbone.Router
         )
 
         # Create a tooltip for every single sublayer
+
+        # TODO: make sure the flood column display the correct value
+
         _.each(dbs,(value,k)->
           vis.addOverlay(
             layer: value["layer"]
             type: 'tooltip'
             offset_top: -30
             template: """
-              <div style="background:white;padding:5px 10px;">
-                <div style="margin-bottom:10px">
-                  <h3 class="title-case" style="margin:0">{{ #{value['name_column']} }}</h3>
-                  {{#localname}}
-                    <span>{{localname}}</span>
-                  {{/localname}}
+              <div class="cartodb-popup">
+                <div class="cartodb-popup-content-wrapper">
+                  <div class="cartodb-popup-content">
+                    <div class="title">
+                      <b>{{ #{value['name_column']} }}</b>
+                      {{#localname}}
+                        <p>{{localname}}</p>
+                      {{/localname}}
+                    </div>
+                    <div>
+                      #{value['type']}
+                    </div>
+                    {{##{value['flood_column']} }}
+                      <p>In the floodzone</p>
+                    {{/#{value['flood_column']} }}
+
+                    {{##{value['loss_column']} }}
+                      <p>Affected #{value['affected_type']}: {{ #{value['loss_column']} }}</p>
+                    {{/#{value['loss_column']} }}
+                  </div>
                 </div>
-                <div>
-                  #{value['type']}
-                </div>
-                {{##{value['loss_column']} }}
-                  <p>Affected #{value['affected_type']}: {{ #{value['loss_column']} }}</p>
-                {{/#{value['loss_column']} }}
               </div>
             """
           )
@@ -841,10 +852,6 @@ class Workspace extends Backbone.Router
 
         vent.on "infowindow:rendered", (obj, $el)->
           return if obj["null"] is "Loading content..."
-          # TODO: create the mapping outside the infowindow template. That's weird.
-          # Ex: type_name,mhi,disp_inc,trans,housing,taxes
-          # censusLayer.infowindow.set('template', tmpl("namelsad10", "mhi", "disp_inc", "avg_transc", "housingcos", "avg_ttl"))
-          # countyLayer.infowindow.set('template', tmpl("county", "avg_mhi", "disp_inc", "avg_trans", "avg_hous", "avg_ttl"))
           data = (->
               d = obj.content.data
               [d.avg_hous || d.housingcos, d.avg_ttl, d.avg_trans || d.avg_transc, d.disp_inc]
@@ -859,19 +866,30 @@ class Workspace extends Backbone.Router
 
 
         # Customize tooltips
-        countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc")
-        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname")
+        countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc, avg_trans, avg_hous, avg_ttl, avg_mhi")
+        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname, avg_trans, avg_hous, avg_ttl, avg_mhi")
+
+
         tooltipTmpl = """
               <div class="cartodb-popup">
                   <div class="title">
                     <b style="padding-bottom:2px;">{{county}}{{localname}}</b>
                   </div>
                   <div>
-                    Discretionary Income:
+                    Median Income:
+                    <b class="currency">{{avg_mhi}}</b>
+                  </div>
+                  <div>
+                    Left-over Income:
                     <b class="currency">{{disp_inc}}</b>
+                  </div>
+                  <div>
+                    Fixed Income:
+                    <b class="fixed-income currency"></b>
                   </div>
               </div>
             """
+
         _.each [countyLayer,censusLayer], (item)->
           tooltip = new cdb.geo.ui.Tooltip(
               template: tooltipTmpl
@@ -879,7 +897,13 @@ class Workspace extends Backbone.Router
               offset_top: -30
           )
           vis.container.append(tooltip.render().el)
-        vent.on("tooltip:rendered", formatMoney)
+
+
+        vent.on("tooltip:rendered", (d)->
+            fixed = d.avg_trans + d.avg_hous + d.avg_ttl
+            $(".fixed-income").text(fixed)
+            formatMoney()
+          )
 
 
 

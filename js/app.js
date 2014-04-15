@@ -410,11 +410,11 @@
         scrollwheel: false,
         center_lat: 40.7,
         center_lon: -73.9,
-        zoom: 10,
+        zoom: 11,
         searchControl: true,
         layer_selector: false,
         legends: true,
-        zoomControl: false
+        zoomControl: true
       }).done(function(vis, layers) {
         var dbs, floodZoneLayer, layer, map, red;
         map = vis.getNativeMap();
@@ -535,7 +535,7 @@
             layer: value["layer"],
             type: 'tooltip',
             offset_top: -30,
-            template: "<div style=\"background:white;padding:5px 10px;\">\n  <div style=\"margin-bottom:10px\">\n    <h3 class=\"title-case\" style=\"margin:0\">{{ " + value['name_column'] + " }}</h3>\n    {{#localname}}\n      <span>{{localname}}</span>\n    {{/localname}}\n  </div>\n  <div>\n    " + value['type'] + "\n  </div>\n  {{#" + value['loss_column'] + " }}\n    <p>Affected " + value['affected_type'] + ": {{ " + value['loss_column'] + " }}</p>\n  {{/" + value['loss_column'] + " }}\n</div>"
+            template: "<div class=\"cartodb-popup\">\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      <div class=\"title\">\n        <b>{{ " + value['name_column'] + " }}</b>\n        {{#localname}}\n          <p>{{localname}}</p>\n        {{/localname}}\n      </div>\n      <div>\n        " + value['type'] + "\n      </div>\n      {{#" + value['flood_column'] + " }}\n        <p>In the floodzone</p>\n      {{/" + value['flood_column'] + " }}\n\n      {{#" + value['loss_column'] + " }}\n        <p>Affected " + value['affected_type'] + ": {{ " + value['loss_column'] + " }}</p>\n      {{/" + value['loss_column'] + " }}\n    </div>\n  </div>\n</div>"
           });
         });
         $("#layer_selector li").on("click", function(e) {
@@ -634,9 +634,9 @@
           regionData = [rd.housing, rd.taxes, rd.transport, rd.disp_inc];
           return makeStackedChart([data, regionData], $el.find(".barCharts").get(0), false, localColors);
         });
-        countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc");
-        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname");
-        tooltipTmpl = "<div class=\"cartodb-popup\">\n    <div class=\"title\">\n      <b style=\"padding-bottom:2px;\">{{county}}{{localname}}</b>\n    </div>\n    <div>\n      Discretionary Income:\n      <b class=\"currency\">{{disp_inc}}</b>\n    </div>\n</div>";
+        countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc, avg_trans, avg_hous, avg_ttl, avg_mhi");
+        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname, avg_trans, avg_hous, avg_ttl, avg_mhi");
+        tooltipTmpl = "<div class=\"cartodb-popup\">\n    <div class=\"title\">\n      <b style=\"padding-bottom:2px;\">{{county}}{{localname}}</b>\n    </div>\n    <div>\n      Median Income:\n      <b class=\"currency\">{{avg_mhi}}</b>\n    </div>\n    <div>\n      Left-over Income:\n      <b class=\"currency\">{{disp_inc}}</b>\n    </div>\n    <div>\n      Fixed Income:\n      <b class=\"fixed-income currency\"></b>\n    </div>\n</div>";
         _.each([countyLayer, censusLayer], function(item) {
           var tooltip;
           tooltip = new cdb.geo.ui.Tooltip({
@@ -646,7 +646,12 @@
           });
           return vis.container.append(tooltip.render().el);
         });
-        return vent.on("tooltip:rendered", formatMoney);
+        return vent.on("tooltip:rendered", function(d) {
+          var fixed;
+          fixed = d.avg_trans + d.avg_hous + d.avg_ttl;
+          $(".fixed-income").text(fixed);
+          return formatMoney();
+        });
       });
     };
 
