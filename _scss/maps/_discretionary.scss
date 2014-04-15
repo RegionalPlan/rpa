@@ -46,6 +46,6 @@
 
   }
   $infowindow_width: 427.5px;
-  @include popup($infowindow_width, $infowindow_width/2 + 20px);
+  @include popup($infowindow_width, 300px);
 
 }

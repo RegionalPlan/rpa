@@ -368,7 +368,7 @@ class Workspace extends Backbone.Router
                         <div class="progress walk_sco_1 pull-left" style="width:175px;margin:5px 10px 0 10px"><div class="progress-bar" style="width:{{walk_sco_1}}%"></div></div>
                         <b class="walkability-score pull-left">{{walk_sco_1}}</b>
                       </div>
-                      <b style="margin-left:94px">{{walk_sco_2}}</b>
+                      <b style="margin-left:80px">{{walk_sco_2}}</b>
                     </div>
                  </div>
               </div>
@@ -749,39 +749,7 @@ class Workspace extends Backbone.Router
         $("#layer_selector li:eq(0)").click()
 
   discretionary: ->
-    makeChart = (data, mhi, id="#donut")->
-      blue       =  "#47b3d2";  # disp_income
-      reddish    =  "#f12b15";  # trans
-      brown      =  "#b92b15";  # housing
-      dark_brown =  "#7c2b15";  # taxes
 
-      chartData = [
-        {value : data["disp_inc"], color : blue }
-        {value : data["trans"],    color : reddish}
-        {value : data["housing"],  color : brown}
-        {value : data["taxes"],    color : dark_brown}
-      ]
-
-      ctx = $(id).get(0).getContext("2d");
-      donut_options =
-        percentageInnerCutout: 70
-        animationEasing : "easeOutQuart"
-        animationSteps : 30
-      options =
-        tooltips:
-          background: "#000"
-          labelTemplate: "<%= (value / #{mhi} * 100 ).toFixed(2) %>%"
-      new Chart(ctx,options).Doughnut(chartData,donut_options)
-
-    data =
-      disp_inc: 29817
-      trans: 10519
-      housing: 21460
-      taxes: 10344
-
-    # $ ->
-    if $("#standalone_donut").length > 0
-      makeChart(data, 72140, "#standalone_donut")
 
     # DISCRETIONARY INCOME
     cartodb
@@ -803,127 +771,123 @@ class Workspace extends Backbone.Router
           if zoomLevel > 10
             censusLayer.show()
             countyLayer.hide()
-            # TODO: update the zoom legend
-            $(".please_zoom_in").text("Zoom out to see county level data.")
           else
             censusLayer.hide()
             countyLayer.show()
-            $(".please_zoom_in").text("Zoom in to the map to see neighborhood level data.")
         )
+
 
 
         # Customize the infowindows
-        tmpl= (type,type_name,mhi,disp_inc,trans,housing,taxes)-> _.template("""
+        colors =
+          housing: "#7d2b0f"
+          taxes: "#ecad12"
+          transport: "#f13319"
+          disp_inc: "#41b3d4"
+
+
+        infoTmpl = """
             <div class="cartodb-popup">
               <a href="#close" class="cartodb-popup-close-button close">x</a>
                <div class="cartodb-popup-content-wrapper">
-                 <div class="cartodb-popup-content" data-disp_inc="<%=content.data.#{disp_inc}%>" data-trans="<%=content.data.#{trans}%>" data-housing="<%=content.data.#{housing}%>" data-taxes="<%=content.data.#{taxes}%>">
-                  <div class="title">
-                    <h2>
-                      <%=content.data.#{type_name}%>
-                    </h2>
-                    <% if("#{type}"=="Census Tract"){ %>
-                      <p><%=content.data.localname  %></p>
-                    <% } %>
+                  <div class="title" style="padding-bottom:10px">
+                    <h2>{{content.data.county}}{{content.data.localname}}</h2>
+                    <span>{{content.data.namelsad10}}</span>
                   </div>
+                  <table style="margin-bottom:10px">
+                    <tr>
+                      <td>
+                        <b>Housing costs:</b>
+                        <h3 class="currency" style="margin: 0 10px 0 0;color:#{colors['housing']}">{{content.data.housingcos}}{{content.data.avg_hous}}</h3>
+                      </td>
+                      <td>
+                        <b>Transportation:</b>
+                        <h3 class="currency" style="margin: 0 10px 0 0;color:#{colors['transport']}">{{content.data.avg_transc}}{{content.data.avg_trans}}</h3>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Income taxes:</b>
+                        <h3 class="currency" style="margin: 0 10px 0 0;color:#{colors['taxes']}">{{content.data.avg_ttl}}</h3>
+                      </td>
+                      <td>
+                        <b>Left-over Income:</b>
+                        <h3 class="currency" style="margin: 0 10px 0 0;color:#{colors['disp_inc']}">{{content.data.disp_inc}}</h3>
+                      </td>
+                    </tr>
+                  </table>
 
-                  <div class="leftColumn">
-                    <b>Income Components</b>
-                    <div class="discretionary">
-                      <div>Discretionary Income</div>
-                      <b class="currency"><%=content.data.#{disp_inc}%></b>
-                    </div>
-
-                    <div class="trans">
-                      <div>Transportation</div>
-                      <b class="currency"><%=content.data.#{trans}%></b>
-                    </div>
-
-                    <div class="housing">
-                      <div>Housing and other related costs</div>
-                      <b class="currency"><%=content.data.#{housing}%></b>
-                    </div>
-
-                    <div class="taxes">
-                      <div>State and local personal income tax</div>
-                      <b class="currency"><%=content.data.#{taxes}%></b>
-                    </div>
+                  <div>
+                    Median income: <b class="currency">{{content.data.mhi}}{{content.data.avg_mhi}}</b>
                   </div>
-
-                  <div class="rightColumn">
-                    <div class="mhi text-center">
-                      <div>Median <br/> Income</div>
-                      <b class="median-income currency"><%=Math.round(Number(content.data.#{mhi}))%></b>
-                    </div>
-
-                    <canvas id="donut" width="130" height="130"></canvas>
-
+                  <div class="barCharts" style="position:relative;top:-3px"></div>
+                  <div class="regional-mhi" style="position:relative;top:-60px;border-top:solid 1px #ccc;padding-top:5px">
+                    RPA regional median income: <b>$72,140</b>
                   </div>
-                 </div>
                </div>
-            </div>
-          """)
+             </div>
+          """
+        censusLayer.infowindow.set('template', infoTmpl)
+        countyLayer.infowindow.set('template', infoTmpl)
 
-        censusLayer.infowindow.set('template', tmpl("Census Tract", "namelsad10", "mhi", "disp_inc", "avg_transc", "housingcos", "avg_ttl"))
-        countyLayer.infowindow.set('template', tmpl("County", "county", "avg_mhi", "disp_inc", "avg_trans", "avg_hous", "avg_ttl"))
+        # Regional Data
+        rd =
+          housing: 21460
+          taxes: 10344
+          transport: 10519
+          disp_inc: 29817
 
+        localColors = [colors.housing,colors.taxes,colors.transport,colors.disp_inc]
 
-        countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc")
-        tooltip = new cdb.geo.ui.Tooltip(
-            template: """
-              <div class="cartodb-popup" style="height:100px !important;overflow:hidden">
-                 <div class="cartodb-popup-content-wrapper">
-                    <div class="cartodb-popup-content">
-                      <div class="title">
-                        <h3 >{{county}}</h3>
-                      </div>
-                      <div>
-                        Discretionary Income: <b class="currency">{{disp_inc}}</b>
-                      </div>
-                    </div>
-                 </div>
-              </div>
-            """
-            layer: countyLayer
-            offset_top: -30
-        )
-        vis.container.append(tooltip.render().el)
-
-        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname")
-        tooltip = new cdb.geo.ui.Tooltip(
-            template: """
-              <div class="cartodb-popup" style="height:100px !important;overflow:hidden">
-                 <div class="cartodb-popup-content-wrapper">
-                    <div class="cartodb-popup-content">
-                      <div class="title">
-                        <h3>{{namelsad10}}</h3>
-                        <small>{{localname}}</small>
-                      </div>
-                      <div>
-                        Discretionary Income: <b class="currency">{{disp_inc}}</b>
-                      </div>
-                    </div>
-                 </div>
-              </div>
-            """
-            layer: censusLayer
-            offset_top: -30
-        )
-        vis.container.append(tooltip.render().el)
-
-        vent.on("tooltip:rendered", ->
-            formatMoney()
-          )
-
-
-        # HACK: the code below requires a feature added to a customized version of the cartodb.js liburary
-        vent.on "infowindow:rendered", (obj)->
+        vent.on "infowindow:rendered", (obj, $el)->
           return if obj["null"] is "Loading content..."
-          # Create a bar chart in the infowindow for the clicked feature
-          data = $(".cartodb-popup-content").data()
-          mhi = $("#discretionary .median-income").text()
-          makeChart(data, Number(mhi))
-          formatMoney()
+          # TODO: create the mapping outside the infowindow template. That's weird.
+          # Ex: type_name,mhi,disp_inc,trans,housing,taxes
+          # censusLayer.infowindow.set('template', tmpl("namelsad10", "mhi", "disp_inc", "avg_transc", "housingcos", "avg_ttl"))
+          # countyLayer.infowindow.set('template', tmpl("county", "avg_mhi", "disp_inc", "avg_trans", "avg_hous", "avg_ttl"))
+          data = (->
+              d = obj.content.data
+              [d.avg_hous || d.housingcos, d.avg_ttl, d.avg_trans || d.avg_transc, d.disp_inc]
+            )()
+
+          regionData = [rd.housing,rd.taxes,rd.transport,rd.disp_inc]
+
+          makeStackedChart([data,regionData], $el.find(".barCharts").get(0), false, localColors)
+
+
+
+
+
+        # Customize tooltips
+        countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc")
+        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname")
+        tooltipTmpl = """
+              <div class="cartodb-popup" style="height:100px !important;overflow:hidden">
+                 <div class="cartodb-popup-content-wrapper">
+                    <div class="cartodb-popup-content">
+                      <div class="title">
+                        <h3 >{{county}}{{localname}}</h3>
+                      </div>
+                      <div>
+
+                        Discretionary Income:
+                        <b class="currency">{{disp_inc}}</b>
+
+                      </div>
+                    </div>
+                 </div>
+              </div>
+            """
+        _.each [countyLayer,censusLayer], (item)->
+          tooltip = new cdb.geo.ui.Tooltip(
+              template: tooltipTmpl
+              layer: item
+              offset_top: -30
+          )
+          vis.container.append(tooltip.render().el)
+        vent.on("tooltip:rendered", formatMoney)
+
+
 
 
 $ ->

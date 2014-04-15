@@ -13,7 +13,26 @@
   @include shared();
   .cartodb-popup, .cartodb-popup-content-wrapper{
     background-image:none;
-    p{font-size:15px;}
+    p{font-size:12px;}
+  }
+
+  .walkability-title{
+    b{font-size:1.3em;display:inline-block;}
+  }
+
+  .cartodb-popup-tip-container{
+    background:none;
+    margin: 0px 0 0 10px;
+    &:after{
+      content: " ";
+      $size: 15px;
+      width: $size;
+      height: $size;
+      display:block;
+      border-style: solid;
+      border-width: $size $size 0 0;
+      border-color: #fff transparent transparent transparent;
+    }
   }
 
   .cartodb-infowindow{
@@ -21,23 +40,12 @@
     max-width:560px !important;
     @include shared();
 
-    .walkability-title{
-      b{font-size:1.3em;display:inline-block;}
-    }
+    $width:400px;
+    $height:220px;
 
-    .cartodb-popup-tip-container{
-      position:absolute;
-      left: -4px;
-      bottom: -17px;
-    }
     .cartodb-popup{
       border:solid 3px rgba(0,0,0,0.2);
-    }
 
-    $width:400px;
-    $height:250px;
-
-    .cartodb-popup{
       @include windowfix($width, $height);
       @include shared-borders();
       .cartodb-popup-content-wrapper{
@@ -69,6 +77,8 @@
     $tooltipWidth:345px;
     $tooltipHeight:150px;
     width:$tooltipWidth;
+
+    font-size:12px;
 
     .cartodb-popup{
       @include windowfix($tooltipWidth, $tooltipHeight);

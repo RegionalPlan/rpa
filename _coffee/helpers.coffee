@@ -17,9 +17,9 @@
 
 
 
-@makeStackedChart = (data,target, showXAxis=true)->
+@makeStackedChart = (data,target, showXAxis=true, receivedColors=["#f9b314", "#eb0000", "#2fb0c4", "#3f4040", "#695b94"])->
 
-  n = 5 #data.length  # number of layers
+  n = receivedColors.length # number of layers
   has2Samples = _.isArray(data[0])
   m = if has2Samples then 2 else 1
 
@@ -43,9 +43,9 @@
   yStackMax = if yStackMax < 60 then 60 else yStackMax
 
   bottomMargin = if showXAxis then 40 else 0
-  margin  = {top: 5, right: 5, bottom: bottomMargin, left: 5}
-  width   = 505 - margin.left - margin.right
-  itemHeight = if has2Samples then 60 else 80
+  margin  = {top: 0, right: 5, bottom: bottomMargin, left: 0}
+  width   = 375 - margin.left - margin.right
+  itemHeight = if has2Samples then 25 else 80
   height  = (itemHeight*m) - margin.top - margin.bottom
 
   x = d3.scale.linear()
@@ -54,16 +54,10 @@
   y = d3.scale.ordinal()
       .domain(d3.range(m))
       .rangeRoundBands([2, height], .08)
-  color = (i)->
-    [
-      "#f9b314"
-      "#eb0000"
-      "#2fb0c4"
-      "#3f4040"
-      "#695b94"][i]
+  color = (i)-> receivedColors[i]
   svg = d3.select(target).append("svg")
           .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
+          .attr("height", height + margin.top + margin.bottom + 40)
         .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
   layer = svg.selectAll(".layer")
@@ -80,7 +74,7 @@
             base = y(d.x)
             if has2Samples
               if d.x is 1
-                base + 20
+                base + 40
               else
                 base
             else
@@ -90,25 +84,25 @@
         .attr("height", y.rangeBand())
         .attr("width", (d)-> x(d.y))
 
-  layer.selectAll("text")
-    .data((d)-> d)
-    .enter()
-    .append("text")
-    .text((d)-> d.y )
-    .attr("font-family", "sans-serif")
-    .attr("font-size", "11px")
-    .attr("fill", "white")
-    .attr("y", (d, i)->
-        h = margin.top + (height * (i + 1))/2
-        if has2Samples
-          if d.x is 1
-            h
-          else
-            h - 17
-        else h
+  # layer.selectAll("text")
+  #   .data((d)-> d)
+  #   .enter()
+  #   .append("text")
+  #   .text((d)-> d.y )
+  #   .attr("font-family", "sans-serif")
+  #   .attr("font-size", "11px")
+  #   .attr("fill", "white")
+  #   .attr("y", (d, i)->
+  #       h = margin.top + (height * (i + 1))/2
+  #       if has2Samples
+  #         if d.x is 1
+  #           h
+  #         else
+  #           h - 17
+  #       else h
 
-      )
-    .attr("x", (d)-> ((d.y0 + (d.y/2))/yStackMax * width) - parseInt(String(d.y).split("").length * 3))
+  #     )
+  #   .attr("x", (d)-> ((d.y0 + (d.y/2))/yStackMax * width) - parseInt(String(d.y).split("").length * 3))
   xAxis = d3.svg.axis()
       .scale(x)
       .tickSize(0.8)

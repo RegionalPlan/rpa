@@ -24,12 +24,15 @@
     return "#" + (0x1000000 + (Math.round((t - R) * p) + R) * 0x10000 + (Math.round((t - G) * p) + G) * 0x100 + (Math.round((t - B) * p) + B)).toString(16).slice(1);
   };
 
-  this.makeStackedChart = function(data, target, showXAxis) {
+  this.makeStackedChart = function(data, target, showXAxis, receivedColors) {
     var axisPos, bottomMargin, color, d, has2Samples, height, itemHeight, layer, layers, m, margin, n, stack, svg, width, x, xAxis, y, yGroupMax, yStackMax, _i, _ref, _results;
     if (showXAxis == null) {
       showXAxis = true;
     }
-    n = 5;
+    if (receivedColors == null) {
+      receivedColors = ["#f9b314", "#eb0000", "#2fb0c4", "#3f4040", "#695b94"];
+    }
+    n = receivedColors.length;
     has2Samples = _.isArray(data[0]);
     m = has2Samples ? 2 : 1;
     stack = d3.layout.stack();
@@ -68,20 +71,20 @@
     yStackMax = yStackMax < 60 ? 60 : yStackMax;
     bottomMargin = showXAxis ? 40 : 0;
     margin = {
-      top: 5,
+      top: 0,
       right: 5,
       bottom: bottomMargin,
-      left: 5
+      left: 0
     };
-    width = 505 - margin.left - margin.right;
-    itemHeight = has2Samples ? 60 : 80;
+    width = 375 - margin.left - margin.right;
+    itemHeight = has2Samples ? 25 : 80;
     height = (itemHeight * m) - margin.top - margin.bottom;
     x = d3.scale.linear().domain([0, yStackMax]).range([0, width]);
     y = d3.scale.ordinal().domain(d3.range(m)).rangeRoundBands([2, height], .08);
     color = function(i) {
-      return ["#f9b314", "#eb0000", "#2fb0c4", "#3f4040", "#695b94"][i];
+      return receivedColors[i];
     };
-    svg = d3.select(target).append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    svg = d3.select(target).append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom + 40).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     layer = svg.selectAll(".layer").data(layers).enter().append("g").attr("class", "layer").style("fill", function(d, i) {
       return color(i);
     });
@@ -92,7 +95,7 @@
       base = y(d.x);
       if (has2Samples) {
         if (d.x === 1) {
-          return base + 20;
+          return base + 40;
         } else {
           return base;
         }
@@ -103,25 +106,6 @@
       return x(d.y0);
     }).attr("height", y.rangeBand()).attr("width", function(d) {
       return x(d.y);
-    });
-    layer.selectAll("text").data(function(d) {
-      return d;
-    }).enter().append("text").text(function(d) {
-      return d.y;
-    }).attr("font-family", "sans-serif").attr("font-size", "11px").attr("fill", "white").attr("y", function(d, i) {
-      var h;
-      h = margin.top + (height * (i + 1)) / 2;
-      if (has2Samples) {
-        if (d.x === 1) {
-          return h;
-        } else {
-          return h - 17;
-        }
-      } else {
-        return h;
-      }
-    }).attr("x", function(d) {
-      return ((d.y0 + (d.y / 2)) / yStackMax * width) - parseInt(String(d.y).split("").length * 3);
     });
     xAxis = d3.svg.axis().scale(x).tickSize(0.8).tickPadding(6).orient("bottom");
     if (showXAxis) {

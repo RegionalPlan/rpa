@@ -303,7 +303,7 @@
         });
         walkabilityLayer = walkabilityLayer.setInteractivity("cartodb_id, namelsad10, localities, walk_sco_1, walk_sco_2, rail_stops, bank_score, books_scor, coffee_sco, entertainm, grocery_sc, park_score, restaurant, school_sco, shopping_s");
         tooltip = new cdb.geo.ui.Tooltip({
-          template: "<div class=\"cartodb-popup\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class='walkability-title'>\n          <p style=\"padding-bottom:2px\"><b>{{localities}}</b></p>\n          <p style=\"color:#ccc;font-size:0.9em\">{{namelsad10}}</p>\n        </div>\n        <div class=\"clearfix\">\n          <span class=\"pull-left\" style=\"\">Walk Score®</span>\n          <div class=\"progress walk_sco_1 pull-left\" style=\"width:175px;margin:5px 10px 0 10px\"><div class=\"progress-bar\" style=\"width:{{walk_sco_1}}%\"></div></div>\n          <b class=\"walkability-score pull-left\">{{walk_sco_1}}</b>\n        </div>\n        <b style=\"margin-left:94px\">{{walk_sco_2}}</b>\n      </div>\n   </div>\n</div>",
+          template: "<div class=\"cartodb-popup\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class='walkability-title'>\n          <p style=\"padding-bottom:2px\"><b>{{localities}}</b></p>\n          <p style=\"color:#ccc;font-size:0.9em\">{{namelsad10}}</p>\n        </div>\n        <div class=\"clearfix\">\n          <span class=\"pull-left\" style=\"\">Walk Score®</span>\n          <div class=\"progress walk_sco_1 pull-left\" style=\"width:175px;margin:5px 10px 0 10px\"><div class=\"progress-bar\" style=\"width:{{walk_sco_1}}%\"></div></div>\n          <b class=\"walkability-score pull-left\">{{walk_sco_1}}</b>\n        </div>\n        <b style=\"margin-left:80px\">{{walk_sco_2}}</b>\n      </div>\n   </div>\n</div>",
           layer: walkabilityLayer,
           offset_top: -50
         });
@@ -576,54 +576,6 @@
     };
 
     Workspace.prototype.discretionary = function() {
-      var data, makeChart;
-      makeChart = function(data, mhi, id) {
-        var blue, brown, chartData, ctx, dark_brown, donut_options, options, reddish;
-        if (id == null) {
-          id = "#donut";
-        }
-        blue = "#47b3d2";
-        reddish = "#f12b15";
-        brown = "#b92b15";
-        dark_brown = "#7c2b15";
-        chartData = [
-          {
-            value: data["disp_inc"],
-            color: blue
-          }, {
-            value: data["trans"],
-            color: reddish
-          }, {
-            value: data["housing"],
-            color: brown
-          }, {
-            value: data["taxes"],
-            color: dark_brown
-          }
-        ];
-        ctx = $(id).get(0).getContext("2d");
-        donut_options = {
-          percentageInnerCutout: 70,
-          animationEasing: "easeOutQuart",
-          animationSteps: 30
-        };
-        options = {
-          tooltips: {
-            background: "#000",
-            labelTemplate: "<%= (value / " + mhi + " * 100 ).toFixed(2) %>%"
-          }
-        };
-        return new Chart(ctx, options).Doughnut(chartData, donut_options);
-      };
-      data = {
-        disp_inc: 29817,
-        trans: 10519,
-        housing: 21460,
-        taxes: 10344
-      };
-      if ($("#standalone_donut").length > 0) {
-        makeChart(data, 72140, "#standalone_donut");
-      }
       return cartodb.createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', {
         legends: true,
         searchControl: true,
@@ -635,7 +587,7 @@
         infowindow: true,
         layer_selector: false
       }).done(function(vis, layers) {
-        var censusLayer, countyLayer, dataLayers, map, tmpl, tooltip;
+        var censusLayer, colors, countyLayer, dataLayers, infoTmpl, localColors, map, rd, tooltipTmpl;
         map = vis.getNativeMap();
         dataLayers = layers[1];
         dataLayers.setInteraction(true);
@@ -647,46 +599,54 @@
           zoomLevel = map.getZoom();
           if (zoomLevel > 10) {
             censusLayer.show();
-            countyLayer.hide();
-            return $(".please_zoom_in").text("Zoom out to see county level data.");
+            return countyLayer.hide();
           } else {
             censusLayer.hide();
-            countyLayer.show();
-            return $(".please_zoom_in").text("Zoom in to the map to see neighborhood level data.");
+            return countyLayer.show();
           }
         });
-        tmpl = function(type, type_name, mhi, disp_inc, trans, housing, taxes) {
-          return _.template("<div class=\"cartodb-popup\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n   <div class=\"cartodb-popup-content-wrapper\">\n     <div class=\"cartodb-popup-content\" data-disp_inc=\"<%=content.data." + disp_inc + "%>\" data-trans=\"<%=content.data." + trans + "%>\" data-housing=\"<%=content.data." + housing + "%>\" data-taxes=\"<%=content.data." + taxes + "%>\">\n      <div class=\"title\">\n        <h2>\n          <%=content.data." + type_name + "%>\n        </h2>\n        <% if(\"" + type + "\"==\"Census Tract\"){ %>\n          <p><%=content.data.localname  %></p>\n        <% } %>\n      </div>\n\n      <div class=\"leftColumn\">\n        <b>Income Components</b>\n        <div class=\"discretionary\">\n          <div>Discretionary Income</div>\n          <b class=\"currency\"><%=content.data." + disp_inc + "%></b>\n        </div>\n\n        <div class=\"trans\">\n          <div>Transportation</div>\n          <b class=\"currency\"><%=content.data." + trans + "%></b>\n        </div>\n\n        <div class=\"housing\">\n          <div>Housing and other related costs</div>\n          <b class=\"currency\"><%=content.data." + housing + "%></b>\n        </div>\n\n        <div class=\"taxes\">\n          <div>State and local personal income tax</div>\n          <b class=\"currency\"><%=content.data." + taxes + "%></b>\n        </div>\n      </div>\n\n      <div class=\"rightColumn\">\n        <div class=\"mhi text-center\">\n          <div>Median <br/> Income</div>\n          <b class=\"median-income currency\"><%=Math.round(Number(content.data." + mhi + "))%></b>\n        </div>\n\n        <canvas id=\"donut\" width=\"130\" height=\"130\"></canvas>\n\n      </div>\n     </div>\n   </div>\n</div>");
+        colors = {
+          housing: "#7d2b0f",
+          taxes: "#ecad12",
+          transport: "#f13319",
+          disp_inc: "#41b3d4"
         };
-        censusLayer.infowindow.set('template', tmpl("Census Tract", "namelsad10", "mhi", "disp_inc", "avg_transc", "housingcos", "avg_ttl"));
-        countyLayer.infowindow.set('template', tmpl("County", "county", "avg_mhi", "disp_inc", "avg_trans", "avg_hous", "avg_ttl"));
-        countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc");
-        tooltip = new cdb.geo.ui.Tooltip({
-          template: "<div class=\"cartodb-popup\" style=\"height:100px !important;overflow:hidden\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class=\"title\">\n          <h3 >{{county}}</h3>\n        </div>\n        <div>\n          Discretionary Income: <b class=\"currency\">{{disp_inc}}</b>\n        </div>\n      </div>\n   </div>\n</div>",
-          layer: countyLayer,
-          offset_top: -30
-        });
-        vis.container.append(tooltip.render().el);
-        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname");
-        tooltip = new cdb.geo.ui.Tooltip({
-          template: "<div class=\"cartodb-popup\" style=\"height:100px !important;overflow:hidden\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class=\"title\">\n          <h3>{{namelsad10}}</h3>\n          <small>{{localname}}</small>\n        </div>\n        <div>\n          Discretionary Income: <b class=\"currency\">{{disp_inc}}</b>\n        </div>\n      </div>\n   </div>\n</div>",
-          layer: censusLayer,
-          offset_top: -30
-        });
-        vis.container.append(tooltip.render().el);
-        vent.on("tooltip:rendered", function() {
-          return formatMoney();
-        });
-        return vent.on("infowindow:rendered", function(obj) {
-          var mhi;
+        infoTmpl = "<div class=\"cartodb-popup\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"title\" style=\"padding-bottom:10px\">\n        <h2>{{content.data.county}}{{content.data.localname}}</h2>\n        <span>{{content.data.namelsad10}}</span>\n      </div>\n      <table style=\"margin-bottom:10px\">\n        <tr>\n          <td>\n            <b>Housing costs:</b>\n            <h3 class=\"currency\" style=\"margin: 0 10px 0 0;color:" + colors['housing'] + "\">{{content.data.housingcos}}{{content.data.avg_hous}}</h3>\n          </td>\n          <td>\n            <b>Transportation:</b>\n            <h3 class=\"currency\" style=\"margin: 0 10px 0 0;color:" + colors['transport'] + "\">{{content.data.avg_transc}}{{content.data.avg_trans}}</h3>\n          </td>\n        </tr>\n        <tr>\n          <td>\n            <b>Income taxes:</b>\n            <h3 class=\"currency\" style=\"margin: 0 10px 0 0;color:" + colors['taxes'] + "\">{{content.data.avg_ttl}}</h3>\n          </td>\n          <td>\n            <b>Left-over Income:</b>\n            <h3 class=\"currency\" style=\"margin: 0 10px 0 0;color:" + colors['disp_inc'] + "\">{{content.data.disp_inc}}</h3>\n          </td>\n        </tr>\n      </table>\n\n      <div>\n        Median income: <b class=\"currency\">{{content.data.mhi}}{{content.data.avg_mhi}}</b>\n      </div>\n      <div class=\"barCharts\" style=\"position:relative;top:-3px\"></div>\n      <div class=\"regional-mhi\" style=\"position:relative;top:-60px;border-top:solid 1px #ccc;padding-top:5px\">\n        RPA regional median income: <b>$72,140</b>\n      </div>\n   </div>\n </div>";
+        censusLayer.infowindow.set('template', infoTmpl);
+        countyLayer.infowindow.set('template', infoTmpl);
+        rd = {
+          housing: 21460,
+          taxes: 10344,
+          transport: 10519,
+          disp_inc: 29817
+        };
+        localColors = [colors.housing, colors.taxes, colors.transport, colors.disp_inc];
+        vent.on("infowindow:rendered", function(obj, $el) {
+          var data, regionData;
           if (obj["null"] === "Loading content...") {
             return;
           }
-          data = $(".cartodb-popup-content").data();
-          mhi = $("#discretionary .median-income").text();
-          makeChart(data, Number(mhi));
-          return formatMoney();
+          data = (function() {
+            var d;
+            d = obj.content.data;
+            return [d.avg_hous || d.housingcos, d.avg_ttl, d.avg_trans || d.avg_transc, d.disp_inc];
+          })();
+          regionData = [rd.housing, rd.taxes, rd.transport, rd.disp_inc];
+          return makeStackedChart([data, regionData], $el.find(".barCharts").get(0), false, localColors);
         });
+        countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc");
+        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname");
+        tooltipTmpl = "<div class=\"cartodb-popup\" style=\"height:100px !important;overflow:hidden\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class=\"title\">\n          <h3 >{{county}}{{localname}}</h3>\n        </div>\n        <div>\n\n          Discretionary Income:\n          <b class=\"currency\">{{disp_inc}}</b>\n\n        </div>\n      </div>\n   </div>\n</div>";
+        _.each([countyLayer, censusLayer], function(item) {
+          var tooltip;
+          tooltip = new cdb.geo.ui.Tooltip({
+            template: tooltipTmpl,
+            layer: item,
+            offset_top: -30
+          });
+          return vis.container.append(tooltip.render().el);
+        });
+        return vent.on("tooltip:rendered", formatMoney);
       });
     };
 

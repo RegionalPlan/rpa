@@ -1,9 +1,9 @@
 @mixin shared-borders {
-  border:solid 1px rgba(0, 0, 0,0.1);
-  @include border-left-radius(5px);
-  @include border-right-radius(5px);
-  @include border-top-radius(5px);
-  @include border-bottom-radius(5px);
+  border:solid 3px rgba(0, 0, 0,0.1);
+  @include border-left-radius(0px);
+  @include border-right-radius(0px);
+  @include border-top-radius(0px);
+  @include border-bottom-radius(0px);
   box-shadow: 1px 1px 6px rgba(0, 0, 0,0.1);
 }
 @mixin shared {
@@ -12,33 +12,13 @@
     padding-bottom:5px;
     margin-top:0;
   }
-  $food: #2fb0c4;
-  $goods: #3f4040;
-  $services: #695b94;
-  $transport: #f9b314;
-  $housing: #eb0000;
-  $total: #008000;
 
-  .tooltip-legend{
-    & > div{
-      float:left;
-      margin-right:29px;
-      &:before{
-        content:"•";
-        font-size:1.8em;
-        line-height: 1em;
-        position: relative;
-        top: 4px;
-        left: -1px;
-      }
-      &.food:before{color:$food;}
-      &.goods:before{color:$goods;}
-      &.services:before{color:$services;}
-      &.transport:before{color:$transport;}
-      &.housing:before{color:$housing;}
-      &.total:before{color:$total;}
-    }
+
+  a.cartodb-popup-close-button{
+    top: 5px;
+    right: 7px;
   }
+
 }
 @mixin windowfix($width:545px, $height: 600px) {
   width:$width !important;
@@ -67,41 +47,9 @@
     height: $infowindow_height !important;
     max-height: $infowindow_height !important;
 
-    .leftColumn{
-      float:left;
-      width:205px;
-      font-size:0.7em;
-      & > div:before{
-        content: '\00B7';
-        padding-right: 5px;
-        font-size: 42px;
-        line-height: 10px;
-        float:left;
-        margin-top:3px;
-        height:24px;
-      }
+    border-radius:0;
 
-      & > .discretionary:before{
-        color: $blue;
-      }
-      & > .trans:before{
-        color: $reddish;
-      }
-      & > .housing:before{
-        color: $brown;
-      }
-      & > .taxes:before{
-        color: $dark_brown;
-      }
-    }
-    .rightColumn{
-      float:left;
-      position:relative;
-      width:143px;
-      #donut{
-        cursor: crosshair;
-      }
-    }
+
     .mhi{
       position: absolute;
       left: 43px;
@@ -109,16 +57,8 @@
       top: 36px;
       font-size: 0.8em;
     }
-    a.cartodb-popup-close-button{
-      top: 18px;
-      right:13px;
-
-    }
-
-
 
     div.cartodb-popup{
-
       // Bubble triangle
       &:after {
         content: ' ';
