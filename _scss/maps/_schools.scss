@@ -1,9 +1,9 @@
 #schools{
 
   // School rank colors
-  $bottom: #ba0000;
+  $bottom: #0082ac;
   $middle: #515151;
-  $top:    #0082ac;
+  $top:    #ba0000;
 
   $nodata: #a7907b;
 
@@ -77,7 +77,7 @@
 
 
   .cartodb-tooltip{
-    @include carto-tooltip(397.5px,250px);
+    @include carto-tooltip(397.5px,220px);
   }
 
   .school-ranking{
