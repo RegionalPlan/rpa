@@ -1,4 +1,6 @@
-
+.site{
+  overflow:hidden;
+}
 .map{
   width:100%;height:700px;
   & > .mapInner{
@@ -9,7 +11,7 @@
   .cartodb-logo{display:none !important;}
 }
 .content{
-  margin-top:5px;
+  // margin-top:5px;
 }
 
 .footer{

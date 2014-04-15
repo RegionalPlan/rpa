@@ -33,20 +33,6 @@ prose:
           element: "text"
           label: "Intro"
           value: ""
-      - name: "map_id"
-        field:
-          label: "Map Id"
-          element: "select"
-          placeholder: "Choose a map"
-          options:
-            - name: "Discretionary Income"
-              value: "discretionary"
-            - name: "School Performance"
-              value: "schools"
-            - name: "Vulnerable Infrastructure"
-              value: "vulnerableInfra"
-            - name: "Walkability"
-              value: "walkability"
       - name: "chapter_number"
         field:
           element: "hidden"

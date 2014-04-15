@@ -706,7 +706,7 @@
   })(Backbone.Router);
 
   $(function() {
-    var chapter, fci, lastChapter, lci, liIndex, nextChapter, sch, _ref;
+    var chapter, fci, lastChapter, lci, liIndex, nextChapter, sch, wrapMaps, _ref;
     window.router = new Workspace();
     Backbone.history.start({
       pushState: true,
@@ -757,8 +757,25 @@
       return sch($a, i + 1);
     });
     if (mapId) {
-      return router[mapId]();
+      router[mapId]();
     }
+    wrapMaps = function() {
+      return $("iframe.wrap-map").each(function() {
+        var $map, left, width;
+        $map = $(this);
+        width = $(window).innerWidth();
+        left = $map.parent(".item").offset()["left"] + 20;
+        return $map.css({
+          width: width + "px",
+          left: -1 * left,
+          position: "relative"
+        });
+      });
+    };
+    wrapMaps();
+    return $(window).on("resize", function() {
+      return wrapMaps();
+    });
   });
 
 }).call(this);

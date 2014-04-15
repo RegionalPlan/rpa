@@ -1069,3 +1069,16 @@ $ ->
   # Load the requested map
   if mapId
     router[mapId]()
+
+  wrapMaps = ->
+    $("iframe.wrap-map").each ->
+      $map = $(this)
+      # Get the width of the browser
+      width = $(window).innerWidth()
+      # Get the offset left of the $map iframe element
+      left = $map.parent(".item").offset()["left"] + 20
+      $map.css({width: width+"px", left: -1 * left, position: "relative"})
+  wrapMaps()
+
+  $(window).on "resize", ->
+    wrapMaps()
