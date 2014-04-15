@@ -1,4 +1,16 @@
 #discretionary{
+
+  // TOOLTIP
+  .cartodb-tooltip{
+    @include carto-tooltip(345px, 75px);
+    padding:10px;
+  }
+
+  // INFOWINDOW
+  .cartodb-infowindow{
+    @include cartodb-infowindow(427.5px,300px);
+  }
+
   // LEGEND
   div.cartodb-legend.custom{
     width:150px;
@@ -45,7 +57,6 @@
     }
 
   }
-  $infowindow_width: 427.5px;
-  @include popup($infowindow_width, 300px);
+
 
 }

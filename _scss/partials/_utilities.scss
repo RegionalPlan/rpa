@@ -7,16 +7,20 @@
   box-shadow: 1px 1px 6px rgba(0, 0, 0,0.1);
 }
 @mixin shared {
-  .title-case{
-    border-bottom: solid 1px $gray;
+  .title-case,.title{
+    border-bottom: solid 1px #ccc;
     padding-bottom:5px;
     margin-top:0;
+    margin-bottom:10px;
+    font-size:18px;
   }
-
-
   a.cartodb-popup-close-button{
     top: 5px;
     right: 7px;
+  }
+  .cartodb-popup, .cartodb-popup-content-wrapper{
+    background-image:none;
+    p{font-size:12px;}
   }
 
 }
@@ -27,106 +31,68 @@
   max-height:$height !important;
   background:white;
   overflow:visible;
+  padding:0;
 }
 
+@mixin carto-tooltip($tooltipWidth:345px, $tooltipHeight:150px){
+  background-color:white;
+  @include shared();
+  @include shared-borders();
 
-@mixin popup($infowindow_width: 397.5px, $infowindow_height: $infowindow_width/2 + 10px) {
+  width:$tooltipWidth;
 
-  // INFOWINDOW
+  font-size:12px;
 
-  // $infowindow_width: 530px * 3/4;
-  // $infowindow_height: $infowindow_width/2 + 10px;
-
-  $blue: #47b3d2;         // disp_income
-  $reddish: #f12b15;      // trans
-  $brown: #b92b15;        // housing
-  $dark_brown: #7c2b15;   // taxes
-
-  div.cartodb-infowindow{
-    width: $infowindow_width !important;
-    height: $infowindow_height !important;
-    max-height: $infowindow_height !important;
-
-    border-radius:0;
-
-
-    .mhi{
-      position: absolute;
-      left: 43px;
-      z-index: 99;
-      top: 36px;
-      font-size: 0.8em;
-    }
-
-    div.cartodb-popup{
-      // Bubble triangle
-      &:after {
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: 5%;
-        bottom: -15px;
-        border: 15px solid;
-        border-color: #fff transparent transparent #fff;
-      }
-    }
-  }
-  div.cartodb-popup{
-    width:$infowindow_width;
-    height: $infowindow_height !important;
-    max-height: $infowindow_height !important;
-    background: white;
-    max-width:$infowindow_width;
-    padding:0;
-
-    div.cartodb-popup-tip-container{
-      display:none;
-    }
-
-
-    div.cartodb-popup-content-wrapper{
-      width:$infowindow_width;
-      height: $infowindow_height !important;
-      max-height: $infowindow_height !important;
-      background: white;
-      max-width:$infowindow_width;
-      overflow: hidden;
-
-      @include border-left-radius(5px);
-      @include border-right-radius(5px);
-      @include border-top-radius(5px);
-      @include border-bottom-radius(5px);
-
-      box-shadow: 1px 1px 6px black;
-
+  .cartodb-popup{
+    @include windowfix($tooltipWidth - 30px, $tooltipHeight);
+    // @include shared-borders();
+    .cartodb-popup-content-wrapper{
+      @include windowfix($tooltipWidth - 15px, $tooltipHeight - 15px);
+      overflow:hidden;
       .cartodb-popup-content{
-        overflow:hidden;
-      }
-      .cartodb-popup-content, .jspContainer, .jspPane{
-        width:$infowindow_width - 60px !important;
-        max-width:$infowindow_width;
-        height: $infowindow_height !important;
-        max-height: $infowindow_height !important;
-      }
-      .jspPane {
-        font-size: 1.2em;
-        & > div, & > h2{
-          padding-left:3px;
-        }
-      }
-      .jspVerticalBar{display:none;}
-
-      .title{
-        border-bottom: solid 1px #ccc;
-        margin-bottom:10px;
-        line-height:0.9em;
-        h2, h3{
-          margin:0;
+        @include windowfix($tooltipWidth - 35px, $tooltipHeight - 15px);
+        overflow:visible !important;
+        .jspContainer{
+          @include windowfix($tooltipWidth - 40px, $tooltipHeight - 15px);
+          .jspVerticalBar{display:none !important;}
+          .jspPane{
+            @include windowfix($tooltipWidth - 40px, $tooltipHeight - 15px);
+          }
         }
       }
     }
   }
+
+}
+
+@mixin cartodb-infowindow($maxWidth:560px,$height:220px){
+  width:$maxWidth !important;
+  max-width:$maxWidth !important;
+  @include shared();
+  @include shared-borders();
+
+  $width:$maxWidth;
+
+  .cartodb-popup{
+    @include windowfix($width, $height);
+    .cartodb-popup-content-wrapper{
+      @include windowfix($width - 15px, $height - 15px);
+      overflow:hidden;
+      padding-top: 0;
+      .cartodb-popup-content{
+        @include windowfix($width - 35px, $height - 15px);
+        overflow:visible !important;
+        .jspContainer{
+          @include windowfix($width - 40px, $height - 15px);
+          .jspVerticalBar{display:none !important;}
+          .jspPane{
+            @include windowfix($width - 40px, $height - 15px);
+          }
+        }
+      }
+    }
+  }
+
 }
 
 @mixin layer_selector{

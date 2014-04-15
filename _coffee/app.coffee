@@ -360,7 +360,7 @@ class Workspace extends Backbone.Router
                  <div class="cartodb-popup-content-wrapper">
                     <div class="cartodb-popup-content">
                       <div class='walkability-title'>
-                        <p style="padding-bottom:2px"><b>{{localities}}</b></p>
+                        <b style="padding-bottom:2px">{{localities}}</b>
                         <p style="color:#ccc;font-size:0.9em">{{namelsad10}}</p>
                       </div>
                       <div class="clearfix">
@@ -419,9 +419,9 @@ class Workspace extends Backbone.Router
               <div class="cartodb-popup">
                  <div class="cartodb-popup-content-wrapper">
                     <div class="cartodb-popup-content">
-                      <div class="title"  style="padding-bottom:10px">
-                        <h3>{{schnam}}</h3>
-                        <span>{{localname}} ({{namelsad10}})</span>
+                      <div class="title">
+                        <b>{{schnam}}</b>
+                        <p>{{localname}} ({{namelsad10}})</p>
                       </div>
                       {{#rank_perce}}
                         <div><b>School Rank</b></div>
@@ -790,8 +790,8 @@ class Workspace extends Backbone.Router
             <div class="cartodb-popup">
               <a href="#close" class="cartodb-popup-close-button close">x</a>
                <div class="cartodb-popup-content-wrapper">
-                  <div class="title" style="padding-bottom:10px">
-                    <h2>{{content.data.county}}{{content.data.localname}}</h2>
+                  <div class="title">
+                    <b>{{content.data.county}}{{content.data.localname}}</b>
                     <span>{{content.data.namelsad10}}</span>
                   </div>
                   <table style="margin-bottom:10px">
@@ -862,20 +862,14 @@ class Workspace extends Backbone.Router
         countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc")
         censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname")
         tooltipTmpl = """
-              <div class="cartodb-popup" style="height:100px !important;overflow:hidden">
-                 <div class="cartodb-popup-content-wrapper">
-                    <div class="cartodb-popup-content">
-                      <div class="title">
-                        <h3 >{{county}}{{localname}}</h3>
-                      </div>
-                      <div>
-
-                        Discretionary Income:
-                        <b class="currency">{{disp_inc}}</b>
-
-                      </div>
-                    </div>
-                 </div>
+              <div class="cartodb-popup">
+                  <div class="title">
+                    <b style="padding-bottom:2px;">{{county}}{{localname}}</b>
+                  </div>
+                  <div>
+                    Discretionary Income:
+                    <b class="currency">{{disp_inc}}</b>
+                  </div>
               </div>
             """
         _.each [countyLayer,censusLayer], (item)->

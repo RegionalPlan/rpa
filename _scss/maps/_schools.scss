@@ -76,7 +76,9 @@
   }
 
 
-  @include popup(397.5px,250px);
+  .cartodb-tooltip{
+    @include carto-tooltip(397.5px,250px);
+  }
 
   .school-ranking{
     font-weight:bold;
@@ -86,9 +88,6 @@
 
 
 /*
-
-
-
 
 #schoolperformancerank2012_withlocalities_rpare{
   marker-opacity: 0.8;

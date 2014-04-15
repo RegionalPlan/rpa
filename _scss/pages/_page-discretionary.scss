@@ -1,11 +1,3 @@
-  
 .page.discretionary{
   min-height: 1000px;
-
-  .standalone{
-    margin-top:20px;
-    $infowindow_width: 417.5px;
-    @include popup($infowindow_width, $infowindow_width/2 + 20px);
-    div.cartodb-infowindow:after,div.cartodb-popup:after{ display:none;}
-  }
 }
