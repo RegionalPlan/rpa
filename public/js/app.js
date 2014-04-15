@@ -309,8 +309,8 @@
         });
         vis.container.append(tooltip.render().el);
         score_to_color = {
-          "Very Car-Dependent": "#fae2ab",
-          "Car-Dependent": "#ffbb67",
+          "Very Car Dependent": "#fae2ab",
+          "Somewhat Car Dependent": "#ffbb67",
           "Somewhat Walkable": "#a6a9de",
           "Very Walkable": "#8e6eb1",
           "Walker's Paradise": "#753384"
