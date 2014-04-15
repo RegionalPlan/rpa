@@ -418,9 +418,6 @@
       }).done(function(vis, layers) {
         var dbs, floodZoneLayer, layer, map, red;
         map = vis.getNativeMap();
-        map.on("zoomstart", function(a, b, c) {
-          return console.log(a, b, c);
-        });
         layer = layers[1];
         floodZoneLayer = layer.getSubLayer(0);
         layer.setInteraction(true);
@@ -715,7 +712,7 @@
       root: root
     });
     fci = 1;
-    lci = 5;
+    lci = 6;
     lastChapter = function(cc) {
       if (cc > fci) {
         return cc - 1;

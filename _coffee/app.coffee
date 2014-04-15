@@ -560,8 +560,6 @@ class Workspace extends Backbone.Router
       .createVis('vulnerable', 'http://rpa.cartodb.com/api/v2/viz/533c5970-9f4f-11e3-ad24-0ed66c7bc7f3/viz.json', cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:11, searchControl: true, layer_selector: false, legends: true, zoomControl: true)
       .done (vis,layers)->
         map = vis.getNativeMap()
-        map.on "zoomstart", (a,b,c)->
-          console.log a,b,c
 
         layer = layers[1]
         floodZoneLayer = layer.getSubLayer(0)
@@ -987,7 +985,7 @@ $ ->
 
   # TODO: update the links of the navigation paths on the chapter pages
   fci = 1 #firstChapterIndex
-  lci = 5 #lastChapterIndex
+  lci = 6 #lastChapterIndex
   lastChapter = (cc)-> if cc > fci then cc - 1 else lci
   nextChapter = (cc)-> if cc < lci then cc + 1 else fci
 
