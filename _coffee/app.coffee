@@ -1027,7 +1027,7 @@ class Workspace extends Backbone.Router
 
 
         vent.on("tooltip:rendered", (d)->
-            fixed = d.avg_trans + d.avg_hous + d.avg_ttl
+            fixed = d.avg_trans || d.avg_transc + d.avg_hous || d.housingcos + d.avg_ttl
             $(".fixed-income").text(fixed)
             formatMoney()
           )

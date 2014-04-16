@@ -694,7 +694,7 @@
         });
         return vent.on("tooltip:rendered", function(d) {
           var fixed;
-          fixed = d.avg_trans + d.avg_hous + d.avg_ttl;
+          fixed = d.avg_trans || d.avg_transc + d.avg_hous || d.housingcos + d.avg_ttl;
           $(".fixed-income").text(fixed);
           return formatMoney();
         });
