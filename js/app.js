@@ -765,11 +765,13 @@
         $map = $(this);
         width = $(window).innerWidth();
         left = $map.parent(".item").offset()["left"] + 20;
-        return $map.css({
+        $map.css({
           width: width + "px",
           left: -1 * left,
-          position: "relative"
+          position: "relative",
+          overflow: "hidden"
         });
+        return $map.attr("scrolling", "no");
       });
     };
     wrapMaps();

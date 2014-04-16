@@ -1079,7 +1079,8 @@ $ ->
       width = $(window).innerWidth()
       # Get the offset left of the $map iframe element
       left = $map.parent(".item").offset()["left"] + 20
-      $map.css({width: width+"px", left: -1 * left, position: "relative"})
+      $map.css({width: width+"px", left: -1 * left, position: "relative", overflow: "hidden"})
+      $map.attr("scrolling","no")
   wrapMaps()
 
   $(window).on "resize", ->
