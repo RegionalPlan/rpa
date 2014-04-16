@@ -994,7 +994,7 @@ class Workspace extends Backbone.Router
 
         # Customize tooltips
         countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc, avg_trans, avg_hous, avg_ttl, avg_mhi")
-        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname, avg_trans, avg_hous, avg_ttl, avg_mhi")
+        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname, avg_transc, housingcos, avg_ttl, mhi")
 
 
         tooltipTmpl = """
@@ -1004,7 +1004,7 @@ class Workspace extends Backbone.Router
                   </div>
                   <div>
                     Median Income:
-                    <b class="currency">{{avg_mhi}}</b>
+                    <b class="currency">{{avg_mhi}}{{mhi}}</b>
                   </div>
                   <div>
                     Left-over Income:
@@ -1062,6 +1062,9 @@ $ ->
       else
         sch($a,nextChapter(chapter))
         if chapter is lci then $a.remove()
+
+
+  $(".bottom-nav li").each (i)->
 
 
   $(".ch-nav li").each (i)->

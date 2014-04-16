@@ -681,8 +681,8 @@
           return makeStackedChart([data, regionData], $el.find(".barCharts").get(0), false, localColors);
         });
         countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc, avg_trans, avg_hous, avg_ttl, avg_mhi");
-        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname, avg_trans, avg_hous, avg_ttl, avg_mhi");
-        tooltipTmpl = "<div class=\"cartodb-popup\">\n    <div class=\"title\">\n      <b>{{county}}{{localname}}</b>\n    </div>\n    <div>\n      Median Income:\n      <b class=\"currency\">{{avg_mhi}}</b>\n    </div>\n    <div>\n      Left-over Income:\n      <b class=\"currency\">{{disp_inc}}</b>\n    </div>\n    <div>\n      Fixed Income:\n      <b class=\"fixed-income currency\"></b>\n    </div>\n</div>";
+        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname, avg_transc, housingcos, avg_ttl, mhi");
+        tooltipTmpl = "<div class=\"cartodb-popup\">\n    <div class=\"title\">\n      <b>{{county}}{{localname}}</b>\n    </div>\n    <div>\n      Median Income:\n      <b class=\"currency\">{{avg_mhi}}{{mhi}}</b>\n    </div>\n    <div>\n      Left-over Income:\n      <b class=\"currency\">{{disp_inc}}</b>\n    </div>\n    <div>\n      Fixed Income:\n      <b class=\"fixed-income currency\"></b>\n    </div>\n</div>";
         _.each([countyLayer, censusLayer], function(item) {
           var tooltip;
           tooltip = new cdb.geo.ui.Tooltip({
@@ -751,6 +751,7 @@
         }
       });
     }
+    $(".bottom-nav li").each(function(i) {});
     $(".ch-nav li").each(function(i) {
       var $a;
       $a = $(this).find("a");
