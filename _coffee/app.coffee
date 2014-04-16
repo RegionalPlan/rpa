@@ -1026,7 +1026,9 @@ class Workspace extends Backbone.Router
           vis.container.append(tooltip.render().el)
 
 
-        vent.on("tooltip:rendered", (d)->
+        vent.on("tooltip:rendered", (d, $el)->
+            $(".cartodb-tooltip").hide()
+            $el.show()
             fixed = d.avg_trans || d.avg_transc + d.avg_hous || d.housingcos + d.avg_ttl
             $(".fixed-income").text(fixed)
             formatMoney()

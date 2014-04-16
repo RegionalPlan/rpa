@@ -692,8 +692,10 @@
           });
           return vis.container.append(tooltip.render().el);
         });
-        return vent.on("tooltip:rendered", function(d) {
+        return vent.on("tooltip:rendered", function(d, $el) {
           var fixed;
+          $(".cartodb-tooltip").hide();
+          $el.show();
           fixed = d.avg_trans || d.avg_transc + d.avg_hous || d.housingcos + d.avg_ttl;
           $(".fixed-income").text(fixed);
           return formatMoney();
