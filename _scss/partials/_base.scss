@@ -1,5 +1,5 @@
 @import "partials/variables";
-  
+
 .site{
   overflow:hidden;
 }
@@ -15,6 +15,8 @@
 .content{
   // margin-top:5px;
 }
+
+iframe{border:none;}
 
 .footer{
   height:60px;
