@@ -963,6 +963,7 @@ class Workspace extends Backbone.Router
                     RPA regional median income: <b>$72,140</b>
                   </div>
                </div>
+               <div class="cartodb-popup-tip-container"></div>
              </div>
           """
         censusLayer.infowindow.set('template', infoTmpl)
