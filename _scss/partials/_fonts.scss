@@ -5,3 +5,22 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'CreteRound';
+  src: url("#{$siteBase}/fonts/CreteRound-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ProximaNova';
+  src: url("#{$siteBase}/fonts/Proxima Nova Reg.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ProximaNovaBold';
+  src: url("#{$siteBase}/fonts/Proxima Nova Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+

@@ -5,7 +5,7 @@
   height:60px;
   width:100%;
   & > .container{
-    margin-top:20px;
+    margin-top:15px;
     margin-bottom:15px;
   }
 
@@ -16,24 +16,33 @@
     display: inline-block;
 
     background: url("#{$siteBase}/images/logo.jpg") left top no-repeat;
-    @include size(79px,29px);
+    @include size(86px,30px);
   }
 
   .page-name{
     margin-top: 7px;
     margin-left: 15px;
-    font-size: 0.9em;
+    font-size: 1em;
+    font-family: ProximaNovaBold, Helvetica;
+    font-weight:700;
+    letter-spacing: 2px;
   }
-
+  .navbar-collapse{
+    margin-top:5px;
+  }
   .ch-nav{
     list-style:none;
+    margin-bottom: 0;
     li{
       float:left;
       margin-right:20px;
-      color:$gray-light;
+      a{
+        color:$gray-light;
+        text-decoration:none;}
+
       &.active{
         font-weight:700;
-        color:black;
+        a{color:black;}
       }
     }
 
@@ -41,17 +50,22 @@
     margin-right:20px;
 
     &:before{
-      content: "CHAPTERS:";
+      content: "INTRO";
       float:left;
       margin-right:20px;
-      color:$golden;
-
+      letter-spacing: 2px;
+      font-family: ProximaNovaBold, Helvetica;
+      font-weight:700;
     }
   }
 
   .social{
-    span{
+    a{
       margin-right:10px;
+      display:inline-block;
+      @include square(22px);
+      &.twitter{background-image: url("#{$siteBase}/images/twitter.jpg");}
+      &.facebook{background-image: url("#{$siteBase}/images/facebook.jpg");}
     }
   }
 }

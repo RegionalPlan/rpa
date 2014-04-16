@@ -16,6 +16,9 @@
       width: 600px;
       line-height:1.8em;
       color:white;
+      font-family: CreteRound;
+      font-weight:300;
+      letter-spacing:2px;
 
       @media (max-width: $screen-tablet){
         display: inline-block;
@@ -27,21 +30,53 @@
   }
 
   .row{
-    padding-bottom:80px;
-    margin-bottom:80px;
+    padding-bottom:60px;
+    margin-bottom:60px;
     border-bottom:solid 1px $gray-lighter;
 
+    &:nth-child(2),&:nth-child(4),&:nth-child(6){
+      .decal-column{
+        @media (min-width: $screen-phone){
+          float:right;
+        }
+      }
+    }
+    .decal-column{
+      height:400px;
+      min-height:400px;
+      &:before{
+        content: "";
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+      }
+    }
     .img-circle{
-      @include box-shadow(1px 3px 12px rgba(0, 0, 0, 0.6))
+      @include box-shadow(1px 1px 1px rgba(0, 0, 0, 0.2));
+      border:solid 5px #eae8e8;
+      vertical-align: middle;
+      max-height: 300px;
+      max-width: 300px;
     }
 
     .ch-title{
       margin-top:0;
+      font-family: CreteRound;
+      font-weight:300;
+      letter-spacing:2px;
+      &:after{
+        content: "\f054";
+        font-family: FontAwesome;
+        font-size:0.5em;
+      };
     }
     .ch-name{
       margin-bottom:5px;
       font-size: 1.1em;
       color:$golden;
+      font-family: ProximaNovaBold, Helvetica;
+      font-weight:700;
+      letter-spacing: 2px;
     }
     .ch-links{
       padding-left:15px;
