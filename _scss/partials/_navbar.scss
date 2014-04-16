@@ -1,8 +1,7 @@
 .navbar.navbar-default{
   margin-bottom:0;
   border: none;
-  background-color:white;
-  height:60px;
+  min-height:60px;
   width:100%;
   & > .container{
     margin-top:15px;
@@ -10,7 +9,10 @@
   }
 
   @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.3));
-
+  background-color:white;
+  .container{
+    background-color:white;
+  }
   .navbar-brand{
     @include hide-text();
     display: inline-block;
@@ -18,17 +20,30 @@
     background: url("#{$siteBase}/images/logo.jpg") left top no-repeat;
     @include size(86px,30px);
   }
-
+  .navbar-nav{
+    padding-left:20px;
+    margin-top:0px;
+    .navbar-toggle{margin: 0px 20px 0 0;}
+  }
   .page-name{
-    margin-top: 7px;
     margin-left: 15px;
     font-size: 1em;
     font-family: ProximaNovaBold, Helvetica;
     font-weight:700;
     letter-spacing: 2px;
+
+    display: inline-block;
+    position: relative;
+    top: 5px;
+
   }
   .navbar-collapse{
     margin-top:5px;
+    border:0;
+    @media (max-width: $screen-desktop){
+      margin: 10px auto -10px auto;
+      width: 80%;
+    }
   }
   .ch-nav{
     list-style:none;

@@ -1,0 +1,14 @@
+{
+  "name": "bootstrap-dist",
+  "homepage": "https://github.com/visb42/bootstrap-dist",
+  "_release": "b6bc04af8a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "b6bc04af8abcfd4a03441bcebcd6220d46475ab2"
+  },
+  "_source": "git://github.com/visb42/bootstrap-dist.git",
+  "_target": "*",
+  "_originalSource": "bootstrap-dist",
+  "_direct": true
+}
