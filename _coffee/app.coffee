@@ -1072,9 +1072,9 @@ $ ->
 
   # setChapterHref
   sch = (anchor,chapter)->
-    anchor.attr("href","#{root}c/#{chapter}.html")
+    anchor.attr("href","#{root}c/#{chapter}/")
 
-  chapter = parseInt location.pathname.match(/c\/(.+)\.html/)?[1]
+  chapter = parseInt location.pathname.match(/c\/(.+)\//)?[1]
   if chapter
     liIndex = chapter - 1
     $(".ch-nav li:eq(#{liIndex})").addClass("active")
