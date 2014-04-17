@@ -49,3 +49,8 @@ prose:
           element: "text"
           label: "Intro"
           value: ""
+      - name: "permalink"
+        field:
+          element: "text"
+          label: "Permalink"
+          value: ""
