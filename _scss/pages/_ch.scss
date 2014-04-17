@@ -1,0 +1,42 @@
+@import "./mixin-ch";
+@import "../partials/utilities";
+
+.page{
+  &.chapter{
+    @include shared-chapter-styles();
+    .site{
+      overflow:hidden;
+    }
+    &.ch1{
+      .jumbotron{
+        background-image: url("#{$siteBase}/images/heros/Chapter1.jpg");
+      }
+    }
+    &.ch2{
+      .jumbotron{
+        background-image: url("#{$siteBase}/images/heros/Chapter2.jpg");
+      }
+    }
+    &.ch3{
+      .jumbotron{
+        background-image: url("#{$siteBase}/images/heros/Chapter3.jpg");
+      }
+    }
+    &.ch4{
+      .jumbotron{
+        background-image: url("#{$siteBase}/images/heros/Chapter4.jpg");
+      }
+    }
+    &.ch5{
+      .jumbotron{
+        background-image: url("#{$siteBase}/images/heros/Chapter5.jpg");
+      }
+    }
+    &.ch6{
+      .jumbotron{
+        background-image: url("#{$siteBase}/images/heros/Chapter6.jpg");
+      }
+    }
+  }
+
+}

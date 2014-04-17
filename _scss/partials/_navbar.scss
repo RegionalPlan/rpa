@@ -7,7 +7,7 @@
     margin-top:15px;
     margin-bottom:15px;
   }
-
+  a{color:black;text-decoration:none;}
   @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.3));
   background-color:white;
   .container{
@@ -45,6 +45,14 @@
       width: 80%;
     }
   }
+
+  .intro-link{
+    float:left;
+    margin-right:20px;
+    letter-spacing: 2px;
+    font-family: ProximaNovaBold, Helvetica;
+    font-weight:700;
+  }
   .ch-nav{
     list-style:none;
     margin-bottom: 0;
@@ -63,15 +71,8 @@
 
     border-right:solid 1px $gray-light;
     margin-right:20px;
+    padding-left:0px;
 
-    &:before{
-      content: "INTRO";
-      float:left;
-      margin-right:20px;
-      letter-spacing: 2px;
-      font-family: ProximaNovaBold, Helvetica;
-      font-weight:700;
-    }
   }
 
   .social{
