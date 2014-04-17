@@ -3,7 +3,7 @@ markdown: redcarpet
 permalink: pretty
 destination: public
 exclude: ["CNAME", "Rakefile", "README.md", "public", "Guardfile", "Gemfile", "Gemfile.lock", ".sass-cache", "tmp", "vendor"]
-root: /
+root: /rpa/
 
 prose:
   rooturl: '_posts'
