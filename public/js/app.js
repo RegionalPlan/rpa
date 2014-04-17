@@ -761,9 +761,9 @@
       }
     };
     sch = function(anchor, chapter) {
-      return anchor.attr("href", "" + root + "c/" + chapter + "/");
+      return anchor.attr("href", "" + root + "c/" + chapter + ".html");
     };
-    chapter = parseInt((_ref = location.pathname.match(/c\/(.+)\//)) != null ? _ref[1] : void 0);
+    chapter = parseInt((_ref = location.pathname.match(/c\/(.+)\.html/)) != null ? _ref[1] : void 0);
     if (chapter) {
       liIndex = chapter - 1;
       $(".ch-nav li:eq(" + liIndex + ")").addClass("active");
