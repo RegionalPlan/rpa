@@ -652,6 +652,8 @@
     };
 
     Workspace.prototype.discretionary = function() {
+      var startZoom;
+      startZoom = 10;
       return cartodb.createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', {
         legends: true,
         searchControl: true,
@@ -659,7 +661,7 @@
         scrollwheel: false,
         center_lat: 40.7,
         center_lon: -73.9,
-        zoom: 10,
+        zoom: startZoom,
         infowindow: true,
         layer_selector: false
       }).done(function(vis, layers) {
@@ -669,11 +671,11 @@
         dataLayers.setInteraction(true);
         countyLayer = dataLayers.getSubLayer(0);
         censusLayer = dataLayers.getSubLayer(1);
-        censusLayer.hide();
+        countyLayer.hide();
         map.on('zoomend', function(a, b, c) {
           var zoomLevel;
           zoomLevel = map.getZoom();
-          if (zoomLevel > 10) {
+          if (zoomLevel > startZoom) {
             censusLayer.show();
             return countyLayer.hide();
           } else {

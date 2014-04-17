@@ -909,8 +909,9 @@ class Workspace extends Backbone.Router
 
 
     # DISCRETIONARY INCOME
+    startZoom = 10
     cartodb
-      .createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', legends: true, searchControl: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10, infowindow: true, layer_selector: false)
+      .createVis('discretionary', 'http://rpa.cartodb.com/api/v2/viz/62e94d78-9f1e-11e3-b420-0ed66c7bc7f3/viz.json', legends: true, searchControl: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom: startZoom, infowindow: true, layer_selector: false)
       .done (vis,layers)->
         map = vis.getNativeMap()
 
@@ -922,10 +923,10 @@ class Workspace extends Backbone.Router
         censusLayer = dataLayers.getSubLayer(1)
 
 
-        censusLayer.hide()
+        countyLayer.hide()
         map.on('zoomend', (a,b,c)->
           zoomLevel = map.getZoom()
-          if zoomLevel > 10
+          if zoomLevel > startZoom
             censusLayer.show()
             countyLayer.hide()
           else
