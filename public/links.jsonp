@@ -1,38 +1,3 @@
 callback([
 
-  {
-    "text": "RPA - part 1",
-    "href": "//c/1"
-  } ,
-
-  {
-    "text": "RPA - part 2",
-    "href": "//c/2"
-  } ,
-
-  {
-    "text": "RPA - part 3",
-    "href": "//c/3"
-  } ,
-
-  {
-    "text": "RPA - part 4",
-    "href": "//c/4"
-  } ,
-
-  {
-    "text": "RPA - part 5",
-    "href": "//c/5"
-  } ,
-
-  {
-    "text": "RPA - part 6",
-    "href": "//c/6"
-  } ,
-
-  {
-    "text": "RPA",
-    "href": "//"
-  } 
-
 ])

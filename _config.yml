@@ -1,17 +1,18 @@
 name: Regional Plan Association
 markdown: redcarpet
-permalink: pretty
+permalink: /
+relative_permalinks: false
 destination: public
 exclude: ["CNAME", "Rakefile", "README.md", "public", "Guardfile", "Gemfile", "Gemfile.lock", ".sass-cache", "tmp", "vendor"]
 root: /rpa/
 
 prose:
-  rooturl: '_posts'
+  rooturl: 'pages'
   siteurl: 'http://volkanunsal.github.io/rpa/'
   relativeLinks: 'http://volkanunsal.github.io/rpa/links.jsonp'
   media: 'media'
   metadata:
-    _posts:
+    pages:
       - name: "layout"
         field:
           element: "hidden"
@@ -21,7 +22,7 @@ prose:
           element: "text"
           label: "Permalink"
           value: ""
-    _posts/chapters:
+    pages/chapters:
       - name: "class"
         field:
           element: "hidden"
