@@ -1,5 +1,6 @@
 name: Regional Plan Association
 markdown: redcarpet
+permalink: pretty
 destination: public
 exclude: ["CNAME", "Rakefile", "README.md", "public", "Guardfile", "Gemfile", "Gemfile.lock", ".sass-cache", "tmp", "vendor"]
 root: /
@@ -14,7 +15,7 @@ prose:
       - name: "class"
         field:
           element: "hidden"
-          value: "ch2"
+          value: "chapter"
       - name: "page_name"
         field:
           element: "hidden"

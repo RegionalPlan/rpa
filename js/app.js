@@ -33,6 +33,19 @@
         center_lat: 40.7,
         center_lon: -73.9,
         zoom: 10
+      }).done(function(vis, layers) {
+        var tables;
+        return tables = {
+          region: "",
+          states: "states",
+          counties: "counties",
+          municipalities: ["nj_towns", "ct_towns", "ny_towns"],
+          school_districts: "school_districts",
+          fire_districts: "fire_districts",
+          housing_authorities: "housing_authorities",
+          sewer_districts: "sewer_districts",
+          bids: "bids"
+        };
       });
     };
 
