@@ -6,9 +6,30 @@ class Workspace extends Backbone.Router
     "maps/walkability.html"   : "walkability"
     "maps/property.html"      : "property"
     "maps/carbon.html"        : "carbon"
+    "maps/governance.html"    : "governance"
+
+  governance: ->
+    id = "governance"
+    url = "http://rpa.cartodb.com/api/v2/viz/6f7a3bee-c3ed-11e3-ad6c-0edbca4b5057/viz.json"
+    cartodb
+      .createVis(id, url, searchControl: true, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
+      .done (vis,layers)->
+        tables =
+          region: ""
+          states: "states"
+          counties: "counties"
+          municipalities: [
+            "nj_towns"
+            "ct_towns"
+            "ny_towns"
+          ]
+          school_districts: "school_districts"
+          fire_districts: "fire_districts"
+          housing_authorities: "housing_authorities"
+          sewer_districts: "sewer_districts"
+          bids: "bids"
 
   carbon: ->
-
     id = "carbon"
     url = "http://rpa.cartodb.com/api/v2/viz/7d0015c0-aed2-11e3-a656-0e73339ffa50/viz.json"
     cartodb
@@ -1067,16 +1088,9 @@ $ ->
         if chapter is lci then $a.remove()
 
 
-  $(".bottom-nav li").each (i)->
-
-
   $(".ch-nav li").each (i)->
     $a = $(this).find("a")
     sch($a,i+1)
-
-  # Load the requested map
-  if mapId
-    router[mapId]()
 
   wrapMaps = ->
     $("iframe.wrap-map").each ->

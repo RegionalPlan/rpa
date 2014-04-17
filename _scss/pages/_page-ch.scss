@@ -2,10 +2,14 @@
 @import "../partials/utilities";
 
 .page{
-  &.ch2{
+  &.chapter{
     @include shared-chapter-styles();
     .jumbotron{
       background-image: url("#{$siteBase}/images/ch2/hero.jpg");
+    }
+
+    .site{
+      overflow:hidden;
     }
   }
 }

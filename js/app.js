@@ -16,7 +16,24 @@
       "maps/discretionary.html": "discretionary",
       "maps/walkability.html": "walkability",
       "maps/property.html": "property",
-      "maps/carbon.html": "carbon"
+      "maps/carbon.html": "carbon",
+      "maps/governance.html": "governance"
+    };
+
+    Workspace.prototype.governance = function() {
+      var id, url;
+      id = "governance";
+      url = "http://rpa.cartodb.com/api/v2/viz/6f7a3bee-c3ed-11e3-ad6c-0edbca4b5057/viz.json";
+      return cartodb.createVis(id, url, {
+        searchControl: true,
+        layer_selector: false,
+        legends: true,
+        cartodb_logo: false,
+        scrollwheel: false,
+        center_lat: 40.7,
+        center_lon: -73.9,
+        zoom: 10
+      });
     };
 
     Workspace.prototype.carbon = function() {
@@ -753,15 +770,11 @@
         }
       });
     }
-    $(".bottom-nav li").each(function(i) {});
     $(".ch-nav li").each(function(i) {
       var $a;
       $a = $(this).find("a");
       return sch($a, i + 1);
     });
-    if (mapId) {
-      router[mapId]();
-    }
     wrapMaps = function() {
       return $("iframe.wrap-map").each(function() {
         var $map, left, width;
