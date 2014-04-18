@@ -1,5 +1,19 @@
 #schools{
 
+  .rank-container{
+    margin-bottom:10px;
+  }
+  .progress{
+    margin-bottom:5px;
+  }
+  .dot{
+    font-size: 2em;
+    line-height: 1em;
+    position: absolute;
+    top: -10px;
+    left: 5px;
+  }
+
   // School rank colors
   $bottom: #0082ac;
   $middle: #515151;
@@ -77,7 +91,7 @@
 
 
   .cartodb-tooltip{
-    @include carto-tooltip(397.5px,220px);
+    @include carto-tooltip(397.5px,180px);
   }
 
   .school-ranking{

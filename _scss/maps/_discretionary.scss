@@ -7,7 +7,12 @@
 
   // INFOWINDOW
   .cartodb-infowindow{
-    @include carto-infowindow(427.5px,280px);
+    @include carto-infowindow(427.5px,200px);
+    table{
+      td{
+        padding-right:15px;
+      }
+    }
   }
 
   // LEGEND
@@ -20,21 +25,25 @@
     }
 
     li.graph{
-      height:120px;
+      height:77px;
       border:none;
     }
     div.colors{
       div.quartile{
         display:block;
         margin-bottom:1px;
-        height:20px;
-        width:20px;
+        height:10px;
+        width:10px;
+        border: solid 1px #999;
+        margin: 2px 8px 5px 0px;
+
         &:after{
           width: 150px;
           float: left;
           display: block;
-          margin: 5px 0 0 25px;
+          margin: 0px 0 0 15px;
           text-transform:lowercase;
+          font-weight:normal;
         }
       }
     }

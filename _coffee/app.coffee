@@ -385,11 +385,9 @@ class Workspace extends Backbone.Router
                         <p>{{namelsad10}}</p>
                       </div>
                       <div class="clearfix">
-                        <span class="pull-left" style="">Walk Score®</span>
-                        <div class="progress walk_sco_1 pull-left" style="width:175px;margin:5px 10px 0 10px"><div class="progress-bar" style="width:{{walk_sco_1}}%"></div></div>
-                        <b class="walkability-score pull-left">{{walk_sco_1}}</b>
+                        <div class="progress walk_sco_1 pull-left" style="margin-bottom:5px;width:100%"><div class="progress-bar" style="width:{{walk_sco_1}}%"></div></div>
+                        <div class="pull-left">Walk Score®: <b class="walkability-score">{{walk_sco_1}}</b></div>
                       </div>
-                      <b style="margin-left:80px">{{walk_sco_2}}</b>
                     </div>
                  </div>
               </div>
@@ -445,36 +443,32 @@ class Workspace extends Backbone.Router
                         <p>{{localname}} ({{namelsad10}})</p>
                       </div>
                       {{#rank_perce}}
-                        <div><b>School Rank</b></div>
+                      <div class="clearfix rank-container">
                         <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%">
                           <div class="progress-bar low" style="width:25%;background-color:#dc0000;"></div>
                           <div class="progress-bar average" style="width:50%;background-color:#70706e;"></div>
                           <div class="progress-bar high" style="width:25%;background-color:#0c7caa;"></div>
-                          <span style="position:relative;text-align:center">
-                            <span style="font-size: 2em;line-height: 1em;position: absolute;top: -18px;left: 5px;">•</span>
-                            <b class="school-rank">{{rank_perce}}</b>
-                          </span>
+                          <span class="dot">•</span>
                         </div>
+                        <b>School Rank</b>:<b class="school-rank">{{rank_perce}}</b>
+                      </div>
                       {{/rank_perce}}
                       {{^rank_perce}}
                         <i>No data available</i>
                       {{/rank_perce}}
 
                       {{#hh_median}}
-                        <div><b>Median Household Income</b></div>
+                      <div class="clearfix rank-container">
                         <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%">
                           <div class="progress-bar low" style="width:20%;background-color:#f2f0ee;"></div>
                           <div class="progress-bar average" style="width:20%;background-color:#e5e1dd;"></div>
                           <div class="progress-bar high" style="width:20%;background-color:#d7d2cc;"></div>
                           <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#cbc4bd;"></div>
                           <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#beb4aa;"></div>
-
-
-                          <span style="position:relative;text-align:center">
-                            <span style="font-size: 2em;line-height: 1em;position: absolute;top: -18px;left: 5px;">•</span>
-                            <b class="hh-rank">{{hh_median}}</b>
-                          </span>
+                          <span class="dot">•</span>
                         </div>
+                        <b>Median Household Income</b>: <b class="hh-rank">{{hh_median}}</b>
+                      </div>
                       {{/hh_median}}
                       {{^hh_median}}
                         <i>No data available</i>
@@ -482,20 +476,17 @@ class Workspace extends Backbone.Router
 
 
                       {{#whiteprcnt}}
-                        <div><b>Percentage of White Population</b></div>
+                      <div class="clearfix rank-container">
                         <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%">
                           <div class="progress-bar low" style="width:20%;background-color:#f2f0ee;"></div>
                           <div class="progress-bar average" style="width:20%;background-color:#e5e1dd;"></div>
                           <div class="progress-bar high" style="width:20%;background-color:#d7d2cc;"></div>
                           <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#cbc4bd;"></div>
                           <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#beb4aa;"></div>
-
-
-                          <span style="position:relative;text-align:center">
-                            <span style="font-size: 2em;line-height: 1em;position: absolute;top: -18px;left: 5px;">•</span>
-                            <b class="race-rank">{{whiteprcnt}}</b>
-                          </span>
+                          <span class="dot">•</span>
                         </div>
+                        <b>Percentage of White Population</b>: <b class="race-rank">{{whiteprcnt}}</b>
+                      </div>
                       {{/whiteprcnt}}
                       {{^whiteprcnt}}
                         <i>No data available</i>
@@ -518,9 +509,9 @@ class Workspace extends Backbone.Router
             hhRank = (hhRank - 40673) / (250000 - 40673)
             hhRank = (parseFloat(hhRank) * 100).toFixed(0)
             raceRank = (parseFloat(raceRank) * 100).toFixed(0)
-            $(".school-rank").text("#{rank}%").parent().css("left","#{rank}%")
-            $(".hh-rank").text("#{hhRank}%").parent().css("left","#{hhRank}%")
-            $(".race-rank").text("#{raceRank}%").parent().css("left","#{raceRank}%")
+            $(".school-rank").text("#{rank}%").parent().find(".dot").css("left","#{rank}%")
+            $(".hh-rank").text("#{hhRank}%").parent().find(".dot").css("left","#{hhRank}%")
+            $(".race-rank").text("#{raceRank}%").parent().find(".dot").css("left","#{raceRank}%")
           )
 
         $("#layer_selector a").on "click", (e)->
@@ -809,7 +800,7 @@ class Workspace extends Backbone.Router
                     </div>
 
                     {{##{value['loss_column']} }}
-                      <p>Affected #{value['affected_type']}: {{ #{value['loss_column']} }}</p>
+                      <p class='affected'>Affected #{value['affected_type']}: {{ #{value['loss_column']} }}</p>
                     {{/#{value['loss_column']} }}
                   </div>
                 </div>
@@ -957,22 +948,20 @@ class Workspace extends Backbone.Router
                   <table style="margin-bottom:10px">
                     <tr>
                       <td>
-                        <b>Housing costs:</b>
-                        <h3 class="currency" style="margin: 0 10px 0 0;color:#{colors['housing']}">{{content.data.housingcos}}{{content.data.avg_hous}}</h3>
+                        <b>Housing costs</b>
+                        <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['housing']}">{{content.data.housingcos}}{{content.data.avg_hous}}</h5>
                       </td>
                       <td>
-                        <b>Transportation:</b>
-                        <h3 class="currency" style="margin: 0 10px 0 0;color:#{colors['transport']}">{{content.data.avg_transc}}{{content.data.avg_trans}}</h3>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>Income taxes:</b>
-                        <h3 class="currency" style="margin: 0 10px 0 0;color:#{colors['taxes']}">{{content.data.avg_ttl}}</h3>
+                        <b>Transportation</b>
+                        <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['transport']}">{{content.data.avg_transc}}{{content.data.avg_trans}}</h5>
                       </td>
                       <td>
-                        <b>Left-over Income:</b>
-                        <h3 class="currency" style="margin: 0 10px 0 0;color:#{colors['disp_inc']}">{{content.data.disp_inc}}</h3>
+                        <b>Income taxes</b>
+                        <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['taxes']}">{{content.data.avg_ttl}}</h5>
+                      </td>
+                      <td>
+                        <b>Left-over Income</b>
+                        <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['disp_inc']}">{{content.data.disp_inc}}</h5>
                       </td>
                     </tr>
                   </table>
@@ -981,7 +970,7 @@ class Workspace extends Backbone.Router
                     Median income: <b class="currency">{{content.data.mhi}}{{content.data.avg_mhi}}</b>
                   </div>
                   <div class="barCharts" style="position:relative;top:-3px"></div>
-                  <div class="regional-mhi" style="position:relative;top:-60px;border-top:solid 1px #ccc;padding-top:5px">
+                  <div class="regional-mhi" style="position:relative;top:-48px;border-top:solid 1px #ccc;padding-top:5px">
                     RPA regional median income: <b>$72,140</b>
                   </div>
                </div>

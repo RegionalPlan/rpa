@@ -45,7 +45,7 @@
   bottomMargin = if showXAxis then 40 else 0
   margin  = {top: 0, right: 5, bottom: bottomMargin, left: 0}
   width   = 375 - margin.left - margin.right
-  itemHeight = if has2Samples then 25 else 80
+  itemHeight = if has2Samples then 15 else 80
   height  = (itemHeight*m) - margin.top - margin.bottom
 
   x = d3.scale.linear()

@@ -1,8 +1,16 @@
 #vulnerable{
-
+  $affected:#ba0000;
+  $notAffected:#575757;
+  $floodPlain:#80c8dd;
+  .affected{
+    color:$affected;
+  }
   // TOOLTIP
   .cartodb-tooltip{
-    @include carto-tooltip(500px,120px);
+    @include carto-tooltip(300px,120px);
+    .title{
+      b{line-height:1em;}
+    }
   }
 
   & + #layer_selector{
@@ -27,6 +35,10 @@
   // LEGEND
   div.cartodb-legend.custom{
     // width:145px;
+    & > b{
+      margin-bottom:10px;
+      display:inline-block;
+    }
     .colors{
       div:before{
         content: "";
@@ -39,17 +51,17 @@
 
       };
       div:nth-child(1):before{
-        background:#80c8dd;
+        background:$floodPlain;
       }
       div:nth-child(2):before{
         content: "•";
-        color:#ba0000;
+        color:$affected;
         font-size:2em;
         line-height:0.5em;
       }
       div:nth-child(3):before{
         content: "•";
-        color:#575757;
+        color:$notAffected;
         font-size:2em;
         line-height:0.5em;
       }

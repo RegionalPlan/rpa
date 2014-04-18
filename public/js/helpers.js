@@ -77,7 +77,7 @@
       left: 0
     };
     width = 375 - margin.left - margin.right;
-    itemHeight = has2Samples ? 25 : 80;
+    itemHeight = has2Samples ? 15 : 80;
     height = (itemHeight * m) - margin.top - margin.bottom;
     x = d3.scale.linear().domain([0, yStackMax]).range([0, width]);
     y = d3.scale.ordinal().domain(d3.range(m)).rangeRoundBands([2, height], .08);
