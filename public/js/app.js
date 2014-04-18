@@ -446,12 +446,12 @@
         legends: true,
         zoomControl: true
       }).done(function(vis, layers) {
-        var dbs, floodZoneLayer, layer, map, red;
+        var affected, dbs, floodZoneLayer, layer, map;
         map = vis.getNativeMap();
         layer = layers[1];
         floodZoneLayer = layer.getSubLayer(0);
         layer.setInteraction(true);
-        red = "#ba0000";
+        affected = "#fc4f4b";
         dbs = {
           power_plants: {
             flood_column: "flood",
@@ -572,7 +572,7 @@
           }
         };
         _.each(dbs, function(value, k) {
-          var css, interactivity, sql, sublayer;
+          var css, interactivity, notAffected, sql, sublayer;
           sql = _.map(value["tables"], function(table) {
             var ret;
             ret = "" + table + ".cartodb_id," + table + "." + value['flood_column'] + ", " + table + ".the_geom, " + table + ".the_geom_webmercator, " + table + "." + value['name_column'];
@@ -585,8 +585,9 @@
             return "SELECT " + ret + " FROM " + table;
           });
           sql = sql.join(" UNION ALL ");
+          notAffected = "#575757";
           css = _.map(value["tables"], function(table) {
-            return "#" + table + " {\n  marker-fill: " + red + ";\n  marker-line-width:0;\n\n  ::line {\n    line-width: 1;\n    line-color: " + red + ";\n  }\n  [" + value['flood_column'] + " < 1]{\n    marker-fill: #575757;\n  }\n  [zoom <= 13] {\n    marker-width: 5;\n  }\n  [zoom > 13] {\n    marker-width: 15;\n  }\n}";
+            return "#" + table + " {\n\n  marker-line-width:1;\n  marker-line-color:white;\n\n  ::line {\n    line-width: 1;\n    line-color: " + affected + ";\n  }\n  [" + value['flood_column'] + " < 1]{\n    marker-fill: " + notAffected + ";\n    marker-width: 5px;\n  }\n  [" + value['flood_column'] + " = 1]{\n    marker-fill: " + affected + ";\n    marker-width: 10px;\n  }\n}";
           });
           css = css.join(" ");
           if (sql && css) {
@@ -613,7 +614,7 @@
             template: "<div class=\"cartodb-popup\">\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      <div class=\"title\">\n        <b>{{ " + value['name_column'] + " }}</b>\n        {{#localname}}\n          <p>{{localname}}</p>\n        {{/localname}}\n      </div>\n      <div>\n        " + value['type'] + "\n      </div>\n\n      {{#" + value['loss_column'] + " }}\n        <p class='affected'>Affected " + value['affected_type'] + ": {{ " + value['loss_column'] + " }}</p>\n      {{/" + value['loss_column'] + " }}\n    </div>\n  </div>\n</div>"
           });
         });
-        $("#vulnerable").after("<div id=\"layer_selector\" class=\"cartodb-infobox\">\n  <ul>\n    <li data-sublayer=\"nursing_homes\">\n      <h3>11,114</h3>\n      <p>(8% in the floodplain)</p>\n      <p class='show'>Nursing home beds</p>\n    </li>\n    <li data-sublayer=\"hospitals\">\n      <h3>9,214</h3>\n      <p>(11% in the floodplain)</p>\n      <p class='show'>Hospital beds</p>\n    </li>\n    <li data-sublayer=\"public_housing\">\n      <h3>47,382</h3>\n      <p>(14% in the floodplain)</p>\n      <p class='show'>Public housing units</p>\n    </li>\n    <li data-sublayer=\"power_plants\">\n      <h3>59%</h3>\n      <p>(19,186 kW)</p>\n      <p class='show'>Power-generation capacity</p>\n    </li>\n    <li data-sublayer=[\"rail_lines\",\"train_stations\",\"subway_stations\",\"subway_routes\"]>\n      <h3>115</h3>\n      <p>(13% in the floodplain)</p>\n      <p class='show'>Subway and rail stations</p>\n    </li>\n    <li data-sublayer=\"subway_yards\">\n      <h3>7</h3>\n      <p>(33% in the floodplain)</p>\n      <p class='show'>Subway yards</p>\n    </li>\n    <li data-sublayer=\"transit_tunnels\">\n      <h3>All</h3>\n      <p>(12 total)</p>\n      <p class='show'>Train and vehicle tunnels</p>\n    </li>\n    <li data-sublayer=\"airports\">\n      <h3>4</h3>\n      <p class='show'>Airports</p>\n    </li>\n    <li data-sublayer=\"ports\">\n      <h3>All</h3>\n      <p>(6 total)</p>\n      <p class='show'>Shipping ports</p>\n    </li>\n    <li data-sublayer=\"elem_schools\">\n      <h3>177</h3>\n      <p>(6% in the floodplain)</p>\n      <p class='show'>Public elementary schools</p>\n    </li>\n  </ul>\n</div>");
+        $("#vulnerable").after("<div id=\"layer_selector\" class=\"cartodb-infobox\">\n  <ul>\n    <li data-sublayer=\"nursing_homes\">\n      <p class='show'>Nursing home beds</p>\n      <h3>11,114 (8% in the floodplain)</h3>\n    </li>\n    <li data-sublayer=\"hospitals\">\n      <p class='show'>Hospital beds</p>\n      <h3>9,214 (11% in the floodplain)</h3>\n    </li>\n    <li data-sublayer=\"public_housing\">\n      <p class='show'>Public housing units</p>\n      <h3>47,382 (14% in the floodplain)</h3>\n    </li>\n    <li data-sublayer=\"power_plants\">\n      <p class='show'>Power-generation capacity</p>\n      <h3>59% (19,186 kW)</h3>\n    </li>\n    <li data-sublayer=[\"rail_lines\",\"train_stations\",\"subway_stations\",\"subway_routes\"]>\n      <p class='show'>Subway and rail stations</p>\n      <h3>115 (13% in the floodplain)</h3>\n    </li>\n    <li data-sublayer=\"subway_yards\">\n      <p class='show'>Subway yards</p>\n      <h3>7 (33% in the floodplain)</h3>\n    </li>\n    <li data-sublayer=\"transit_tunnels\">\n      <p class='show'>Train and vehicle tunnels</p>\n      <h3>All (12 total)</h3>\n    </li>\n    <li data-sublayer=\"airports\">\n      <p class='show'>Airports</p>\n      <h3>4</h3>\n    </li>\n    <li data-sublayer=\"ports\">\n      <p class='show'>Shipping ports</p>\n      <h3>All (6 total)</h3>\n    </li>\n    <li data-sublayer=\"elem_schools\">\n      <p class='show'>Public elementary schools</p>\n      <h3>177 (6% in the floodplain)</h3>\n    </li>\n  </ul>\n</div>");
         $("#layer_selector li").on("click", function(e) {
           var $li, activeLi, activeSublayer, dbs_and_flood_zone, layerName;
           $li = $(e.target).closest("li");

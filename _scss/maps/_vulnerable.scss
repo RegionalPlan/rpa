@@ -1,7 +1,7 @@
 #vulnerable{
-  $affected:#ba0000;
-  $notAffected:#575757;
-  $floodPlain:#80c8dd;
+  $affected:#fc4f4b;
+  $notAffected:#adadad;
+  $floodPlain:#7199aa;
   .affected{
     color:$affected;
   }
@@ -22,12 +22,23 @@
     h3{
       font-size:18px;
       margin:0;
+      color:$affected;
     }
-    li > * {
-      display:none;
+    .show{
+      margin-bottom:2px;
     }
-    li.active > * {
-      display:block;
+    ul{
+      li {
+        padding-top:10px;
+        padding-bottom:10px;
+      }
+      li > * {
+        display:none;
+      }
+      li.active > * {
+        display:block;
+        font-weight:bold;
+      }
     }
   }
 
@@ -39,6 +50,7 @@
       margin-bottom:10px;
       display:inline-block;
     }
+
     .colors{
       div:before{
         content: "";

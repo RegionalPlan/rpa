@@ -578,7 +578,7 @@ class Workspace extends Backbone.Router
         layer.setInteraction(true)
 
         # Declare the database tables backing the layers
-        red = "#ba0000"
+        affected = "#fc4f4b"
         dbs = {
           power_plants: {
             flood_column: "flood"
@@ -737,25 +737,25 @@ class Workspace extends Backbone.Router
           sql = sql.join(" UNION ALL ")
 
           # Create the CSS
-
+          notAffected = "#575757"
           css = _.map(value["tables"], (table)->
               """
                 ##{table} {
-                  marker-fill: #{red};
-                  marker-line-width:0;
+
+                  marker-line-width:1;
+                  marker-line-color:white;
 
                   ::line {
                     line-width: 1;
-                    line-color: #{red};
+                    line-color: #{affected};
                   }
                   [#{value['flood_column']} < 1]{
-                    marker-fill: #575757;
+                    marker-fill: #{notAffected};
+                    marker-width: 5px;
                   }
-                  [zoom <= 13] {
-                    marker-width: 5;
-                  }
-                  [zoom > 13] {
-                    marker-width: 15;
+                  [#{value['flood_column']} = 1]{
+                    marker-fill: #{affected};
+                    marker-width: 10px;
                   }
                 }
               """
@@ -813,53 +813,44 @@ class Workspace extends Backbone.Router
             <div id="layer_selector" class="cartodb-infobox">
               <ul>
                 <li data-sublayer="nursing_homes">
-                  <h3>11,114</h3>
-                  <p>(8% in the floodplain)</p>
                   <p class='show'>Nursing home beds</p>
+                  <h3>11,114 (8% in the floodplain)</h3>
                 </li>
                 <li data-sublayer="hospitals">
-                  <h3>9,214</h3>
-                  <p>(11% in the floodplain)</p>
                   <p class='show'>Hospital beds</p>
+                  <h3>9,214 (11% in the floodplain)</h3>
                 </li>
                 <li data-sublayer="public_housing">
-                  <h3>47,382</h3>
-                  <p>(14% in the floodplain)</p>
                   <p class='show'>Public housing units</p>
+                  <h3>47,382 (14% in the floodplain)</h3>
                 </li>
                 <li data-sublayer="power_plants">
-                  <h3>59%</h3>
-                  <p>(19,186 kW)</p>
                   <p class='show'>Power-generation capacity</p>
+                  <h3>59% (19,186 kW)</h3>
                 </li>
                 <li data-sublayer=["rail_lines","train_stations","subway_stations","subway_routes"]>
-                  <h3>115</h3>
-                  <p>(13% in the floodplain)</p>
                   <p class='show'>Subway and rail stations</p>
+                  <h3>115 (13% in the floodplain)</h3>
                 </li>
                 <li data-sublayer="subway_yards">
-                  <h3>7</h3>
-                  <p>(33% in the floodplain)</p>
                   <p class='show'>Subway yards</p>
+                  <h3>7 (33% in the floodplain)</h3>
                 </li>
                 <li data-sublayer="transit_tunnels">
-                  <h3>All</h3>
-                  <p>(12 total)</p>
                   <p class='show'>Train and vehicle tunnels</p>
+                  <h3>All (12 total)</h3>
                 </li>
                 <li data-sublayer="airports">
-                  <h3>4</h3>
                   <p class='show'>Airports</p>
+                  <h3>4</h3>
                 </li>
                 <li data-sublayer="ports">
-                  <h3>All</h3>
-                  <p>(6 total)</p>
                   <p class='show'>Shipping ports</p>
+                  <h3>All (6 total)</h3>
                 </li>
                 <li data-sublayer="elem_schools">
-                  <h3>177</h3>
-                  <p>(6% in the floodplain)</p>
                   <p class='show'>Public elementary schools</p>
+                  <h3>177 (6% in the floodplain)</h3>
                 </li>
               </ul>
             </div>
