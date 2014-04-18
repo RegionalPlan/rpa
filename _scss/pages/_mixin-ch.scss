@@ -17,31 +17,7 @@
   .hero{
     background:black;
     width:800px;
-    .title-group{
-      position:relative;
-      border-top: solid 1px $gray-light;
-
-      margin: 30px auto 40px;
-      width: 600px;
-
-      @media (max-width: $screen-desktop) and (min-width: $screen-phone){
-        // display:inline-block;
-        width:auto;
-      }
-
-    }
-    .hero-nav{
-      color:$gray-light;
-      a{color:$gray-light;}
-      text-transform:uppercase;
-      text-align:center;
-      position: relative;
-      top: -10px;
-      background: rgb(0, 0, 0);
-      width: 100px;
-      margin: 0 auto;
-    }
-
+    
     .ch-title{
       font-size:3em;
       display: block;
@@ -49,7 +25,9 @@
       color:white;
       text-align:center;
       margin-top:0;
-      font-family:serif;
+      font-family: CreteRound;
+      font-weight: 300;
+      padding:18px;
 
       @media (max-width: $screen-desktop) and (min-width: $screen-phone){
         display:inline-block;
