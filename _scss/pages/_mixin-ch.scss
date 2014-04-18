@@ -15,15 +15,15 @@
     }
   }
   .hero{
-    background:black;
+    text-align:center;
     width:800px;
 
     .ch-title{
       font-size:3em;
-      display: block;
-      line-height:1.2em;
+      display: inline;
+      background:black;
+      line-height:2em;
       color:white;
-      text-align:center;
       margin-top:0;
       font-family: CreteRound;
       font-weight: 300;
