@@ -8,24 +8,32 @@
     padding-bottom:110px;
   }
   .hero{
-    h1{
-      font-size:3em;
+    hgroup{
       border-bottom:solid 1px black;
-      display: block;
       margin: 0 auto 40px;
+      display: block;
       width: 600px;
-      line-height:1.8em;
       color:white;
-      font-family: CreteRound;
-      font-weight:300;
-      letter-spacing:2px;
-
       @media (max-width: $screen-tablet){
         display: inline-block;
         line-height:1em;
         width: 100%;
         padding-bottom:20px;
       }
+    }
+    h2{
+      text-transform: uppercase;
+      font-family: ProximaNovaBold;
+      font-weight:300;
+      letter-spacing:2.5px;
+      font-size:1.2em;
+    }
+    h1{
+      font-size:6em;
+      line-height:1em;
+      font-family: CreteRound;
+      font-weight:300;
+      letter-spacing:2px;
     }
   }
 
@@ -42,8 +50,8 @@
     }
   }
   .row{
-    padding-bottom:60px;
-    margin-bottom:60px;
+    padding-bottom:20px;
+    margin-bottom:30px;
     border-bottom:solid 1px $gray-lighter;
 
     .decal-column{
