@@ -737,13 +737,14 @@ class Workspace extends Backbone.Router
           sql = sql.join(" UNION ALL ")
 
           # Create the CSS
-          notAffected = "#575757"
+          notAffected = "#adadad"
           css = _.map(value["tables"], (table)->
               """
                 ##{table} {
 
                   marker-line-width:1;
                   marker-line-color:white;
+                  
 
                   ::line {
                     line-width: 1;
@@ -751,11 +752,11 @@ class Workspace extends Backbone.Router
                   }
                   [#{value['flood_column']} < 1]{
                     marker-fill: #{notAffected};
-                    marker-width: 5px;
+                    marker-width: 10px;
                   }
                   [#{value['flood_column']} = 1]{
                     marker-fill: #{affected};
-                    marker-width: 10px;
+                    marker-width: 15px;
                   }
                 }
               """
