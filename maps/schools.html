@@ -8,7 +8,11 @@ class: schools
 
 <div class="content">
   <div class="map">
-    <div id="schools" class="mapInner"></div>
+    <div id="schools" class="mapInner">
+      <div class="cartodb-legend-stack">
+        {% include legends/schools.html %}
+      </div>
+    </div>
   </div>
 </div>
 

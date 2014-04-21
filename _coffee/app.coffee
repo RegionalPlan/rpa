@@ -110,13 +110,13 @@ class Workspace extends Backbone.Router
               offset_top: -30
               template: """
                 <h3 class="title-case">
-                  Avg. Household Carbon Emissions (MTCO2E)
+                  Avg. household carbon emissions (MTCO2E)
                 </h3>
                 {{#county_n}}
                   <b>County: <span>{{county_n}}</span></b>
                 {{/county_n}}
                 {{#zip}}
-                  <b>Zip Code: <span>{{zip}}</span></b>
+                  <b>Zip code: <span>{{zip}}</span></b>
                 {{/zip}}
                 <div class="progressive">
 
@@ -219,7 +219,7 @@ class Workspace extends Backbone.Router
                     <div class="cartodb-popup-content">
                       <p><b>{{namelsad10}}</b></p>
                       <p>{{localname}}</p>
-                      <p class="property-tax">Property Tax: <b class="tax-rate">{{retaxrate}}</b></p>
+                      <p class="property-tax">Property tax: <b class="tax-rate">{{retaxrate}}</b></p>
                     </div>
                  </div>
               </div>
@@ -450,7 +450,7 @@ class Workspace extends Backbone.Router
                           <div class="progress-bar high" style="width:25%;background-color:#0c7caa;"></div>
                           <span class="dot">•</span>
                         </div>
-                        <b>School Rank</b>:<b class="school-rank">{{rank_perce}}</b>
+                        <b>School rank</b>:<b class="school-rank">{{rank_perce}}</b>
                       </div>
                       {{/rank_perce}}
                       {{^rank_perce}}
@@ -467,7 +467,7 @@ class Workspace extends Backbone.Router
                           <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#beb4aa;"></div>
                           <span class="dot">•</span>
                         </div>
-                        <b>Median Household Income</b>: <b class="hh-rank">{{hh_median}}</b>
+                        <b>Median household income</b>: <b class="hh-rank">{{hh_median}}</b>
                       </div>
                       {{/hh_median}}
                       {{^hh_median}}
@@ -485,7 +485,7 @@ class Workspace extends Backbone.Router
                           <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#beb4aa;"></div>
                           <span class="dot">•</span>
                         </div>
-                        <b>Percentage of White Population</b>: <b class="race-rank">{{whiteprcnt}}</b>
+                        <b>Percentage of wite population</b>: <b class="race-rank">{{whiteprcnt}}</b>
                       </div>
                       {{/whiteprcnt}}
                       {{^whiteprcnt}}
@@ -499,6 +499,9 @@ class Workspace extends Backbone.Router
             offset_top: -50
         )
         vis.container.append(tooltip.render().el)
+
+
+
 
         vent.on("tooltip:rendered", (data)->
             rank = data["rank_perce"]
@@ -744,7 +747,7 @@ class Workspace extends Backbone.Router
 
                   marker-line-width:1;
                   marker-line-color:white;
-                  
+
 
                   ::line {
                     line-width: 1;
@@ -952,7 +955,7 @@ class Workspace extends Backbone.Router
                         <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['taxes']}">{{content.data.avg_ttl}}</h5>
                       </td>
                       <td>
-                        <b>Left-over Income</b>
+                        <b>Left-over income</b>
                         <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['disp_inc']}">{{content.data.disp_inc}}</h5>
                       </td>
                     </tr>
@@ -1007,15 +1010,15 @@ class Workspace extends Backbone.Router
                     <b>{{county}}{{localname}}</b>
                   </div>
                   <div>
-                    Median Income:
+                    Median income:
                     <b class="currency">{{avg_mhi}}{{mhi}}</b>
                   </div>
                   <div>
-                    Left-over Income:
+                    Left-over income:
                     <b class="currency">{{disp_inc}}</b>
                   </div>
                   <div>
-                    Fixed Income:
+                    Fixed income:
                     <b class="fixed-income currency"></b>
                   </div>
               </div>
