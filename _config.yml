@@ -45,6 +45,11 @@ prose:
           element: "text"
           label: "Subtitle"
           value: ""
+      - name: "source"
+        field:
+          element: "text"
+          label: "Source"
+          value: "RPA"
     pages/chapters:
       - name: "class"
         field:
