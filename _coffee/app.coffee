@@ -522,14 +522,18 @@ class Workspace extends Backbone.Router
                       <i>No data available</i>
                     {{/hh_median}}
 
+
+
+
+
                     {{#whiteprcnt}}
                       <div class="clearfix rank-container">
                         <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%">
-                          <div class="progress-bar low" style="width:20%;background-color:#f2f0ee;"></div>
-                          <div class="progress-bar average" style="width:20%;background-color:#e5e1dd;"></div>
-                          <div class="progress-bar high" style="width:20%;background-color:#d7d2cc;"></div>
-                          <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#cbc4bd;"></div>
-                          <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#beb4aa;"></div>
+                          <div class="progress-bar low" style="width:20%;background-color:#f5f5f5;"></div>
+                          <div class="progress-bar average" style="width:20%;background-color:#e8e8e4;"></div>
+                          <div class="progress-bar high" style="width:20%;background-color:#daded5;"></div>
+                          <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#cdd3c3;"></div>
+                          <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#b5c0a6;"></div>
                           <span class="dot">•</span>
                         </div>
                         <b>Percentage of wite population</b>: <b class="race-rank">{{whiteprcnt}}</b>
