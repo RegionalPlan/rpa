@@ -405,7 +405,7 @@ class Workspace extends Backbone.Router
               <div class="cartodb-popup-content-wrapper">
                 <div class="cartodb-popup-content">
                   <div class='title'>
-                    <b>{{content.data.localities}}</b>
+                    <b>{{content.data.locality}}</b>
                     <p>{{content.data.namelsad10}}</p>
                   </div>
                   <div class="clearfix" style="margin-bottom:5px">
@@ -416,18 +416,18 @@ class Workspace extends Backbone.Router
                   <div style="color:#ccc;font-size:0.9em;border-top:solid 1px #ccc;padding-top:3px;margin-top:10px;margin-bottom:10px">Other scores</div>
 
                   <div class="clearfix" style="margin-bottom:5px">
-                    <div class="progress pull-left" style="width:100%"><div class="progress-bar" style="width:{{content.data.coffee_sco}}%"></div></div>
+                    <div class="progress pull-left" style="width:100%"><div class="progress-bar" style="width:{{content.data.dining_and}}%"></div></div>
                     <div class="pull-left">Dining and restaurant: <b class="walkability-score">{{content.data.dining_and}}</b></div>
                   </div>
 
 
                   <div class="clearfix" style="margin-bottom:5px">
-                    <div class="progress pull-left" style="width:100%"><div class="progress-bar" style="width:{{content.data.books_scor}}%"></div></div>
+                    <div class="progress pull-left" style="width:100%"><div class="progress-bar" style="width:{{content.data.shopping_s}}%"></div></div>
                     <div class="pull-left">Shopping: <b class="walkability-score">{{content.data.shopping_s}}</b></div>
                   </div>
 
                   <div class="clearfix" style="margin-bottom:5px">
-                    <div class="progress pull-left" style="width:100%"><div class="progress-bar" style="width:{{content.data.restaurant}}%"></div></div>
+                    <div class="progress pull-left" style="width:100%"><div class="progress-bar" style="width:{{content.data.culture_sc}}%"></div></div>
                     <div class="pull-left">Culture: <b class="walkability-score">{{content.data.culture_sc}}</b></div>
                   </div>
 
