@@ -779,7 +779,7 @@
     if (chapter) {
       liIndex = chapter - 1;
       $(".ch-nav li:eq(" + liIndex + ")").addClass("active");
-      $(".hero-nav a, .bottom-nav a").each(function() {
+      $(".hero-nav a, .bottom-nav a.prev, .bottom-nav a.next").each(function() {
         var $a;
         $a = $(this);
         if ($a.hasClass("prev")) {

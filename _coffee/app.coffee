@@ -1134,7 +1134,7 @@ $ ->
   if chapter
     liIndex = chapter - 1
     $(".ch-nav li:eq(#{liIndex})").addClass("active")
-    $(".hero-nav a, .bottom-nav a").each ->
+    $(".hero-nav a, .bottom-nav a.prev, .bottom-nav a.next").each ->
       $a = $(this)
       if $a.hasClass("prev")
         sch($a,lastChapter(chapter))
