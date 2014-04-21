@@ -7,7 +7,7 @@
 
   // INFOWINDOW
   .cartodb-infowindow{
-    @include carto-infowindow(427.5px,200px);
+    @include carto-infowindow(427.5px,240px);
     table{
       td{
         padding-right:15px;

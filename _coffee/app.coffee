@@ -1000,16 +1000,18 @@ class Workspace extends Backbone.Router
                         <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['housing']}">{{content.data.housingcos}}{{content.data.avg_hous}}</h5>
                       </td>
                       <td>
-                        <b>Transportation</b>
+                        <b>Transportation Costs</b>
                         <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['transport']}">{{content.data.avg_transc}}{{content.data.avg_trans}}</h5>
                       </td>
                       <td>
-                        <b>Income taxes</b>
+                        <b>Taxes</b>
                         <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['taxes']}">{{content.data.avg_ttl}}</h5>
                       </td>
-                      <td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" style="font-size:1.4em;padding-top:5px">
                         <b>Left-over income</b>
-                        <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['disp_inc']}">{{content.data.disp_inc}}</h5>
+                        <span class="currency" style="color:#{colors['disp_inc']}">{{content.data.disp_inc}}</span>
                       </td>
                     </tr>
                   </table>
@@ -1037,6 +1039,7 @@ class Workspace extends Backbone.Router
 
         localColors = [colors.housing,colors.taxes,colors.transport,colors.disp_inc]
 
+
         vent.on "infowindow:rendered", (obj, $el)->
           return if obj["null"] is "Loading content..."
           data = (->
@@ -1047,6 +1050,8 @@ class Workspace extends Backbone.Router
           regionData = [rd.housing,rd.taxes,rd.transport,rd.disp_inc]
 
           makeStackedChart([data,regionData], $el.find(".barCharts").get(0), false, localColors)
+
+          formatMoney()
 
 
 
