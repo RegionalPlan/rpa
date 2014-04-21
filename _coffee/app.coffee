@@ -490,20 +490,17 @@ class Workspace extends Backbone.Router
                       <b>{{schnam}}</b>
                       <p>{{localname}} ({{namelsad10}})</p>
                     </div>
-                    {{#rank_perce}}
-                      <div class="clearfix rank-container">
+                    <div class="clearfix rank-container ">
+                      {{#rank_perce}}
                         <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%">
                           <div class="progress-bar low" style="width:25%;background-color:#dc0000;"></div>
                           <div class="progress-bar average" style="width:50%;background-color:#70706e;"></div>
                           <div class="progress-bar high" style="width:25%;background-color:#0c7caa;"></div>
                           <span class="dot">•</span>
                         </div>
-                        <b>School rank</b>:<b class="school-rank">{{rank_perce}}</b>
-                      </div>
-                    {{/rank_perce}}
-                    {{^rank_perce}}
-                      <i>No data available</i>
-                    {{/rank_perce}}
+                      {{/rank_perce}}
+                      <b>School rank</b>:<b class="school-rank">{{rank_perce}}</b>
+                    </div>
 
                     {{#hh_median}}
                       <div class="clearfix rank-container">
@@ -558,12 +555,17 @@ class Workspace extends Backbone.Router
             rank = data["rank_perce"]
             hhRank = data["hh_median"]
             raceRank = data["whiteprcnt"]
-            return unless rank
-            rank = (parseFloat(rank) * 100).toFixed(0)
+
+            # return unless rank
+
             hhRank = (hhRank - 40673) / (250000 - 40673)
             hhRank = (parseFloat(hhRank) * 100).toFixed(0)
             raceRank = (parseFloat(raceRank) * 100).toFixed(0)
-            $(".school-rank").text("#{rank}%").parent().find(".dot").css("left","#{rank}%")
+            if rank is 0
+              $(".school-rank").html(" <i> No data available</i>")
+            else
+              rank = (parseFloat(rank) * 100).toFixed(0)
+              $(".school-rank").text("#{rank}%").parent().find(".dot").css("left","#{rank}%")
             $(".hh-rank").text("#{hhRank}%").parent().find(".dot").css("left","#{hhRank}%")
             $(".race-rank").text("#{raceRank}%").parent().find(".dot").css("left","#{raceRank}%")
           )
