@@ -1064,21 +1064,34 @@ class Workspace extends Backbone.Router
 
         tooltipTmpl = """
               <div class="cartodb-popup">
-                  <div class="title">
-                    <b>{{county}}{{localname}}</b>
-                  </div>
-                  <div>
-                    Median income:
-                    <b class="currency">{{avg_mhi}}{{mhi}}</b>
-                  </div>
-                  <div>
-                    Left-over income:
-                    <b class="currency">{{disp_inc}}</b>
-                  </div>
-                  <div>
-                    Fixed income:
-                    <b class="fixed-income currency"></b>
-                  </div>
+                <div class="title">
+                  <b>{{county}}{{localname}}</b>
+                </div>
+                <table style="width:70%">
+                  <tr>
+                    <td>
+                      Median income:
+                    </td>
+                    <td>
+                      <span class="currency">{{avg_mhi}}{{mhi}}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Fixed income:
+                    </td>
+                    <td>
+                      <span class="fixed-income currency"></span>
+                    </td>
+                  <tr style="font-weight:bold;border-top:solid 1px black">
+                    <td>
+                      = Income left over:
+                    </td>
+                    <td>
+                      <b class="currency">{{disp_inc}}</b>
+                    </td>
+                  </tr>
+                </table>
               </div>
             """
 

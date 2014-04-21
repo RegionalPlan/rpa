@@ -724,7 +724,7 @@
         });
         countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc, avg_trans, avg_hous, avg_ttl, avg_mhi");
         censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname, avg_transc, housingcos, avg_ttl, mhi");
-        tooltipTmpl = "<div class=\"cartodb-popup\">\n    <div class=\"title\">\n      <b>{{county}}{{localname}}</b>\n    </div>\n    <div>\n      Median income:\n      <b class=\"currency\">{{avg_mhi}}{{mhi}}</b>\n    </div>\n    <div>\n      Left-over income:\n      <b class=\"currency\">{{disp_inc}}</b>\n    </div>\n    <div>\n      Fixed income:\n      <b class=\"fixed-income currency\"></b>\n    </div>\n</div>";
+        tooltipTmpl = "<div class=\"cartodb-popup\">\n  <div class=\"title\">\n    <b>{{county}}{{localname}}</b>\n  </div>\n  <table style=\"width:70%\">\n    <tr>\n      <td>\n        Median income:\n      </td>\n      <td>\n        <span class=\"currency\">{{avg_mhi}}{{mhi}}</span>\n      </td>\n    </tr>\n    <tr>\n      <td>\n        Fixed income:\n      </td>\n      <td>\n        <span class=\"fixed-income currency\"></span>\n      </td>\n    <tr style=\"font-weight:bold;border-top:solid 1px black\">\n      <td>\n        = Income left over:\n      </td>\n      <td>\n        <b class=\"currency\">{{disp_inc}}</b>\n      </td>\n    </tr>\n  </table>\n</div>";
         _.each([countyLayer, censusLayer], function(item) {
           var tooltip;
           tooltip = new cdb.geo.ui.Tooltip({
