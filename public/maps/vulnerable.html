@@ -2,7 +2,7 @@
 <html>
     <head>
         <script type="text/javascript">
-            var root = "/rpa/";
+            var root = "/";
             var mapId = "";
         </script>
         <meta charset="utf-8">
@@ -17,17 +17,19 @@
         <![endif]-->
 
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="/rpa/css/main.css">
+        <link rel="stylesheet" href="/css/main.css">
 
         <!-- JS dependencies -->
         <!--
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv_1ubjVfxNg3v7SUrNcgfZ6OUjkjBujM&sensor=true"></script>
         -->
-        <script src="/rpa/site.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/rpa/js/cartodb.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/rpa/js/settings.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/rpa/js/helpers.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/rpa/js/app.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/site.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/js/cartodb.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/js/settings.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/js/helpers.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="/js/app.js" type="text/javascript" charset="utf-8"></script>
     </head>
     <body class="page vulnerable">
         <div class="content">
@@ -43,6 +45,50 @@
   </div>
 </div>
       </div>
+    </div>
+    <div id="layer_selector" class="cartodb-infobox">
+      <ul>
+        <li data-sublayer="nursing_homes">
+          <p class='show'>Nursing home beds</p>
+          <h3>11,114 (8% in the floodplain)</h3>
+        </li>
+        <li data-sublayer="hospitals">
+          <p class='show'>Hospital beds</p>
+          <h3>9,214 (11% in the floodplain)</h3>
+        </li>
+        <li data-sublayer="public_housing">
+          <p class='show'>Public housing units</p>
+          <h3>47,382 (14% in the floodplain)</h3>
+        </li>
+        <li data-sublayer="power_plants">
+          <p class='show'>Power-generation capacity</p>
+          <h3>59% (19,186 kW)</h3>
+        </li>
+        <li data-sublayer=["rail_lines","train_stations","subway_stations","subway_routes"]>
+          <p class='show'>Subway and rail stations</p>
+          <h3>115 (13% in the floodplain)</h3>
+        </li>
+        <li data-sublayer="subway_yards">
+          <p class='show'>Subway yards</p>
+          <h3>7 (33% in the floodplain)</h3>
+        </li>
+        <li data-sublayer="transit_tunnels">
+          <p class='show'>Train and vehicle tunnels</p>
+          <h3>All (12 total)</h3>
+        </li>
+        <li data-sublayer="airports">
+          <p class='show'>Airports</p>
+          <h3>4</h3>
+        </li>
+        <li data-sublayer="ports">
+          <p class='show'>Shipping ports</p>
+          <h3>All (6 total)</h3>
+        </li>
+        <li data-sublayer="elem_schools">
+          <p class='show'>Public elementary schools</p>
+          <h3>177 (6% in the floodplain)</h3>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

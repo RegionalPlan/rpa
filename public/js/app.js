@@ -283,14 +283,14 @@
       return cartodb.createVis(id, url, {
         searchControl: true,
         layer_selector: false,
-        legends: true,
+        legends: false,
         cartodb_logo: false,
         scrollwheel: false,
         center_lat: 40.7,
         center_lon: -73.9,
         zoom: 10
       }).done(function(vis, layers) {
-        var color1, color2, color3, color4, color5, layer, map, score_to_color, station_layers, tooltip, walkabilityLayer;
+        var color1, color2, color3, color4, color5, infowindow, layer, map, score_to_color, station_layers, tooltip, walkabilityLayer;
         map = vis.getNativeMap();
         color1 = "#fae2ab";
         color2 = "#ffbb67";
@@ -331,13 +331,15 @@
             return value["layer"] = sublayer;
           }
         });
-        walkabilityLayer = walkabilityLayer.setInteractivity("cartodb_id, namelsad10, localities, walk_sco_1, walk_sco_2, rail_stops, bank_score, books_scor, coffee_sco, entertainm, grocery_sc, park_score, restaurant, school_sco, shopping_s");
+        walkabilityLayer = walkabilityLayer.setInteractivity("cartodb_id, namelsad10, locality, walk_score, walk_sco_1");
         tooltip = new cdb.geo.ui.Tooltip({
-          template: "<div class=\"cartodb-popup\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class='title'>\n          <b>{{localities}}</b>\n          <p>{{namelsad10}}</p>\n        </div>\n        <div class=\"clearfix\">\n          <div class=\"progress walk_sco_1 pull-left\" style=\"margin-bottom:5px;width:100%\"><div class=\"progress-bar\" style=\"width:{{walk_sco_1}}%\"></div></div>\n          <div class=\"pull-left\">Walk Score®: <b class=\"walkability-score\">{{walk_sco_1}}</b></div>\n        </div>\n      </div>\n   </div>\n</div>",
+          template: "<div class=\"cartodb-popup\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class='title'>\n          <b>{{locality}}</b>\n          <p>{{namelsad10}}</p>\n        </div>\n        <div class=\"clearfix\">\n          <div class=\"progress walk_score pull-left\" style=\"margin-bottom:5px;width:100%\"><div class=\"progress-bar\" style=\"width:{{walk_score}}%\"></div></div>\n          <div class=\"pull-left\">Walk Score®: <b class=\"walkability-score\">{{walk_score}}</b></div>\n        </div>\n      </div>\n   </div>\n</div>",
           layer: walkabilityLayer,
           offset_top: -50
         });
         vis.container.append(tooltip.render().el);
+        infowindow = "<div class=\"cartodb-popup\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      <div class='title'>\n        <b>{{content.data.localities}}</b>\n        <p>{{content.data.namelsad10}}</p>\n      </div>\n      <div class=\"clearfix\" style=\"margin-bottom:5px\">\n        <div class=\"progress walk_score pull-left\" style=\"width:100%\"><div class=\"progress-bar\" style=\"width:{{content.data.walk_score}}%\"></div></div>\n        <div class=\"pull-left\">Walk Score®: <b class=\"walkability-score\">{{content.data.walk_score}}</b></div>\n      </div>\n\n      <div style=\"color:#ccc;font-size:0.9em;border-top:solid 1px #ccc;padding-top:3px;margin-top:10px;margin-bottom:10px\">Other scores</div>\n\n      <div class=\"clearfix\" style=\"margin-bottom:5px\">\n        <div class=\"progress pull-left\" style=\"width:100%\"><div class=\"progress-bar\" style=\"width:{{content.data.coffee_sco}}%\"></div></div>\n        <div class=\"pull-left\">Dining and restaurant: <b class=\"walkability-score\">{{content.data.dining_and}}</b></div>\n      </div>\n\n\n      <div class=\"clearfix\" style=\"margin-bottom:5px\">\n        <div class=\"progress pull-left\" style=\"width:100%\"><div class=\"progress-bar\" style=\"width:{{content.data.books_scor}}%\"></div></div>\n        <div class=\"pull-left\">Shopping: <b class=\"walkability-score\">{{content.data.shopping_s}}</b></div>\n      </div>\n\n      <div class=\"clearfix\" style=\"margin-bottom:5px\">\n        <div class=\"progress pull-left\" style=\"width:100%\"><div class=\"progress-bar\" style=\"width:{{content.data.restaurant}}%\"></div></div>\n        <div class=\"pull-left\">Culture: <b class=\"walkability-score\">{{content.data.culture_sc}}</b></div>\n      </div>\n\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>";
+        walkabilityLayer.infowindow.set('template', infowindow);
         score_to_color = {
           "Very Car Dependent": "#fae2ab",
           "Somewhat Car Dependent": "#ffbb67",
@@ -345,11 +347,16 @@
           "Very Walkable": "#8e6eb1",
           "Walker's Paradise": "#753384"
         };
-        vent.on("infowindow:rendered", function(data, $el) {
-          var color;
-          color = score_to_color[data["walk_sco_2"]];
+        vent.on("infowindow:rendered", function(obj, $el) {
+          var color, data;
+          console.log(data);
+          if (obj["null"] === "Loading content...") {
+            return;
+          }
+          data = obj.content.data;
+          color = score_to_color[data["walk_sco_1"]];
           $el.find(".progress .progress-bar").css("background-color", "#8e8e8e");
-          $el.find(".progress.walk_sco_1 .progress-bar").css("background-color", color);
+          $el.find(".progress.walk_score .progress-bar").css("background-color", color);
           return $el.find(".walkability-score").each(function() {
             var text;
             text = $(this).text();
@@ -361,8 +368,8 @@
         });
         return vent.on("tooltip:rendered", function(data, $el) {
           var color;
-          color = score_to_color[data["walk_sco_2"]];
-          return $el.find(".progress.walk_sco_1 .progress-bar").css("background-color", color);
+          color = score_to_color[data["walk_sco_1"]];
+          return $el.find(".progress.walk_score .progress-bar").css("background-color", color);
         });
       });
     };
@@ -385,7 +392,7 @@
         schoolLayer = layers[1].getSubLayer(1);
         schoolLayer = schoolLayer.setInteractivity("cartodb_id, schlrank, rank_perce, schnam, localname, namelsad10, hh_median, whiteprcnt");
         tooltip = new cdb.geo.ui.Tooltip({
-          template: "<div class=\"cartodb-popup\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class=\"title\">\n          <b>{{schnam}}</b>\n          <p>{{localname}} ({{namelsad10}})</p>\n        </div>\n        {{#rank_perce}}\n        <div class=\"clearfix rank-container\">\n          <div class=\"progress\" style=\"height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%\">\n            <div class=\"progress-bar low\" style=\"width:25%;background-color:#dc0000;\"></div>\n            <div class=\"progress-bar average\" style=\"width:50%;background-color:#70706e;\"></div>\n            <div class=\"progress-bar high\" style=\"width:25%;background-color:#0c7caa;\"></div>\n            <span class=\"dot\">•</span>\n          </div>\n          <b>School rank</b>:<b class=\"school-rank\">{{rank_perce}}</b>\n        </div>\n        {{/rank_perce}}\n        {{^rank_perce}}\n          <i>No data available</i>\n        {{/rank_perce}}\n\n        {{#hh_median}}\n        <div class=\"clearfix rank-container\">\n          <div class=\"progress\" style=\"height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%\">\n            <div class=\"progress-bar low\" style=\"width:20%;background-color:#f2f0ee;\"></div>\n            <div class=\"progress-bar average\" style=\"width:20%;background-color:#e5e1dd;\"></div>\n            <div class=\"progress-bar high\" style=\"width:20%;background-color:#d7d2cc;\"></div>\n            <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#cbc4bd;\"></div>\n            <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#beb4aa;\"></div>\n            <span class=\"dot\">•</span>\n          </div>\n          <b>Median household income</b>: <b class=\"hh-rank\">{{hh_median}}</b>\n        </div>\n        {{/hh_median}}\n        {{^hh_median}}\n          <i>No data available</i>\n        {{/hh_median}}\n\n\n        {{#whiteprcnt}}\n        <div class=\"clearfix rank-container\">\n          <div class=\"progress\" style=\"height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%\">\n            <div class=\"progress-bar low\" style=\"width:20%;background-color:#f2f0ee;\"></div>\n            <div class=\"progress-bar average\" style=\"width:20%;background-color:#e5e1dd;\"></div>\n            <div class=\"progress-bar high\" style=\"width:20%;background-color:#d7d2cc;\"></div>\n            <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#cbc4bd;\"></div>\n            <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#beb4aa;\"></div>\n            <span class=\"dot\">•</span>\n          </div>\n          <b>Percentage of wite population</b>: <b class=\"race-rank\">{{whiteprcnt}}</b>\n        </div>\n        {{/whiteprcnt}}\n        {{^whiteprcnt}}\n          <i>No data available</i>\n        {{/whiteprcnt}}\n      </div>\n   </div>\n</div>",
+          template: "<div class=\"cartodb-popup\">\n   <div class=\"cartodb-popup-content-wrapper\">\n      <div class=\"cartodb-popup-content\">\n        <div class=\"title\">\n          <b>{{schnam}}</b>\n          <p>{{localname}} ({{namelsad10}})</p>\n        </div>\n        {{#rank_perce}}\n          <div class=\"clearfix rank-container\">\n            <div class=\"progress\" style=\"height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%\">\n              <div class=\"progress-bar low\" style=\"width:25%;background-color:#dc0000;\"></div>\n              <div class=\"progress-bar average\" style=\"width:50%;background-color:#70706e;\"></div>\n              <div class=\"progress-bar high\" style=\"width:25%;background-color:#0c7caa;\"></div>\n              <span class=\"dot\">•</span>\n            </div>\n            <b>School rank</b>:<b class=\"school-rank\">{{rank_perce}}</b>\n          </div>\n        {{/rank_perce}}\n        {{^rank_perce}}\n          <i>No data available</i>\n        {{/rank_perce}}\n\n        {{#hh_median}}\n          <div class=\"clearfix rank-container\">\n            <div class=\"progress\" style=\"height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%\">\n              <div class=\"progress-bar low\" style=\"width:20%;background-color:#f2f0ee;\"></div>\n              <div class=\"progress-bar average\" style=\"width:20%;background-color:#e5e1dd;\"></div>\n              <div class=\"progress-bar high\" style=\"width:20%;background-color:#d7d2cc;\"></div>\n              <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#cbc4bd;\"></div>\n              <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#beb4aa;\"></div>\n              <span class=\"dot\">•</span>\n            </div>\n            <b>Median household income</b>: <b class=\"hh-rank\">{{hh_median}}</b>\n          </div>\n        {{/hh_median}}\n        {{^hh_median}}\n          <i>No data available</i>\n        {{/hh_median}}\n\n        {{#whiteprcnt}}\n          <div class=\"clearfix rank-container\">\n            <div class=\"progress\" style=\"height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%\">\n              <div class=\"progress-bar low\" style=\"width:20%;background-color:#f2f0ee;\"></div>\n              <div class=\"progress-bar average\" style=\"width:20%;background-color:#e5e1dd;\"></div>\n              <div class=\"progress-bar high\" style=\"width:20%;background-color:#d7d2cc;\"></div>\n              <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#cbc4bd;\"></div>\n              <div class=\"progress-bar progress-bar-warning\" style=\"width:20%;background-color:#beb4aa;\"></div>\n              <span class=\"dot\">•</span>\n            </div>\n            <b>Percentage of wite population</b>: <b class=\"race-rank\">{{whiteprcnt}}</b>\n          </div>\n        {{/whiteprcnt}}\n        {{^whiteprcnt}}\n          <i>No data available</i>\n        {{/whiteprcnt}}\n      </div>\n   </div>\n</div>",
           layer: schoolLayer,
           offset_top: -50
         });

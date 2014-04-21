@@ -281,7 +281,7 @@ class Workspace extends Backbone.Router
     id = "walkability"
     url = "http://rpa.cartodb.com/api/v2/viz/e2c8a5ba-ae10-11e3-87a1-0e230854a1cb/viz.json"
     cartodb
-      .createVis(id, url, searchControl: true, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
+      .createVis(id, url, searchControl: true, layer_selector: false, legends: false, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
         map = vis.getNativeMap()
 
@@ -293,7 +293,7 @@ class Workspace extends Backbone.Router
 
 
 
-        # TODO: how can we interpret the walkability score? (Walk_Sco_1)
+        # TODO: how can we interpret the walkability score? (walk_score)
         # Create the sublayer for subway routes
         layer = layers[1]
         layer.setInteraction(true)
@@ -372,7 +372,8 @@ class Workspace extends Backbone.Router
             value["layer"] = sublayer
         )
 
-        walkabilityLayer = walkabilityLayer.setInteractivity("cartodb_id, namelsad10, localities, walk_sco_1, walk_sco_2, rail_stops, bank_score, books_scor, coffee_sco, entertainm, grocery_sc, park_score, restaurant, school_sco, shopping_s")
+
+        walkabilityLayer = walkabilityLayer.setInteractivity("cartodb_id, namelsad10, locality, walk_score, walk_sco_1")
 
 
         tooltip = new cdb.geo.ui.Tooltip(
@@ -381,12 +382,12 @@ class Workspace extends Backbone.Router
                  <div class="cartodb-popup-content-wrapper">
                     <div class="cartodb-popup-content">
                       <div class='title'>
-                        <b>{{localities}}</b>
+                        <b>{{locality}}</b>
                         <p>{{namelsad10}}</p>
                       </div>
                       <div class="clearfix">
-                        <div class="progress walk_sco_1 pull-left" style="margin-bottom:5px;width:100%"><div class="progress-bar" style="width:{{walk_sco_1}}%"></div></div>
-                        <div class="pull-left">Walk Score®: <b class="walkability-score">{{walk_sco_1}}</b></div>
+                        <div class="progress walk_score pull-left" style="margin-bottom:5px;width:100%"><div class="progress-bar" style="width:{{walk_score}}%"></div></div>
+                        <div class="pull-left">Walk Score®: <b class="walkability-score">{{walk_score}}</b></div>
                       </div>
                     </div>
                  </div>
@@ -397,6 +398,45 @@ class Workspace extends Backbone.Router
         )
         vis.container.append(tooltip.render().el)
 
+        infowindow =
+          """
+            <div class="cartodb-popup">
+              <a href="#close" class="cartodb-popup-close-button close">x</a>
+              <div class="cartodb-popup-content-wrapper">
+                <div class="cartodb-popup-content">
+                  <div class='title'>
+                    <b>{{content.data.localities}}</b>
+                    <p>{{content.data.namelsad10}}</p>
+                  </div>
+                  <div class="clearfix" style="margin-bottom:5px">
+                    <div class="progress walk_score pull-left" style="width:100%"><div class="progress-bar" style="width:{{content.data.walk_score}}%"></div></div>
+                    <div class="pull-left">Walk Score®: <b class="walkability-score">{{content.data.walk_score}}</b></div>
+                  </div>
+
+                  <div style="color:#ccc;font-size:0.9em;border-top:solid 1px #ccc;padding-top:3px;margin-top:10px;margin-bottom:10px">Other scores</div>
+
+                  <div class="clearfix" style="margin-bottom:5px">
+                    <div class="progress pull-left" style="width:100%"><div class="progress-bar" style="width:{{content.data.coffee_sco}}%"></div></div>
+                    <div class="pull-left">Dining and restaurant: <b class="walkability-score">{{content.data.dining_and}}</b></div>
+                  </div>
+
+
+                  <div class="clearfix" style="margin-bottom:5px">
+                    <div class="progress pull-left" style="width:100%"><div class="progress-bar" style="width:{{content.data.books_scor}}%"></div></div>
+                    <div class="pull-left">Shopping: <b class="walkability-score">{{content.data.shopping_s}}</b></div>
+                  </div>
+
+                  <div class="clearfix" style="margin-bottom:5px">
+                    <div class="progress pull-left" style="width:100%"><div class="progress-bar" style="width:{{content.data.restaurant}}%"></div></div>
+                    <div class="pull-left">Culture: <b class="walkability-score">{{content.data.culture_sc}}</b></div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="cartodb-popup-tip-container"></div>
+            </div>
+          """
+        walkabilityLayer.infowindow.set('template', infowindow)
 
         score_to_color =
           "Very Car Dependent": "#fae2ab"
@@ -404,20 +444,28 @@ class Workspace extends Backbone.Router
           "Somewhat Walkable": "#a6a9de"
           "Very Walkable": "#8e6eb1"
           "Walker's Paradise": "#753384"
-        vent.on "infowindow:rendered", (data,$el)->
-          color = score_to_color[data["walk_sco_2"]]
+
+
+        vent.on "infowindow:rendered", (obj,$el)->
+          console.log data
+          return if obj["null"] is "Loading content..."
+          data = obj.content.data
+
+          color = score_to_color[data["walk_sco_1"]]
           $el.find(".progress .progress-bar").css("background-color", "#8e8e8e")
-          $el.find(".progress.walk_sco_1 .progress-bar").css("background-color", color)
+          $el.find(".progress.walk_score .progress-bar").css("background-color", color)
 
           $el.find(".walkability-score").each(->
               text = $(this).text()
               return unless text
               $(this).text(parseFloat(text).toFixed(0))
             )
+
         vent.on "tooltip:rendered", (data,$el)->
-          # console.log "Do stuff", data
-          color = score_to_color[data["walk_sco_2"]]
-          $el.find(".progress.walk_sco_1 .progress-bar").css("background-color", color)
+          color = score_to_color[data["walk_sco_1"]]
+          # console.log "Do stuff", color, data["walk_sco_1"]
+
+          $el.find(".progress.walk_score .progress-bar").css("background-color", color)
 
   schools: ->
     cartodb
@@ -434,15 +482,15 @@ class Workspace extends Backbone.Router
         # SELECT schools.*, poverty.hh_median FROM schoolperformancerank2012_withlocalities_rpare as schools INNER JOIN schoolrank2012_racepoverty_income_rparegion as poverty ON schools.namelsad10 = poverty.namelsad10
 
         tooltip = new cdb.geo.ui.Tooltip(
-            template: """
-              <div class="cartodb-popup">
-                 <div class="cartodb-popup-content-wrapper">
-                    <div class="cartodb-popup-content">
-                      <div class="title">
-                        <b>{{schnam}}</b>
-                        <p>{{localname}} ({{namelsad10}})</p>
-                      </div>
-                      {{#rank_perce}}
+          template: """
+            <div class="cartodb-popup">
+               <div class="cartodb-popup-content-wrapper">
+                  <div class="cartodb-popup-content">
+                    <div class="title">
+                      <b>{{schnam}}</b>
+                      <p>{{localname}} ({{namelsad10}})</p>
+                    </div>
+                    {{#rank_perce}}
                       <div class="clearfix rank-container">
                         <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%">
                           <div class="progress-bar low" style="width:25%;background-color:#dc0000;"></div>
@@ -452,12 +500,12 @@ class Workspace extends Backbone.Router
                         </div>
                         <b>School rank</b>:<b class="school-rank">{{rank_perce}}</b>
                       </div>
-                      {{/rank_perce}}
-                      {{^rank_perce}}
-                        <i>No data available</i>
-                      {{/rank_perce}}
+                    {{/rank_perce}}
+                    {{^rank_perce}}
+                      <i>No data available</i>
+                    {{/rank_perce}}
 
-                      {{#hh_median}}
+                    {{#hh_median}}
                       <div class="clearfix rank-container">
                         <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%">
                           <div class="progress-bar low" style="width:20%;background-color:#f2f0ee;"></div>
@@ -469,13 +517,12 @@ class Workspace extends Backbone.Router
                         </div>
                         <b>Median household income</b>: <b class="hh-rank">{{hh_median}}</b>
                       </div>
-                      {{/hh_median}}
-                      {{^hh_median}}
-                        <i>No data available</i>
-                      {{/hh_median}}
+                    {{/hh_median}}
+                    {{^hh_median}}
+                      <i>No data available</i>
+                    {{/hh_median}}
 
-
-                      {{#whiteprcnt}}
+                    {{#whiteprcnt}}
                       <div class="clearfix rank-container">
                         <div class="progress" style="height:5px;-webkit-border-radius:0;position:relative;overflow: visible;width:95%">
                           <div class="progress-bar low" style="width:20%;background-color:#f2f0ee;"></div>
@@ -487,16 +534,16 @@ class Workspace extends Backbone.Router
                         </div>
                         <b>Percentage of wite population</b>: <b class="race-rank">{{whiteprcnt}}</b>
                       </div>
-                      {{/whiteprcnt}}
-                      {{^whiteprcnt}}
-                        <i>No data available</i>
-                      {{/whiteprcnt}}
-                    </div>
-                 </div>
-              </div>
-            """
-            layer: schoolLayer
-            offset_top: -50
+                    {{/whiteprcnt}}
+                    {{^whiteprcnt}}
+                      <i>No data available</i>
+                    {{/whiteprcnt}}
+                  </div>
+               </div>
+            </div>
+          """
+          layer: schoolLayer
+          offset_top: -50
         )
         vis.container.append(tooltip.render().el)
 
