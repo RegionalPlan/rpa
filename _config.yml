@@ -4,11 +4,12 @@ permalink: /
 relative_permalinks: false
 destination: public
 exclude: ["CNAME", "Rakefile", "README.md", "public", "Guardfile", "Gemfile", "Gemfile.lock", ".sass-cache", "tmp", "vendor"]
-root: /
+root: /rpa/
 
 prose:
   rooturl: 'pages'
-  siteurl: 'http://fragile-success.rpa.org/'
+  # siteurl: 'http://fragile-success.rpa.org/'
+  siteurl: 'http://volkanunsal.github.io/rpa/'
   media: 'media'
   metadata:
     pages:

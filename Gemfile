@@ -20,4 +20,3 @@ gem 'guard-compass'           # Compile on sass/scss change.
 gem 'guard-shell'             # Run shell commands.
 gem "sass-globbing"
 
-gem 'jekyll-auth'

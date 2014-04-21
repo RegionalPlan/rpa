@@ -54,7 +54,7 @@ end
 
 desc "Deploy"
 task :deploy do
-  # system "rake 'set_root_dir[/rpa/]'"
+  system "rake 'set_root_dir[/rpa/]'"
   system "compass compile --css-dir css"
   system "rake push"
   system "rake 'set_root_dir[/]'"
