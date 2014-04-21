@@ -18,9 +18,7 @@
 
 
   .walkability-score{
-    &::after{
-    content: "%";
-    }
+    
   }
   .walkability-legend{
     $color1: #fae2ab;
