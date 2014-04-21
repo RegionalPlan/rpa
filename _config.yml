@@ -8,7 +8,7 @@ root: /
 
 prose:
   rooturl: 'pages'
-  siteurl: 'http://volkanunsal.github.io/rpa/'
+  siteurl: 'http://fragile-success.rpa.org/'
   media: 'media'
   metadata:
     pages:
