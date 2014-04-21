@@ -22,6 +22,29 @@ prose:
           element: "text"
           label: "Permalink"
           value: ""
+    pages/maps:
+      - name: "class"
+        field:
+          element: "hidden"
+          value: ""
+      - name: "permalink"
+        field:
+          element: "hidden"
+          value: ""
+      - name: "layout"
+        field:
+          element: "hidden"
+          value: "map"
+      - name: "page_name"
+        field:
+          element: "text"
+          label: "Title"
+          value: ""
+      - name: "subtitle"
+        field:
+          element: "text"
+          label: "Subtitle"
+          value: ""
     pages/chapters:
       - name: "class"
         field:
