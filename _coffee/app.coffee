@@ -1161,3 +1161,11 @@ $ ->
 
   $(window).on "resize", ->
     wrapMaps()
+
+  valid = $.cookie("valid")
+  if !valid
+    password = prompt("Please say the magic word")
+    if password isnt "maphead"
+      location.href = "http://rpa.org"
+    else
+      $.cookie("valid", true)
