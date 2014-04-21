@@ -820,13 +820,14 @@
       return wrapMaps();
     });
     valid = $.cookie("valid");
-    console.log(valid, "hi");
     if (!valid) {
+      $("body").remove();
       password = prompt("Please say the magic word");
       if (password !== "maphead") {
         return location.href = "http://rpa.org";
       } else {
-        return $.cookie("valid", true);
+        $.cookie("valid", true);
+        return location.reload();
       }
     }
   });
