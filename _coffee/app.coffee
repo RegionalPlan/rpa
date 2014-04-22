@@ -997,27 +997,12 @@ class Workspace extends Backbone.Router
         localColors = [colors.housing,colors.taxes,colors.transport,colors.disp_inc]
 
 
-        vent.on "infowindow:rendered", (obj, $el)->
-          return if obj["null"] is "Loading content..."
-          data = (->
-              d = obj.content.data
-              [d.avg_hous || d.housingcos, d.avg_ttl, d.avg_trans || d.avg_transc, d.disp_inc]
-            )()
-
-          regionData = [rd.housing,rd.taxes,rd.transport,rd.disp_inc]
-
-          makeStackedChart([data,regionData], $el.find(".barCharts").get(0), false, localColors)
-
-          formatMoney()
-
-
 
 
 
         # Customize tooltips
         countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc, avg_trans, avg_hous, avg_ttl, avg_mhi")
         censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname, avg_transc, housingcos, avg_ttl, mhi")
-
 
         tooltipTmpl = """
               <div class="cartodb-popup">
@@ -1052,12 +1037,14 @@ class Workspace extends Backbone.Router
               </div>
             """
 
+        tooltips = []
         _.each [countyLayer,censusLayer], (item)->
           tooltip = new cdb.geo.ui.Tooltip(
               template: tooltipTmpl
               layer: item
               offset_top: -30
           )
+          tooltips.push(tooltip)
           vis.container.append(tooltip.render().el)
 
 
@@ -1068,6 +1055,33 @@ class Workspace extends Backbone.Router
             $(".fixed-income").text(fixed)
             formatMoney()
           )
+
+
+
+        vent.on "infowindow:rendered", (obj, $el)->
+          return if obj["null"] is "Loading content..."
+          data = (->
+              d = obj.content.data
+              [d.avg_hous || d.housingcos, d.avg_ttl, d.avg_trans || d.avg_transc, d.disp_inc]
+            )()
+
+          regionData = [rd.housing,rd.taxes,rd.transport,rd.disp_inc]
+
+          makeStackedChart([data,regionData], $el.find(".barCharts").get(0), false, localColors)
+
+          formatMoney()
+
+          # Disable tooltip
+          _.each(tooltips, (tooltip)->
+              tooltip.disable()
+              tooltip.hide()
+            )
+
+        # Enable tooltips
+        vent.on "infowindow:closed", ->
+          _.each(tooltips, (tooltip)->
+              tooltip.enable()
+            )
 
 
 

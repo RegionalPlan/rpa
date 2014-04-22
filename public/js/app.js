@@ -674,7 +674,7 @@
         infowindow: true,
         layer_selector: false
       }).done(function(vis, layers) {
-        var censusLayer, colors, countyLayer, dataLayers, infoTmpl, localColors, map, rd, tooltipTmpl;
+        var censusLayer, colors, countyLayer, dataLayers, infoTmpl, localColors, map, rd, tooltipTmpl, tooltips;
         map = vis.getNativeMap();
         dataLayers = layers[1];
         dataLayers.setInteraction(true);
@@ -708,6 +708,28 @@
           disp_inc: 29817
         };
         localColors = [colors.housing, colors.taxes, colors.transport, colors.disp_inc];
+        countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc, avg_trans, avg_hous, avg_ttl, avg_mhi");
+        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname, avg_transc, housingcos, avg_ttl, mhi");
+        tooltipTmpl = "<div class=\"cartodb-popup\">\n  <div class=\"title\">\n    <b>{{county}}{{localname}}</b>\n  </div>\n  <table style=\"width:70%\">\n    <tr>\n      <td>\n        Median income:\n      </td>\n      <td>\n        <span class=\"currency\">{{avg_mhi}}{{mhi}}</span>\n      </td>\n    </tr>\n    <tr>\n      <td>\n        Fixed income:\n      </td>\n      <td>\n        <span class=\"fixed-income currency\"></span>\n      </td>\n    <tr style=\"font-weight:bold;border-top:solid 1px black\">\n      <td>\n        = Income left over:\n      </td>\n      <td>\n        <b class=\"currency\">{{disp_inc}}</b>\n      </td>\n    </tr>\n  </table>\n</div>";
+        tooltips = [];
+        _.each([countyLayer, censusLayer], function(item) {
+          var tooltip;
+          tooltip = new cdb.geo.ui.Tooltip({
+            template: tooltipTmpl,
+            layer: item,
+            offset_top: -30
+          });
+          tooltips.push(tooltip);
+          return vis.container.append(tooltip.render().el);
+        });
+        vent.on("tooltip:rendered", function(d, $el) {
+          var fixed;
+          $(".cartodb-tooltip").hide();
+          $el.show();
+          fixed = d.avg_trans || d.avg_transc + d.avg_hous || d.housingcos + d.avg_ttl;
+          $(".fixed-income").text(fixed);
+          return formatMoney();
+        });
         vent.on("infowindow:rendered", function(obj, $el) {
           var data, regionData;
           if (obj["null"] === "Loading content...") {
@@ -720,27 +742,16 @@
           })();
           regionData = [rd.housing, rd.taxes, rd.transport, rd.disp_inc];
           makeStackedChart([data, regionData], $el.find(".barCharts").get(0), false, localColors);
-          return formatMoney();
-        });
-        countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc, avg_trans, avg_hous, avg_ttl, avg_mhi");
-        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname, avg_transc, housingcos, avg_ttl, mhi");
-        tooltipTmpl = "<div class=\"cartodb-popup\">\n  <div class=\"title\">\n    <b>{{county}}{{localname}}</b>\n  </div>\n  <table style=\"width:70%\">\n    <tr>\n      <td>\n        Median income:\n      </td>\n      <td>\n        <span class=\"currency\">{{avg_mhi}}{{mhi}}</span>\n      </td>\n    </tr>\n    <tr>\n      <td>\n        Fixed income:\n      </td>\n      <td>\n        <span class=\"fixed-income currency\"></span>\n      </td>\n    <tr style=\"font-weight:bold;border-top:solid 1px black\">\n      <td>\n        = Income left over:\n      </td>\n      <td>\n        <b class=\"currency\">{{disp_inc}}</b>\n      </td>\n    </tr>\n  </table>\n</div>";
-        _.each([countyLayer, censusLayer], function(item) {
-          var tooltip;
-          tooltip = new cdb.geo.ui.Tooltip({
-            template: tooltipTmpl,
-            layer: item,
-            offset_top: -30
+          formatMoney();
+          return _.each(tooltips, function(tooltip) {
+            tooltip.disable();
+            return tooltip.hide();
           });
-          return vis.container.append(tooltip.render().el);
         });
-        return vent.on("tooltip:rendered", function(d, $el) {
-          var fixed;
-          $(".cartodb-tooltip").hide();
-          $el.show();
-          fixed = d.avg_trans || d.avg_transc + d.avg_hous || d.housingcos + d.avg_ttl;
-          $(".fixed-income").text(fixed);
-          return formatMoney();
+        return vent.on("infowindow:closed", function() {
+          return _.each(tooltips, function(tooltip) {
+            return tooltip.enable();
+          });
         });
       });
     };

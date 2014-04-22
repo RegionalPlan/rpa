@@ -24736,6 +24736,7 @@ cdb.geo.ui.Infowindow = cdb.core.View.extend({
    *  Close infowindow
    */
   _closeInfowindow: function(ev) {
+    vent.trigger("infowindow:closed");
     if (ev) {
       ev.preventDefault()
       ev.stopPropagation();
