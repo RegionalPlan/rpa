@@ -402,7 +402,7 @@
           rank = data["rank_perce"];
           hhRank = data["hh_median"];
           raceRank = data["whiteprcnt"];
-          hhRank = (hhRank - 40673) / (250000 - 40673);
+          hhRank = hhRank / 250000;
           hhRank = (parseFloat(hhRank) * 100).toFixed(0);
           raceRank = (parseFloat(raceRank) * 100).toFixed(0);
           if (rank === 0) {

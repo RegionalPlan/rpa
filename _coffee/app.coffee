@@ -558,7 +558,7 @@ class Workspace extends Backbone.Router
 
             # return unless rank
 
-            hhRank = (hhRank - 40673) / (250000 - 40673)
+            hhRank = hhRank / 250000
             hhRank = (parseFloat(hhRank) * 100).toFixed(0)
             raceRank = (parseFloat(raceRank) * 100).toFixed(0)
             if rank is 0
