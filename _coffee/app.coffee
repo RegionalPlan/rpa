@@ -512,7 +512,7 @@ class Workspace extends Backbone.Router
                           <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#beb4aa;"></div>
                           <span class="dot">•</span>
                         </div>
-                        <b>Median household income</b>: <b class="hh-rank">{{hh_median}}</b>
+                        <b>Median household income</b>: <b class="hh-rank currency">{{hh_median}}</b>
                       </div>
                     {{/hh_median}}
                     {{^hh_median}}
@@ -566,8 +566,10 @@ class Workspace extends Backbone.Router
             else
               rank = (parseFloat(rank) * 100).toFixed(0)
               $(".school-rank").text("#{rank}%").parent().find(".dot").css("left","#{rank}%")
-            $(".hh-rank").text("#{hhRank}%").parent().find(".dot").css("left","#{hhRank}%")
+            $(".hh-rank").parent().find(".dot").css("left","#{hhRank}%")
             $(".race-rank").text("#{raceRank}%").parent().find(".dot").css("left","#{raceRank}%")
+
+            formatMoney()
           )
 
         $("#layer_selector a").on "click", (e)->
@@ -866,7 +868,7 @@ class Workspace extends Backbone.Router
           )
         )
 
-        
+
         $("#layer_selector li").on "click", (e)->
           $li = $(e.target).closest("li")
           layerName = $li.data("sublayer")
