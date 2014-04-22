@@ -20,7 +20,7 @@
   $top:    #ba0000;
 
   $nodata: #a7907b;
-  
+
   // LEGEND
   .cartodb-legend-stack{
     width:240px;
@@ -121,6 +121,9 @@
    marker-fill: #0082ac;
 }
 
+#schoolperformancerank2012_withlocalities_rpare [ rank_perce = 0] {
+   marker-fill: #ccc;
+}
 
 
 
