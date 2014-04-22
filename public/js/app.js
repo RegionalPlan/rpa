@@ -750,7 +750,7 @@
   })(Backbone.Router);
 
   $(function() {
-    var chapter, fci, lastChapter, lci, liIndex, nextChapter, password, sch, valid, wrapMaps, _ref;
+    var chapter, fci, lastChapter, lci, liIndex, nextChapter, sch, wrapMaps, _ref;
     window.router = new Workspace();
     Backbone.history.start({
       pushState: true,
@@ -816,20 +816,9 @@
       });
     };
     wrapMaps();
-    $(window).on("resize", function() {
+    return $(window).on("resize", function() {
       return wrapMaps();
     });
-    valid = $.cookie("valid");
-    if (!valid) {
-      $("body").remove();
-      password = prompt("Please say the magic word");
-      if (password !== "maphead") {
-        return location.href = "http://rpa.org";
-      } else {
-        $.cookie("valid", true);
-        return location.reload();
-      }
-    }
   });
 
 }).call(this);
