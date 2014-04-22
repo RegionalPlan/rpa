@@ -46,7 +46,40 @@
           @media (min-width: $screen-phone){
             float:right;
           }
+
+          @media (max-width: $screen-tablet){
+            width:100%;
+          }
         }
+      }
+
+      .copy-column{
+        @media (min-width: $screen-desktop){
+          padding-top:120px;
+        }
+      }
+
+      .decal-column{
+        height:410px;
+        min-height:400px;
+        &:before{
+          content: "";
+          display: inline-block;
+          height: 100%;
+          vertical-align: middle;
+        }
+      }
+
+      .img-circle{
+        @include box-shadow(1px 1px 1px rgba(0, 0, 0, 0.2));
+        border:solid 5px #eae8e8;
+        vertical-align: middle;
+        max-height: 300px;
+        max-width: 300px;
+      }
+
+      a{
+        color:black;
       }
     }
   }
@@ -54,30 +87,6 @@
     padding-bottom:0px;
     margin-bottom:0px;
     border-bottom:solid 1px $gray-lighter;
-
-    .copy-column{
-      padding-top:120px;
-    }
-    a{
-      color:black;
-    }
-    .decal-column{
-      height:410px;
-      min-height:400px;
-      &:before{
-        content: "";
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-      }
-    }
-    .img-circle{
-      @include box-shadow(1px 1px 1px rgba(0, 0, 0, 0.2));
-      border:solid 5px #eae8e8;
-      vertical-align: middle;
-      max-height: 300px;
-      max-width: 300px;
-    }
 
     .ch-title{
       margin-top:0;
