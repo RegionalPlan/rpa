@@ -34,18 +34,101 @@
         center_lon: -73.9,
         zoom: 10
       }).done(function(vis, layers) {
-        var tables;
-        return tables = {
-          region: "",
-          states: "states",
-          counties: "counties",
-          municipalities: ["nj_towns", "ct_towns", "ny_towns"],
-          school_districts: "school_districts",
-          fire_districts: "fire_districts",
-          housing_authorities: "housing_authorities",
-          sewer_districts: "sewer_districts",
-          bids: "bids"
+        var clickerState, layer, region, sublayers, tables;
+        layer = layers[1];
+        region = layer.getSubLayer(0);
+        tables = {
+          region: {
+            c: "#ff0000",
+            n: "rpa_region_u83_line"
+          },
+          states: {
+            c: {
+              ct: "#000000",
+              ny: "#ff0000",
+              nj: "#ffff00"
+            },
+            n: "states"
+          },
+          counties: {
+            c: "#ffffff",
+            n: "counties"
+          },
+          municipalities: {
+            c: "#ffffff",
+            n: ["nj_towns", "ct_towns", "ny_towns"]
+          },
+          school_districts: {
+            c: "#ffffff",
+            n: "school_districts2014"
+          },
+          fire_districts: {
+            c: "#ffffff",
+            n: "rpa_spcialdistricts_v2_fire"
+          },
+          sewer_districts: {
+            c: "#ffffff",
+            n: "rpa_spcialdistricts_v2_sewer"
+          },
+          housing_authorities: {
+            c: "#ffffff",
+            n: "rpa_housing_authorities"
+          },
+          bids: {
+            c: "#ffffff",
+            n: "rpa_bid"
+          }
         };
+        _.each(tables, function(table, k) {
+          var css, hex, q, sql, t;
+          sql = void 0;
+          css = void 0;
+          t = table.n;
+          if (_.isArray(t)) {
+            q = _.map(t, function(n) {
+              return "SELECT " + n + ".cartodb_id, " + n + ".the_geom, " + n + ".the_geom_webmercator FROM " + n;
+            });
+            sql = q.join(" UNION ALL ");
+          } else {
+            sql = "SELECT * FROM " + t;
+          }
+          if (_.isObject(table.c)) {
+            css = "#" + t + " [name=\"New York\"] {\n  polygon-fill: " + table.c.ny + ";\n}\n#" + t + " [name=\"New Jersey\"] {\n  polygon-fill: " + table.c.nj + ";\n}\n#" + t + " [name=\"Connecticut\"] {\n  polygon-fill: " + table.c.ct + ";\n}";
+          } else {
+            hex = table.c;
+            if (table.n === "rpa_region_u83_line") {
+              css = "#" + t + " {\n  line-color: " + hex + ";\n}";
+            } else {
+              css = "#" + t + " {\n  marker-fill: " + hex + ";\n  marker-line-color: " + hex + ";\n  marker-line-width: 1;\n}";
+            }
+          }
+          return table.sublayer = layer.createSubLayer({
+            sql: sql,
+            cartocss: css
+          });
+        });
+        sublayers = _.map(_.toArray(tables), function(t) {
+          return t.sublayer;
+        });
+        clickerState = 1;
+        sublayers.slice(clickerState).map(function(l) {
+          return l.hide();
+        });
+        return $("#clicker").on("click", function(e) {
+          var a;
+          a = e.target;
+          clickerState = a.classList.contains("prev") ? clickerState === 1 ? sublayers.length - 1 : clickerState - 1 : clickerState === sublayers.length - 1 ? 1 : clickerState + 1;
+          sublayers.slice(clickerState).map(function(l) {
+            return l.hide();
+          });
+          sublayers.slice(0, clickerState).map(function(l) {
+            return l.show();
+          });
+          $("#layer_tracker li").removeClass("active");
+          return $("#layer_tracker li").slice(0, clickerState).map(function(l) {
+            return $(this).addClass("active");
+          });
+        });
       });
     };
 

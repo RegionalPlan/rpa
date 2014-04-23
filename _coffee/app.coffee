@@ -14,20 +14,113 @@ class Workspace extends Backbone.Router
     cartodb
       .createVis(id, url, searchControl: true, layer_selector: false, legends: true, cartodb_logo:false, scrollwheel: false, center_lat: 40.7, center_lon: -73.9, zoom:10)
       .done (vis,layers)->
+        layer = layers[1]
+        region = layer.getSubLayer(0)
+
         tables =
-          region: ""
-          states: "states"
-          counties: "counties"
-          municipalities: [
-            "nj_towns"
-            "ct_towns"
-            "ny_towns"
-          ]
-          school_districts: "school_districts"
-          fire_districts: "fire_districts"
-          housing_authorities: "housing_authorities"
-          sewer_districts: "sewer_districts"
-          bids: "bids"
+          region:
+            c: "#ff0000"
+            n: "rpa_region_u83_line"
+          states:
+            c:
+              ct: "#000000"
+              ny: "#ff0000"
+              nj: "#ffff00"
+            n: "states"
+          counties:
+            c: "#ffffff"
+            n: "counties"
+          municipalities:
+            c: "#ffffff"
+            n: [
+              "nj_towns"
+              "ct_towns"
+              "ny_towns"
+            ]
+          school_districts:
+            c: "#ffffff"
+            n: "school_districts2014"
+          fire_districts:
+            c: "#ffffff"
+            n: "rpa_spcialdistricts_v2_fire"
+          sewer_districts:
+            c: "#ffffff"
+            n: "rpa_spcialdistricts_v2_sewer"
+          housing_authorities:
+            c: "#ffffff"
+            n: "rpa_housing_authorities"
+          bids:
+            c: "#ffffff"
+            n: "rpa_bid"
+
+
+        _.each tables,(table,k)->
+          sql = undefined
+          css = undefined
+          t = table.n
+          if _.isArray(t)
+            q = _.map t, (n)->
+                "SELECT #{n}.cartodb_id, #{n}.the_geom, #{n}.the_geom_webmercator FROM #{n}"
+            sql = q.join(" UNION ALL ")
+          else
+            sql = "SELECT * FROM #{t}"
+          if _.isObject(table.c)
+            # TODO: each state should have a different polygon
+            css =  """
+                    ##{t} [name="New York"] {
+                      polygon-fill: #{table.c.ny};
+                    }
+                    ##{t} [name="New Jersey"] {
+                      polygon-fill: #{table.c.nj};
+                    }
+                    ##{t} [name="Connecticut"] {
+                      polygon-fill: #{table.c.ct};
+                    }
+                  """
+          else
+            hex = table.c
+            if table.n is "rpa_region_u83_line"
+              css = """
+                      ##{t} {
+                        line-color: #{hex};
+                      }
+                    """
+            else
+              css =  """
+                      ##{t} {
+                        marker-fill: #{hex};
+                        marker-line-color: #{hex};
+                        marker-line-width: 1;
+                      }
+                    """
+          table.sublayer = layer.createSubLayer(
+            sql: sql,
+            cartocss: css
+          )
+
+        sublayers = _.map _.toArray(tables), (t)-> t.sublayer
+        clickerState = 1
+        # hide the sublayers after the clicker state
+        sublayers.slice(clickerState).map((l)-> l.hide())
+        $("#clicker").on "click", (e)->
+          # figure out if it's a prev or next
+          a = e.target
+          clickerState = if a.classList.contains("prev")
+            if clickerState is 1 then sublayers.length-1 else clickerState - 1
+          else
+            if clickerState is sublayers.length-1 then 1 else clickerState + 1
+
+          # hide the sublayers after the clicker state
+          sublayers.slice(clickerState).map((l)-> l.hide())
+          # show the sublayers before the clicker state
+          sublayers.slice(0,clickerState).map((l)-> l.show())
+
+          # Move the layer_tracker's active state
+          $("#layer_tracker li").removeClass("active")
+          $("#layer_tracker li").slice(0,clickerState).map((l)->
+            $(this).addClass("active")
+          )
+
 
   carbon: ->
     id = "carbon"
@@ -313,7 +406,6 @@ class Workspace extends Backbone.Router
           ]
         # Describe and define the sublayers
         _.each(station_layers,(value,k)->
-          # Take a union of all the tables
           table = value["table"]
           ret = "#{table}.cartodb_id,#{table}.the_geom, #{table}.the_geom_webmercator, #{table}.#{value['name_column']}"
           sql = "SELECT #{ret} FROM #{table}"
