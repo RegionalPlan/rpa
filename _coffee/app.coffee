@@ -621,7 +621,7 @@ class Workspace extends Backbone.Router
                           <div class="progress-bar progress-bar-warning" style="width:20%;background-color:#b5c0a6;"></div>
                           <span class="dot">•</span>
                         </div>
-                        <b>Percentage of wite population</b>: <b class="race-rank">{{whiteprcnt}}</b>
+                        <b>Percentage of white population</b>: <b class="race-rank">{{whiteprcnt}}</b>
                       </div>
                     {{/whiteprcnt}}
                     {{^whiteprcnt}}
@@ -1132,7 +1132,7 @@ class Workspace extends Backbone.Router
               </div>
             """
 
-            
+
         tooltips = []
         _.each [countyLayer,censusLayer], (item)->
           tooltip = new cdb.geo.ui.Tooltip(
