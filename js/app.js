@@ -711,7 +711,7 @@
             layer: value["layer"],
             type: 'tooltip',
             offset_top: -30,
-            template: "<div class=\"cartodb-popup\">\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      <div class=\"title\">\n        <b>{{ " + value['name_column'] + " }}</b>\n        {{#localname}}\n          <p>{{localname}}</p>\n        {{/localname}}\n      </div>\n      \n      {{#" + value['type'] + "}}\n        <div>\n          " + value['type'] + "\n        </div>\n      {{/" + value['type'] + "}}\n\n      {{#" + value['loss_column'] + "}}\n        <p class=\"{{#" + value['flood_column'] + "}}affected{{/" + value['flood_column'] + "}}\">" + value['affected_type'] + ": {{ " + value['loss_column'] + " }}</p>\n      {{/" + value['loss_column'] + "}}\n    </div>\n  </div>\n</div>"
+            template: "<div class=\"cartodb-popup\">\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      <div class=\"title\">\n        <b>{{ " + value['name_column'] + " }}</b>\n        {{#localname}}\n          <p>{{localname}}</p>\n        {{/localname}}\n      </div>\n\n      {{#" + value['type'] + "}}\n        <div>\n          " + value['type'] + "\n        </div>\n      {{/" + value['type'] + "}}\n\n      {{#" + value['loss_column'] + "}}\n        <p class=\"{{#" + value['flood_column'] + "}}affected{{/" + value['flood_column'] + "}}\">" + value['affected_type'] + ": {{ " + value['loss_column'] + " }}</p>\n      {{/" + value['loss_column'] + "}}\n    </div>\n  </div>\n</div>"
           });
         });
         $("#layer_selector li").on("click", function(e) {
@@ -775,7 +775,7 @@
         map.on('zoomend', function(a, b, c) {
           var zoomLevel;
           zoomLevel = map.getZoom();
-          if (zoomLevel > startZoom) {
+          if (zoomLevel >= startZoom) {
             censusLayer.show();
             return countyLayer.hide();
           } else {

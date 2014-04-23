@@ -951,7 +951,7 @@ class Workspace extends Backbone.Router
                         <p>{{localname}}</p>
                       {{/localname}}
                     </div>
-                    
+
                     {{##{value['type']}}}
                       <div>
                         #{value['type']}
@@ -1022,7 +1022,7 @@ class Workspace extends Backbone.Router
         countyLayer.hide()
         map.on('zoomend', (a,b,c)->
           zoomLevel = map.getZoom()
-          if zoomLevel > startZoom
+          if zoomLevel >= startZoom
             censusLayer.show()
             countyLayer.hide()
           else
