@@ -550,7 +550,7 @@
             type: "Power plant",
             name_column: "plant_name",
             loss_column: "total_cap",
-            affected_type: "plants",
+            affected_type: "Capacity (MWh)",
             localities: true,
             tables: ["rpa_powerplants_eia_latlong_withlocalities_201"]
           },
@@ -559,7 +559,7 @@
             type: "Hospital",
             name_column: "name",
             loss_column: "total_beds",
-            affected_type: "beds",
+            affected_type: "Number of beds",
             localities: true,
             tables: ["rpa_nj_hsip_hospitals_compressed_withlocalitie", "ny_rpa_hospitalsnamesbeds_withlocalities", "rpa_ct_hospitals_names_beds_withlocalities"]
           },
@@ -568,7 +568,7 @@
             type: "Nursing home",
             name_column: "name",
             loss_column: "beds",
-            affected_type: "beds",
+            affected_type: "Number of beds",
             localities: true,
             tables: ["rpa_ct_nursinghomes_namesaddressesbeds_withloc", "rpa_nj_hsip_nursinghomes_compressed_withlocali", "ny_rpa_nursinghomesnamesbedsflood_withlocaliti"]
           },
@@ -577,7 +577,7 @@
             type: "Public housing",
             name_column: "project_na",
             loss_column: "total_unit",
-            affected_type: "units",
+            affected_type: "Affected units",
             localities: true,
             tables: ["publichousing_rparegion_1"]
           },
@@ -585,7 +585,7 @@
             flood_column: "flood",
             type: "Train station",
             name_column: "station_na",
-            affected_type: "stations",
+            affected_type: "Affected stations",
             loss_column: false,
             localities: false,
             tables: ["rpa_trainstations"]
@@ -594,17 +594,18 @@
             flood_column: "flood",
             type: "Rail line",
             name_column: "line_name",
-            affected_type: "units",
+            affected_type: "Affected units",
             loss_column: false,
             localities: false,
-            tables: ["rpa_raillines_flood"]
+            tables: ["rpa_raillines_flood"],
+            no_tooltip: true
           },
           subway_stations: {
             flood_column: "flood",
             type: "Subway station",
             name_column: "station_na",
             loss_column: false,
-            affected_type: "stations",
+            affected_type: "Affected stations",
             localities: false,
             tables: ["rpa_subwaystations"]
           },
@@ -613,43 +614,44 @@
             type: "Subway route",
             name_column: "route_name",
             loss_column: false,
-            affected_type: "routes",
+            affected_type: "Affected routes",
             localities: false,
-            tables: ["rpa_subwayroutes_flood"]
+            tables: ["rpa_subwayroutes_flood"],
+            no_tooltip: true
           },
           subway_yards: {
             flood_column: "flood",
-            type: "Subway yard",
+            type: null,
             name_column: "yard_name",
             loss_column: false,
-            affected_type: "yards",
+            affected_type: "Affected yards",
             localities: false,
             tables: ["nyct_subway_yards"]
           },
           transit_tunnels: {
             flood_column: "flood",
-            type: "Transit tunnel",
+            type: null,
             name_column: "name",
             loss_column: false,
-            affected_type: "tunnels",
+            affected_type: "Affected tunnels",
             localities: false,
             tables: ["nyc_transit_tunnels2014"]
           },
           airports: {
             flood_column: "flood",
-            type: "Airport",
+            type: null,
             name_column: "name",
             loss_column: false,
-            affected_type: "airports",
+            affected_type: "Affected airports",
             localities: false,
             tables: ["rpa_majorregionalairports_042014"]
           },
           ports: {
             flood_column: "flood",
-            type: "Port",
+            type: null,
             name_column: "name",
             loss_column: false,
-            affected_type: "ports",
+            affected_type: "Affected ports",
             localities: false,
             tables: ["rpa_ports_042014"]
           },
@@ -658,7 +660,7 @@
             type: "Elementary school",
             name_column: "schnam",
             loss_column: false,
-            affected_type: "schools",
+            affected_type: "Affected schools",
             localities: false,
             tables: ["elem_schools"]
           }
@@ -690,6 +692,9 @@
             if (value['localities']) {
               interactivity.push("localname");
             }
+            if (value['flood_column']) {
+              interactivity.push(value["flood_column"]);
+            }
             sublayer = layer.createSubLayer({
               sql: sql,
               cartocss: css,
@@ -699,11 +704,14 @@
           }
         });
         _.each(dbs, function(value, k) {
+          if (value.no_tooltip) {
+            return;
+          }
           return vis.addOverlay({
             layer: value["layer"],
             type: 'tooltip',
             offset_top: -30,
-            template: "<div class=\"cartodb-popup\">\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      <div class=\"title\">\n        <b>{{ " + value['name_column'] + " }}</b>\n        {{#localname}}\n          <p>{{localname}}</p>\n        {{/localname}}\n      </div>\n      <div>\n        " + value['type'] + "\n      </div>\n\n      {{#" + value['loss_column'] + " }}\n        <p class='affected'>Affected " + value['affected_type'] + ": {{ " + value['loss_column'] + " }}</p>\n      {{/" + value['loss_column'] + " }}\n    </div>\n  </div>\n</div>"
+            template: "<div class=\"cartodb-popup\">\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      <div class=\"title\">\n        <b>{{ " + value['name_column'] + " }}</b>\n        {{#localname}}\n          <p>{{localname}}</p>\n        {{/localname}}\n      </div>\n      \n      {{#" + value['type'] + "}}\n        <div>\n          " + value['type'] + "\n        </div>\n      {{/" + value['type'] + "}}\n\n      {{#" + value['loss_column'] + "}}\n        <p class=\"{{#" + value['flood_column'] + "}}affected{{/" + value['flood_column'] + "}}\">" + value['affected_type'] + ": {{ " + value['loss_column'] + " }}</p>\n      {{/" + value['loss_column'] + "}}\n    </div>\n  </div>\n</div>"
           });
         });
         $("#layer_selector li").on("click", function(e) {

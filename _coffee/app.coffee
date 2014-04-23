@@ -735,7 +735,7 @@ class Workspace extends Backbone.Router
             type: "Power plant"
             name_column: "plant_name"
             loss_column: "total_cap"
-            affected_type: "plants"
+            affected_type: "Capacity (MWh)"
             localities: true
             tables: ["rpa_powerplants_eia_latlong_withlocalities_201"]
           }
@@ -744,7 +744,7 @@ class Workspace extends Backbone.Router
             type: "Hospital"
             name_column: "name"
             loss_column: "total_beds"
-            affected_type: "beds"
+            affected_type: "Number of beds"
             localities: true
             tables: [
               "rpa_nj_hsip_hospitals_compressed_withlocalitie"
@@ -757,7 +757,7 @@ class Workspace extends Backbone.Router
             type: "Nursing home"
             name_column: "name"
             loss_column: "beds"
-            affected_type: "beds"
+            affected_type: "Number of beds"
             localities: true
             tables: [
               "rpa_ct_nursinghomes_namesaddressesbeds_withloc"
@@ -770,7 +770,7 @@ class Workspace extends Backbone.Router
             type: "Public housing"
             name_column: "project_na"
             loss_column: "total_unit"
-            affected_type: "units"
+            affected_type: "Affected units"
             localities: true
             tables: [
               "publichousing_rparegion_1"
@@ -780,7 +780,7 @@ class Workspace extends Backbone.Router
             flood_column: "flood"
             type: "Train station"
             name_column: "station_na"
-            affected_type: "stations"
+            affected_type: "Affected stations"
             loss_column: false
             localities: false
             tables: [
@@ -791,17 +791,18 @@ class Workspace extends Backbone.Router
             flood_column: "flood"
             type: "Rail line"
             name_column: "line_name"
-            affected_type: "units"
+            affected_type: "Affected units"
             loss_column: false
             localities: false
             tables: ["rpa_raillines_flood"]
+            no_tooltip: true
           }
           subway_stations: {
             flood_column: "flood"
             type: "Subway station"
             name_column: "station_na"
             loss_column: false
-            affected_type: "stations"
+            affected_type: "Affected stations"
             localities: false
             tables: [
               "rpa_subwaystations"
@@ -812,18 +813,19 @@ class Workspace extends Backbone.Router
             type: "Subway route"
             name_column: "route_name"
             loss_column: false
-            affected_type: "routes"
+            affected_type: "Affected routes"
             localities: false
             tables: [
               "rpa_subwayroutes_flood"
             ]
+            no_tooltip: true
           }
           subway_yards: {
             flood_column: "flood"
-            type: "Subway yard"
+            type: null
             name_column: "yard_name"
             loss_column: false
-            affected_type: "yards"
+            affected_type: "Affected yards"
             localities: false
             tables: [
               "nyct_subway_yards"
@@ -831,10 +833,10 @@ class Workspace extends Backbone.Router
           }
           transit_tunnels: {
             flood_column: "flood"
-            type: "Transit tunnel"
+            type: null
             name_column: "name"
             loss_column: false
-            affected_type: "tunnels"
+            affected_type: "Affected tunnels"
             localities: false
             tables: [
               "nyc_transit_tunnels2014"
@@ -842,10 +844,10 @@ class Workspace extends Backbone.Router
           }
           airports: {
             flood_column: "flood"
-            type: "Airport"
+            type: null
             name_column: "name"
             loss_column: false
-            affected_type: "airports"
+            affected_type: "Affected airports"
             localities: false
             tables: [
               "rpa_majorregionalairports_042014"
@@ -853,10 +855,10 @@ class Workspace extends Backbone.Router
           }
           ports: {
             flood_column: "flood"
-            type: "Port"
+            type: null
             name_column: "name"
             loss_column: false
-            affected_type: "ports"
+            affected_type: "Affected ports"
             localities: false
             tables: [
               "rpa_ports_042014"
@@ -867,7 +869,7 @@ class Workspace extends Backbone.Router
             type: "Elementary school"
             name_column: "schnam"
             loss_column: false
-            affected_type: "schools"
+            affected_type: "Affected schools"
             localities: false
             tables: [
               "elem_schools"
@@ -919,6 +921,8 @@ class Workspace extends Backbone.Router
               interactivity.push(value['loss_column'])
             if value['localities']
               interactivity.push("localname")
+            if value['flood_column']
+              interactivity.push(value["flood_column"])
             sublayer = layer.createSubLayer(
               sql: sql,
               cartocss: css
@@ -932,6 +936,7 @@ class Workspace extends Backbone.Router
         # TODO: make sure the flood column display the correct value
 
         _.each(dbs,(value,k)->
+          return if value.no_tooltip
           vis.addOverlay(
             layer: value["layer"]
             type: 'tooltip'
@@ -946,13 +951,16 @@ class Workspace extends Backbone.Router
                         <p>{{localname}}</p>
                       {{/localname}}
                     </div>
-                    <div>
-                      #{value['type']}
-                    </div>
+                    
+                    {{##{value['type']}}}
+                      <div>
+                        #{value['type']}
+                      </div>
+                    {{/#{value['type']}}}
 
-                    {{##{value['loss_column']} }}
-                      <p class='affected'>Affected #{value['affected_type']}: {{ #{value['loss_column']} }}</p>
-                    {{/#{value['loss_column']} }}
+                    {{##{value['loss_column']}}}
+                      <p class="{{##{value['flood_column']}}}affected{{/#{value['flood_column']}}}">#{value['affected_type']}: {{ #{value['loss_column']} }}</p>
+                    {{/#{value['loss_column']}}}
                   </div>
                 </div>
               </div>
