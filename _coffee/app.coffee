@@ -1132,6 +1132,7 @@ class Workspace extends Backbone.Router
               </div>
             """
 
+            
         tooltips = []
         _.each [countyLayer,censusLayer], (item)->
           tooltip = new cdb.geo.ui.Tooltip(
