@@ -1115,7 +1115,7 @@ class Workspace extends Backbone.Router
                   </tr>
                   <tr>
                     <td>
-                      Fixed income:
+                      Fixed expenses:
                     </td>
                     <td>
                       <span class="fixed-income currency"></span>
