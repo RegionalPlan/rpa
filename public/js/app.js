@@ -679,7 +679,7 @@
           sql = sql.join(" UNION ALL ");
           notAffected = "#adadad";
           css = _.map(value["tables"], function(table) {
-            return "#" + table + " {\n\n  marker-line-width:1;\n  marker-line-color:white;\n\n\n  ::line {\n    line-width: 1;\n    line-color: " + affected + ";\n  }\n  [" + value['flood_column'] + " < 1]{\n    marker-fill: " + notAffected + ";\n    marker-width: 10px;\n  }\n  [" + value['flood_column'] + " = 1]{\n    marker-fill: " + affected + ";\n    marker-width: 15px;\n  }\n}";
+            return "#" + table + " {\n\n  marker-line-width:1;\n  marker-line-color:white;\n\n\n  ::line {\n    line-width: 1;\n    line-color: " + affected + ";\n  }\n  marker-fill: " + notAffected + ";\n  [" + value['flood_column'] + " < 1]{\n    marker-fill: " + notAffected + ";\n    marker-width: 10px;\n  }\n  [" + value['flood_column'] + " = 1]{\n    marker-fill: " + affected + ";\n    marker-width: 15px;\n  }\n}";
           });
           css = css.join(" ");
           if (sql && css) {
