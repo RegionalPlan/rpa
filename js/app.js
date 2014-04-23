@@ -432,7 +432,6 @@
         };
         vent.on("infowindow:rendered", function(obj, $el) {
           var color, data;
-          console.log(data);
           if (obj["null"] === "Loading content...") {
             return;
           }
@@ -483,18 +482,18 @@
         vent.on("tooltip:rendered", function(data) {
           var hhRank, raceRank, rank;
           rank = data["rank_perce"];
-          hhRank = data["hh_median"];
-          raceRank = data["whiteprcnt"];
-          hhRank = hhRank / 250000;
-          hhRank = (parseFloat(hhRank) * 100).toFixed(0);
-          raceRank = (parseFloat(raceRank) * 100).toFixed(0);
           if (rank === 0) {
             $(".school-rank").html(" <i> No data available</i>");
           } else {
             rank = (parseFloat(rank) * 100).toFixed(0);
             $(".school-rank").text("" + rank + "%").parent().find(".dot").css("left", "" + rank + "%");
           }
+          hhRank = data["hh_median"];
+          hhRank = hhRank / 250000;
+          hhRank = (parseFloat(hhRank) * 100).toFixed(0);
           $(".hh-rank").parent().find(".dot").css("left", "" + hhRank + "%");
+          raceRank = data["whiteprcnt"];
+          raceRank = (parseFloat(raceRank) * 100).toFixed(0);
           $(".race-rank").text("" + raceRank + "%").parent().find(".dot").css("left", "" + raceRank + "%");
           return formatMoney();
         });

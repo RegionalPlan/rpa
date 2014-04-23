@@ -176,7 +176,6 @@ class Workspace extends Backbone.Router
                         polygon-fill: #{shade(hex,-0.2)};
                       }
                     """
-              # console.log css
               interactivity = ["cartodb_id"]
               interactivity = interactivity.concat(columns(table).split(","))
               sublayer = layer.createSubLayer(
@@ -364,7 +363,6 @@ class Workspace extends Backbone.Router
           else if rate > 0.02
             "color5"
         vent.on("tooltip:rendered", (data, $el)->
-            # console.log "Do stuff", data
             $(".tax-rate").text((parseFloat(data["retaxrate"])*100).toFixed(2)+"%")
             color = rate_to_color(data["retaxrate"])
             $el.find(".property-tax").attr("id", color)
@@ -539,7 +537,6 @@ class Workspace extends Backbone.Router
 
 
         vent.on "infowindow:rendered", (obj,$el)->
-          console.log data
           return if obj["null"] is "Loading content..."
           data = obj.content.data
 
@@ -555,7 +552,6 @@ class Workspace extends Backbone.Router
 
         vent.on "tooltip:rendered", (data,$el)->
           color = score_to_color[data["walk_sco_1"]]
-          # console.log "Do stuff", color, data["walk_sco_1"]
 
           $el.find(".progress.walk_score .progress-bar").css("background-color", color)
 
@@ -645,20 +641,19 @@ class Workspace extends Backbone.Router
 
         vent.on("tooltip:rendered", (data)->
             rank = data["rank_perce"]
-            hhRank = data["hh_median"]
-            raceRank = data["whiteprcnt"]
-
-            # return unless rank
-
-            hhRank = hhRank / 250000
-            hhRank = (parseFloat(hhRank) * 100).toFixed(0)
-            raceRank = (parseFloat(raceRank) * 100).toFixed(0)
             if rank is 0
               $(".school-rank").html(" <i> No data available</i>")
             else
               rank = (parseFloat(rank) * 100).toFixed(0)
               $(".school-rank").text("#{rank}%").parent().find(".dot").css("left","#{rank}%")
+
+            hhRank = data["hh_median"]
+            hhRank = hhRank / 250000
+            hhRank = (parseFloat(hhRank) * 100).toFixed(0)
             $(".hh-rank").parent().find(".dot").css("left","#{hhRank}%")
+
+            raceRank = data["whiteprcnt"]
+            raceRank = (parseFloat(raceRank) * 100).toFixed(0)
             $(".race-rank").text("#{raceRank}%").parent().find(".dot").css("left","#{raceRank}%")
 
             formatMoney()

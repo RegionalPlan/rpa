@@ -91,7 +91,7 @@
 
 
   .cartodb-tooltip{
-    @include carto-tooltip(397.5px,180px);
+    @include carto-tooltip(397.5px,200px);
   }
 
   .school-ranking{
@@ -110,6 +110,9 @@
   marker-line-opacity: 1;
   marker-width: 4;
   marker-allow-overlap: true;
+  [zoom > 13]{
+      marker-width: 12;
+  }
 }
 #schoolperformancerank2012_withlocalities_rpare [ rank_perce <= 0.25] {
    marker-fill: #ba0000;
@@ -122,10 +125,8 @@
 }
 
 #schoolperformancerank2012_withlocalities_rpare [ rank_perce = 0] {
-   marker-fill: #ccc;
+   marker-fill: #999999;
 }
-
-
 
 
 */
