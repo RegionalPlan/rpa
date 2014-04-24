@@ -19,11 +19,9 @@ class Workspace extends Backbone.Router
     moveSlide = (state)->
       $(".slides img").removeClass("active")
       i = state - 1
-      console.log i
       $(".slides img:eq(#{i})").addClass("active")
 
-
-
+      
     slideshow = undefined
     max = 10
     clickerState = 1

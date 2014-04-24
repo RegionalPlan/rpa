@@ -32,7 +32,6 @@
         var i;
         $(".slides img").removeClass("active");
         i = state - 1;
-        console.log(i);
         return $(".slides img:eq(" + i + ")").addClass("active");
       };
       slideshow = void 0;
