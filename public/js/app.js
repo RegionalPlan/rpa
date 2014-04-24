@@ -674,7 +674,8 @@
             loss_column: false,
             affected_type: "Affected airports",
             localities: false,
-            tables: ["rpa_majorregionalairports_042014"]
+            tables: ["rpa_majorregionalairports_042014"],
+            polygon: true
           },
           ports: {
             flood_column: "flood",
@@ -683,7 +684,8 @@
             loss_column: false,
             affected_type: "Affected ports",
             localities: false,
-            tables: ["rpa_ports_042014"]
+            tables: ["rpa_ports_042014"],
+            polygon: true
           },
           elem_schools: {
             flood_column: "flood",
@@ -711,7 +713,11 @@
           sql = sql.join(" UNION ALL ");
           notAffected = "#adadad";
           css = _.map(value["tables"], function(table) {
-            return "#" + table + " {\n\n  marker-line-width:1;\n  marker-line-color:white;\n\n\n  ::line {\n    line-width: 1;\n    line-color: " + affected + ";\n  }\n  marker-fill: " + notAffected + ";\n  [" + value['flood_column'] + " < 1]{\n    marker-fill: " + notAffected + ";\n    marker-width: 10px;\n  }\n  [" + value['flood_column'] + " = 1]{\n    marker-fill: " + affected + ";\n    marker-width: 15px;\n  }\n}";
+            if (value.polygon) {
+              return "#" + table + " {\n\n  polygon-fill: " + notAffected + ";\n  [" + value['flood_column'] + " < 1]{\n    polygon-fill: " + notAffected + ";\n  }\n  [" + value['flood_column'] + " = 1]{\n    polygon-fill: " + affected + ";\n  }\n}";
+            } else {
+              return "#" + table + " {\n\n  marker-line-width:1;\n  marker-line-color:white;\n\n  ::line {\n    line-width: 1;\n    line-color: " + affected + ";\n  }\n  marker-fill: " + notAffected + ";\n  [" + value['flood_column'] + " < 1]{\n    marker-fill: " + notAffected + ";\n    marker-width: 10px;\n  }\n  [" + value['flood_column'] + " = 1]{\n    marker-fill: " + affected + ";\n    marker-width: 15px;\n  }\n}";
+            }
           });
           css = css.join(" ");
           if (sql && css) {

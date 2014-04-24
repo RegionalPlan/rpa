@@ -880,6 +880,7 @@ class Workspace extends Backbone.Router
             tables: [
               "rpa_majorregionalairports_042014"
             ]
+            polygon: true
           }
           ports: {
             flood_column: "flood"
@@ -891,6 +892,7 @@ class Workspace extends Backbone.Router
             tables: [
               "rpa_ports_042014"
             ]
+            polygon: true
           }
           elem_schools: {
             flood_column: "flood"
@@ -918,28 +920,41 @@ class Workspace extends Backbone.Router
           # Create the CSS
           notAffected = "#adadad"
           css = _.map(value["tables"], (table)->
-              """
-                ##{table} {
+              if value.polygon
+                """
+                  ##{table} {
 
-                  marker-line-width:1;
-                  marker-line-color:white;
-
-
-                  ::line {
-                    line-width: 1;
-                    line-color: #{affected};
+                    polygon-fill: #{notAffected};
+                    [#{value['flood_column']} < 1]{
+                      polygon-fill: #{notAffected};
+                    }
+                    [#{value['flood_column']} = 1]{
+                      polygon-fill: #{affected};
+                    }
                   }
-                  marker-fill: #{notAffected};
-                  [#{value['flood_column']} < 1]{
+                """
+              else
+                """
+                  ##{table} {
+
+                    marker-line-width:1;
+                    marker-line-color:white;
+
+                    ::line {
+                      line-width: 1;
+                      line-color: #{affected};
+                    }
                     marker-fill: #{notAffected};
-                    marker-width: 10px;
+                    [#{value['flood_column']} < 1]{
+                      marker-fill: #{notAffected};
+                      marker-width: 10px;
+                    }
+                    [#{value['flood_column']} = 1]{
+                      marker-fill: #{affected};
+                      marker-width: 15px;
+                    }
                   }
-                  [#{value['flood_column']} = 1]{
-                    marker-fill: #{affected};
-                    marker-width: 15px;
-                  }
-                }
-              """
+                """
             )
           css = css.join(" ")
 
