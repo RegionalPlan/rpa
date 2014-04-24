@@ -797,7 +797,7 @@ class Workspace extends Backbone.Router
             type: "Public housing"
             name_column: "project_na"
             loss_column: "total_unit"
-            affected_type: "Affected units"
+            affected_type: "Number of units"
             localities: true
             tables: [
               "publichousing_rparegion_1"
