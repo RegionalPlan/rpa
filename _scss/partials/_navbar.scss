@@ -23,7 +23,11 @@
   .navbar-nav{
     padding-left:20px;
     margin-top:0px;
-    .navbar-toggle{margin: 0px 20px 0 0;}
+
+    .navbar-toggle{
+      margin: 0px 20px 0 0;
+
+    }
   }
   .page-name{
     margin-left: 15px;
@@ -43,7 +47,6 @@
     border:0;
 
     @media (max-width: $screen-tablet){
-
       margin: 0;
       padding: 0;
       position: absolute;

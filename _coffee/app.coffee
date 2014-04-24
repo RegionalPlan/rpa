@@ -17,7 +17,7 @@ class Workspace extends Backbone.Router
         layer = layers[1]
         region = layer.getSubLayer(0)
 
-        
+
         tables =
           region:
             c: "#ff0000"
@@ -1053,7 +1053,7 @@ class Workspace extends Backbone.Router
                         <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['housing']}">{{content.data.housingcos}}{{content.data.avg_hous}}</h5>
                       </td>
                       <td>
-                        <b>Transportation Costs</b>
+                        <b>Transportation costs</b>
                         <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['transport']}">{{content.data.avg_transc}}{{content.data.avg_trans}}</h5>
                       </td>
                       <td>
