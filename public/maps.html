@@ -67,13 +67,31 @@
 </nav>
 
 
-<div class="site container">
-  <a href="/maps/vulnerable.html" title=""><img data-src="holder.js/200x200/text:vunerable infrastructure/vine" /></a>
-  <a href="/maps/discretionary.html" title=""><img data-src="holder.js/200x200/text:discretionary income/social" /></a>
-  <a href="/maps/schools.html" title=""><img data-src="holder.js/200x200/text:schools/sky" /></a>
-  <a href="/maps/walkability.html" title=""><img data-src="holder.js/200x200/text:walkability/vine" /></a>
-  <!-- <a href="/maps/property.html" title=""><img data-src="holder.js/200x200/text:property/social" /></a> -->
-  <!-- <a href="/maps/carbon.html" title=""><img data-src="holder.js/200x200/text:carbon/sky" /></a> -->
+<div class="container" style="margin-top:70px">
+  <h1 class="page-header">
+    Maps
+    <small>click on any map to grab the embed code</small>
+  </h1>
+  <a data-href="/maps/vulnerable.html" data-target="#myModal" data-toggle="modal" href="javascript:;">
+    <img data-src="holder.js/100%x200/text:vulnerable infrastructure/vine" />
+  </a>
+  <a data-href="/maps/discretionary.html">
+    <img data-src="holder.js/100%x200/text:discretionary income/social" />
+  </a>
+  <a data-href="/maps/schools.html">
+    <img data-src="holder.js/100%x200/text:schools/sky" />
+  </a>
+  <a data-href="/maps/walkability.html">
+    <img data-src="holder.js/100%x200/text:walkability/vine" />
+  </a>
+  <!--
+    <a data-href="/maps/property.html">
+      <img data-src="holder.js/100%x200/text:property/social" />
+    </a>
+    <a data-href="/maps/carbon.html">
+      <img data-src="holder.js/200x200/text:carbon/sky" />
+    </a>
+  -->
 </div>
 
 <footer class="footer">
@@ -81,6 +99,25 @@
     &copy; 2014 Regional Plan Association
   </div>
 </footer>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Embed code</h4>
+      </div>
+      <div class="modal-body">
+        <textarea style="width:100%">
+          <iframe src=""></iframe>
+        </textarea>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-primary">Close</button> -->
+      </div>
+    </div>
+  </div>
+</div>
 
     </body>
     <script>
