@@ -7,8 +7,11 @@ $mapBg: rgb(240, 238, 232);
 .map-header{
   background-color: $mapBg;
   padding: 10px 1% 10px 3%;
+  $headerRed:rgb(199, 82, 27);
+  a{color:$headerRed;text-decoration:none;}
+  small{font-size:0.4em;}
   h1{
-    color:rgb(199, 82, 27);
+    color:$headerRed;
     margin: 0;
   }
   p{

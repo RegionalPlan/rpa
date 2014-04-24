@@ -3,7 +3,10 @@ layout: default
 section: maps
 ---
 <header class="map-header">
-  <h1>{{page.page_name}}</h1>
+  <h1><a href="{{site.prose.siteurl}}" target="_blank">
+    {{page.page_name}}
+    <small>full report »</small>
+  </a></h1>
   <p>{{page.subtitle}}</p>
 </header>
 {{content}}
