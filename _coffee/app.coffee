@@ -9,6 +9,25 @@ class Workspace extends Backbone.Router
     "maps/governance.html"    : "governance"
 
   governance: ->
+    max = 9
+    clickerState = 1
+    $("#clicker").on "click", (e)->
+      # figure out if it's a prev or next
+      a = e.target
+      clickerState = if a.classList.contains("prev")
+        (if clickerState is 1 then max - 1 else clickerState - 1)
+      else if a.classList.contains("next")
+        (if clickerState is max - 1 then 1 else clickerState + 1)
+      else
+        # TODO: play the slide show
+        console.log "play"
+
+      # Move the layer_tracker's active state
+      $("#layer_tracker li").removeClass("active")
+      $("#layer_tracker li").slice(0,clickerState).map((l)->
+        $(this).addClass("active")
+      )
+  _governance: ->
     id = "governance"
     url = "http://rpa.cartodb.com/api/v2/viz/6f7a3bee-c3ed-11e3-ad6c-0edbca4b5057/viz.json"
     cartodb
@@ -831,8 +850,8 @@ class Workspace extends Backbone.Router
             flood_column: "flood"
             type: null
             name_column: "name"
-            loss_column: false
-            affected_type: "Affected tunnels"
+            loss_column: "carries"
+            affected_type: "Services"
             localities: false
             tables: [
               "nyc_transit_tunnels2014"

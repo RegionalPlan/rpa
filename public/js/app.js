@@ -21,6 +21,21 @@
     };
 
     Workspace.prototype.governance = function() {
+      var clickerState, max;
+      max = 9;
+      clickerState = 1;
+      return $("#clicker").on("click", function(e) {
+        var a;
+        a = e.target;
+        clickerState = a.classList.contains("prev") ? (clickerState === 1 ? max - 1 : clickerState - 1) : a.classList.contains("next") ? (clickerState === max - 1 ? 1 : clickerState + 1) : console.log("play");
+        $("#layer_tracker li").removeClass("active");
+        return $("#layer_tracker li").slice(0, clickerState).map(function(l) {
+          return $(this).addClass("active");
+        });
+      });
+    };
+
+    Workspace.prototype._governance = function() {
       var id, url;
       id = "governance";
       url = "http://rpa.cartodb.com/api/v2/viz/6f7a3bee-c3ed-11e3-ad6c-0edbca4b5057/viz.json";
@@ -631,8 +646,8 @@
             flood_column: "flood",
             type: null,
             name_column: "name",
-            loss_column: false,
-            affected_type: "Affected tunnels",
+            loss_column: "carries",
+            affected_type: "Services",
             localities: false,
             tables: ["nyc_transit_tunnels2014", "nyc_train_crossings_for_map"]
           },
