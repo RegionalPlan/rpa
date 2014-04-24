@@ -11,14 +11,24 @@
       }
     }
   }
+  .cartodb-legend-stack{
+    width: 280px;
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    box-shadow: none;
+  }
   .cartodb-legend{
     li{
+      color:#aaa;
       font-weight:normal;
       line-height:1.6em;
-      font-size:12px;
+      font-size:14px;
       text-transform:initial;
+
     }
     .active{
+      color:#000;
+
       font-weight:bold;
     }
   }

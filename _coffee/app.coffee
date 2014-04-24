@@ -25,7 +25,7 @@ class Workspace extends Backbone.Router
 
 
     slideshow = undefined
-    max = 9
+    max = 10
     clickerState = 1
     $("#clicker").on "click", (e)->
       # figure out if it's a prev or next

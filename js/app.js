@@ -36,7 +36,7 @@
         return $(".slides img:eq(" + i + ")").addClass("active");
       };
       slideshow = void 0;
-      max = 9;
+      max = 10;
       clickerState = 1;
       return $("#clicker").on("click", function(e) {
         var $a;
