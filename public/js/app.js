@@ -634,7 +634,7 @@
             loss_column: false,
             affected_type: "Affected tunnels",
             localities: false,
-            tables: ["nyc_transit_tunnels2014"]
+            tables: ["nyc_transit_tunnels2014", "nyc_train_crossings_for_map"]
           },
           airports: {
             flood_column: "flood",

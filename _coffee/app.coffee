@@ -836,6 +836,7 @@ class Workspace extends Backbone.Router
             localities: false
             tables: [
               "nyc_transit_tunnels2014"
+              "nyc_train_crossings_for_map"
             ]
           }
           airports: {
