@@ -9,24 +9,36 @@ class Workspace extends Backbone.Router
     "maps/governance.html"    : "governance"
 
   governance: ->
+
+    moveLayerTracker = (state)->
+      # Move the layer_tracker's active state
+      $("#layer_tracker li").removeClass("active")
+      $("#layer_tracker li").slice(0,state).map((l)->
+        $(this).addClass("active")
+      )
+    moveSlide = (state)->
+      $(".slides img").removeClass("active")
+      i = state - 1
+      console.log i
+      $(".slides img:eq(#{i})").addClass("active")
+
+
+
+    slideshow = undefined
     max = 9
     clickerState = 1
     $("#clicker").on "click", (e)->
       # figure out if it's a prev or next
-      a = e.target
-      clickerState = if a.classList.contains("prev")
-        (if clickerState is 1 then max - 1 else clickerState - 1)
-      else if a.classList.contains("next")
-        (if clickerState is max - 1 then 1 else clickerState + 1)
-      else
-        # TODO: play the slide show
-        console.log "play"
+      $a = $(e.target).closest("a")
+      if $a.hasClass("prev")
+        clickerState = (if clickerState is 1 then max - 1 else clickerState - 1)
+      else if $a.hasClass("next")
+        clickerState = (if clickerState is max - 1 then 1 else clickerState + 1)
 
-      # Move the layer_tracker's active state
-      $("#layer_tracker li").removeClass("active")
-      $("#layer_tracker li").slice(0,clickerState).map((l)->
-        $(this).addClass("active")
-      )
+      moveLayerTracker(clickerState)
+      moveSlide(clickerState)
+
+
   _governance: ->
     id = "governance"
     url = "http://rpa.cartodb.com/api/v2/viz/6f7a3bee-c3ed-11e3-ad6c-0edbca4b5057/viz.json"

@@ -21,17 +21,33 @@
     };
 
     Workspace.prototype.governance = function() {
-      var clickerState, max;
+      var clickerState, max, moveLayerTracker, moveSlide, slideshow;
+      moveLayerTracker = function(state) {
+        $("#layer_tracker li").removeClass("active");
+        return $("#layer_tracker li").slice(0, state).map(function(l) {
+          return $(this).addClass("active");
+        });
+      };
+      moveSlide = function(state) {
+        var i;
+        $(".slides img").removeClass("active");
+        i = state - 1;
+        console.log(i);
+        return $(".slides img:eq(" + i + ")").addClass("active");
+      };
+      slideshow = void 0;
       max = 9;
       clickerState = 1;
       return $("#clicker").on("click", function(e) {
-        var a;
-        a = e.target;
-        clickerState = a.classList.contains("prev") ? (clickerState === 1 ? max - 1 : clickerState - 1) : a.classList.contains("next") ? (clickerState === max - 1 ? 1 : clickerState + 1) : console.log("play");
-        $("#layer_tracker li").removeClass("active");
-        return $("#layer_tracker li").slice(0, clickerState).map(function(l) {
-          return $(this).addClass("active");
-        });
+        var $a;
+        $a = $(e.target).closest("a");
+        if ($a.hasClass("prev")) {
+          clickerState = (clickerState === 1 ? max - 1 : clickerState - 1);
+        } else if ($a.hasClass("next")) {
+          clickerState = (clickerState === max - 1 ? 1 : clickerState + 1);
+        }
+        moveLayerTracker(clickerState);
+        return moveSlide(clickerState);
       });
     };
 
