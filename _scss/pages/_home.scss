@@ -7,11 +7,19 @@
     padding-top:110px;
     padding-bottom:110px;
     margin-bottom:0px;
+    @media (max-width: $screen-phone){
+      padding-left:5px;
+      padding-right:5px;
+    }
+
   }
   .hero{
     hgroup{
       border-bottom:solid 1px black;
       margin: 0 auto 40px;
+      @media (max-width: $screen-phone){
+        margin: 0 auto 5px;
+      }
       display: block;
       width: 600px;
       color:white;
@@ -35,6 +43,9 @@
       font-family: CreteRound;
       font-weight:300;
       letter-spacing:2px;
+      @media (max-width: $screen-phone){
+        font-size:4em;
+      }
     }
   }
 
@@ -43,9 +54,7 @@
 
       &:nth-child(2),&:nth-child(4),&:nth-child(6){
         .decal-column{
-          @media (min-width: $screen-phone){
-            float:right;
-          }
+          float:right;
 
           @media (max-width: $screen-tablet){
             width:100%;
@@ -60,8 +69,10 @@
       }
 
       .decal-column{
-        height:410px;
-        min-height:400px;
+        @media (min-width: $screen-phone){
+          height:410px;
+          min-height:400px;
+        }
         &:before{
           content: "";
           display: inline-block;
@@ -74,8 +85,14 @@
         @include box-shadow(1px 1px 1px rgba(0, 0, 0, 0.2));
         border:solid 5px #eae8e8;
         vertical-align: middle;
-        max-height: 300px;
-        max-width: 300px;
+        display:block;
+        width:100%;
+        height:auto;
+        @media (min-width: $screen-phone){
+          display:inline;
+          max-height: 300px;
+          max-width: 300px;
+        }
       }
 
       a{
