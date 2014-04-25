@@ -3,13 +3,14 @@ layout: default
 section: maps
 ---
 <header class="map-header">
-  <h1><a href="{{site.prose.siteurl}}" target="_blank">
+  <h1><a href="{{site.prose.siteurl}}{{page.permalink}}" target="_blank">
     {{page.page_name}}
-    <small>full report »</small>
   </a></h1>
   <p>{{page.subtitle}}</p>
 </header>
 {{content}}
 <header class="map-header">
   <i>{{page.source}}</i>
+  <p>From,
+    <a href="fragile-success.rpa.org" target="_blank">"Fragile Success: Taking Stock of the New York Metropolitan Region"</a>, Regional Plan Association</p>
 </header>
