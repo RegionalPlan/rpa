@@ -89,7 +89,14 @@
   }
 
   .bottom-callout{
+    padding-top:40px;
     padding-bottom:40px;
+    color:#888888;
+    background:#f0eee8;
+    a{
+      color:#0081ae;
+      text-decoration:none;
+    }
   }
   .bottom-nav{
     padding-top:80px;
