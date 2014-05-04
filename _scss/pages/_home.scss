@@ -60,6 +60,12 @@
             width:100%;
           }
         }
+
+        .copy-column{
+          @media (min-width: $screen-desktop){
+            padding-top:80px;
+          }
+        }
       }
 
       .copy-column{

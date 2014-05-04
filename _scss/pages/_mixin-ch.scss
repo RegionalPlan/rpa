@@ -1,16 +1,14 @@
 @import "../partials/utilities";
-
 @mixin shared-chapter-styles {
   .jumbotron{
-    background-size:100%;
+    background-size:100% 100%;
     background-repeat: no-repeat;
     background-position: left top ;
-    height:553px;
+    height:539px;
     margin-bottom:0px;
     padding-top:200px;
     padding-bottom:110px;
     position:relative;
-
 
     @media (max-width: $screen-phone) {
       padding-left:5px;
@@ -19,12 +17,12 @@
     @media (min-width: $screen-phone) {
 
     }
-    @media (max-width: $screen-desktop) {
-      background-size:auto 100%;
-    }
+    // @media (max-width: $screen-desktop) {
+    //   background-size:auto 100%;
+    // }
     cite{
       position:absolute;
-      right:5px;
+      right:20px;
       bottom:20px;
       a{
         color:white;
@@ -41,7 +39,8 @@
   .hero{
     background:black;
     width:800px;
-
+    position:absolute;
+    left:0; right:0;
     .ch-title{
       display: block;
       font-size:3em;
@@ -57,6 +56,7 @@
       font-weight: 300;
       padding:18px;
 
+
       a{color:black;text-decoration:none;}
 
       @media (max-width: $screen-desktop) and (min-width: $screen-phone){
@@ -71,6 +71,29 @@
     background:$offwhite;
     font-size: 21px;
     font-weight: 200;
+    .share-prompt{
+      font-weight:bold;
+      font-size:20px;
+      margin-top:10px;
+      color:#b4aa8a;
+      div{
+        margin-right:15px;
+      }
+      .share-text{
+        margin-top:3px;
+      }
+    }
+    .scroll-prompt{
+      font-weight:bold;
+      font-size:13px;
+      color:#b4aa8a;
+      text-align:center;
+      img{
+        height:25px;
+      }
+      position: relative;
+      bottom: -40px;
+    }
   }
 
   .site{
@@ -86,6 +109,9 @@
         margin-top:120px;
       }
     }
+    iframe{
+      margin-top:120px;
+    }
   }
 
   .bottom-callout{
@@ -97,10 +123,13 @@
       color:#0081ae;
       text-decoration:none;
     }
+    text-align:center;
   }
   .bottom-nav{
-    padding-top:80px;
+    margin-top:120px;
+    padding-top:40px;
     padding-bottom:40px;
+    line-height:2em;
     .row{
       margin:0;
     }

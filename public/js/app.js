@@ -418,10 +418,6 @@
             type: "Train station",
             name_column: "stn_name",
             table: "rpa_alltransit_stations"
-          }, {
-            type: "Subway station",
-            name_column: "station_na",
-            table: "rpa_subwaystations"
           }
         ];
         _.each(station_layers, function(value, k) {
@@ -429,7 +425,11 @@
           table = value["table"];
           ret = "" + table + ".cartodb_id," + table + ".the_geom, " + table + ".the_geom_webmercator, " + table + "." + value['name_column'];
           sql = "SELECT " + ret + " FROM " + table;
-          dot_color = "#606060";
+          if (table === "rpa_alltransit_stations") {
+            dot_color = "#efefef";
+          } else {
+            dot_color = "#606060";
+          }
           css = "#" + table + " {\n  marker-fill: " + dot_color + ";\n  marker-line-width:0;\n  ::line {\n    line-width: 1;\n  }\n  [zoom <= 10] {\n    marker-width: 4;\n  }\n  [zoom > 10] {\n    marker-width: 6;\n  }\n\n  ::labels {\n    text-name: [" + value['name_column'] + "];\n    text-face-name: 'DejaVu Sans Book';\n    text-size: 12;\n    text-label-position-tolerance: 10;\n    text-fill: #ffffff;\n    text-halo-fill:  transparent;\n    text-halo-radius: 1;\n    text-dy: -10;\n    text-allow-overlap: false;\n    text-placement: point;\n    text-placement-type: simple;\n\n    [zoom > 10]{\n\n    }\n\n    [zoom <= 10]{\n      text-fill:transparent;\n      text-halo-fill: transparent;\n    }\n  }\n}";
           if (table === "rpa_subwaystations") {
             css += "#" + table + "[zoom < 10] {marker-opacity: 0;}";
@@ -887,7 +887,7 @@
   })(Backbone.Router);
 
   $(function() {
-    var chapter, fci, lastChapter, lci, liIndex, nextChapter, sch, wrapMaps, _ref;
+    var centerHero, chapter, fci, lastChapter, lci, liIndex, nextChapter, sch, wrapMaps, _ref;
     window.router = new Workspace();
     Backbone.history.start({
       pushState: true,
@@ -953,8 +953,23 @@
       });
     };
     wrapMaps();
+    centerHero = function() {
+      var $h, hh, jh, topMargin;
+      $h = $(".hero");
+      hh = $h.outerHeight();
+      jh = $(".jumbotron").outerHeight();
+      topMargin = (jh - hh) / 2;
+      if (topMargin === 0) {
+        return;
+      }
+      return $h.css({
+        top: topMargin
+      });
+    };
+    centerHero();
     return $(window).on("resize", function() {
-      return wrapMaps();
+      wrapMaps();
+      return centerHero();
     });
   });
 

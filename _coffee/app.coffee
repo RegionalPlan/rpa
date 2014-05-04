@@ -426,11 +426,11 @@ class Workspace extends Backbone.Router
               name_column: "stn_name"
               table: "rpa_alltransit_stations"
             }
-            {
-              type: "Subway station"
-              name_column: "station_na"
-              table: "rpa_subwaystations"
-            }
+            # {
+            #   type: "Subway station"
+            #   name_column: "station_na"
+            #   table: "rpa_subwaystations"
+            # }
           ]
         # Describe and define the sublayers
         _.each(station_layers,(value,k)->
@@ -439,7 +439,14 @@ class Workspace extends Backbone.Router
           sql = "SELECT #{ret} FROM #{table}"
 
           # Create the CSS
-          dot_color = "#606060"
+          # FIXME: not working. Maybe subway stations are in alltransit stations tble too
+          if table is "rpa_alltransit_stations"
+            dot_color = "#efefef"
+          else
+            dot_color = "#606060"
+
+
+
           css = """
                   ##{table} {
                     marker-fill: #{dot_color};
@@ -1272,16 +1279,18 @@ $ ->
       $map.attr("scrolling","no")
   wrapMaps()
 
+
+  # VERTICALLY CENTER HERO
+  centerHero = ->
+    $h = $(".hero")
+    hh = $h.outerHeight()
+    jh = $(".jumbotron").outerHeight()
+    topMargin = (jh - hh) / 2
+    return if topMargin is 0
+    $h.css(top: topMargin)
+  centerHero()
+
   $(window).on "resize", ->
     wrapMaps()
+    centerHero()
 
-  # valid = $.cookie("valid")
-
-  # if !valid
-  #   $("body").remove()
-  #   password = prompt("Please say the magic word")
-  #   if password isnt "maphead"
-  #     location.href = "http://rpa.org"
-  #   else
-  #     $.cookie("valid", true)
-  #     location.reload()

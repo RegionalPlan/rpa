@@ -6,7 +6,7 @@ body{
 $mapBg: rgb(240, 238, 232);
 .map-header{
   background-color: $mapBg;
-  padding: 10px 1% 10px 3%;
+  padding: 30px 1% 30px 3%;
   $headerRed:rgb(199, 82, 27);
   a{color:$headerRed;text-decoration:none;}
   small{font-size:0.4em;}
@@ -44,7 +44,7 @@ iframe{border:none;}
 .footer{
   height:60px;
   background-color:$olive;
-  color:white;
+  color:rgba(255,255,255,0.5);
   .container{
     padding-top:20px;
   }
