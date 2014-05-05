@@ -602,7 +602,7 @@ class Workspace extends Backbone.Router
         layers[1].setInteraction(true)
         raceLayer = layers[1].getSubLayer(0)
 
-        schoolLayer = layers[1].getSubLayer(1)
+        schoolLayer = layers[1].getSubLayer(2)
         schoolLayer = schoolLayer.setInteractivity("cartodb_id, schlrank, rank_perce, schnam, localname, namelsad10, hh_median, whiteprcnt")
         # SELECT schools.*, poverty.hh_median FROM schoolperformancerank2012_withlocalities_rpare as schools INNER JOIN schoolrank2012_racepoverty_income_rparegion as poverty ON schools.namelsad10 = poverty.namelsad10
 
