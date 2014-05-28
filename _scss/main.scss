@@ -2,9 +2,12 @@
 @import "font-awesome";
 
 @import "partials/*";
-  
+
 @import "maps/*";
 
 @import "pages/*";
 
 
+div.cartodb-tooltip{
+  max-width: initial !important;
+}
