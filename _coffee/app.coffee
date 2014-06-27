@@ -1101,7 +1101,7 @@ class Workspace extends Backbone.Router
                   <table style="margin-bottom:10px">
                     <tr>
                       <td>
-                        <b>Housing and energy costs</b>
+                        <b>Housing costs</b>
                         <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['housing']}">{{content.data.housingcos}}{{content.data.avg_hous}}</h5>
                       </td>
                       <td>
