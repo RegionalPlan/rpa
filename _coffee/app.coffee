@@ -1102,7 +1102,7 @@ class Workspace extends Backbone.Router
                     <tr>
                       <td>
                         <b>Housing costs</b>
-                        <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['housing']}">{{content.data.housingcos}}{{content.data.avg_hous}}</h5>
+                        <h5 class="currency" style="margin: 0 10px 0 0;color:#{colors['housing']}">{{content.data.hous_energ}}{{content.data.avg_hous}}</h5>
                       </td>
                       <td>
                         <b>Transportation costs</b>
@@ -1150,7 +1150,7 @@ class Workspace extends Backbone.Router
 
         # Customize tooltips
         countyLayer = countyLayer.setInteractivity("cartodb_id, county, disp_inc, avg_trans, avg_hous, avg_ttl, avg_mhi")
-        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname, avg_transc, housingcos, avg_ttl, mhi")
+        censusLayer = censusLayer.setInteractivity("cartodb_id, namelsad10, disp_inc, localname, avg_transc, hous_energ, avg_ttl, mhi")
 
         tooltipTmpl = """
               <div class="cartodb-popup">
@@ -1200,7 +1200,7 @@ class Workspace extends Backbone.Router
         vent.on("tooltip:rendered", (d, $el)->
             $(".cartodb-tooltip").hide()
             $el.show()
-            fixed = d.avg_trans || d.avg_transc + d.avg_hous || d.housingcos + d.avg_ttl
+            fixed = d.avg_trans || d.avg_transc + d.avg_hous || d.hous_energ + d.avg_ttl
             $(".fixed-income").text(fixed)
             formatMoney()
           )
@@ -1211,7 +1211,7 @@ class Workspace extends Backbone.Router
           return if obj["null"] is "Loading content..."
           data = (->
               d = obj.content.data
-              [d.avg_hous || d.housingcos, d.avg_ttl, d.avg_trans || d.avg_transc, d.disp_inc]
+              [d.avg_hous || d.hous_energ, d.avg_ttl, d.avg_trans || d.avg_transc, d.disp_inc]
             )()
 
           regionData = [rd.housing,rd.taxes,rd.transport,rd.disp_inc]
